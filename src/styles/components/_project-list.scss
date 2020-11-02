@@ -1,0 +1,35 @@
+.projects-list {
+    width: 92.5%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    .h2 {
+        max-width: 50rem;
+    }
+
+    .project-item-link {
+        width: 50rem;
+        margin-bottom: 13.6rem;
+
+        &__image {
+            width: 100%;
+            height: 61rem;
+            background-color: red;
+        }
+
+        & p {
+            font-weight: 500;
+        }
+
+        &:nth-child(odd) {
+            margin-top: -43.6rem;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+    }
+}
