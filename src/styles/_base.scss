@@ -3,6 +3,7 @@
     --color-white: rgb(255, 255, 255);
     --color-pink: rgb(255, 90, 120);
     --color-grey: rgb(113, 113, 122);
+    --color-light-grey: rgb(210, 210, 218);
     --color-purple-grey: rgb(235, 235, 254);
     --color-selection: rgb(90, 255, 225);
 
@@ -33,7 +34,7 @@ html {
 
 body {
     font-family: var(--font-primary);
-    font-weight: 400;
+    font-weight: 500;
     font-size: 2rem;
     line-height: 1.6;
     color: var(--color-black);
@@ -43,6 +44,11 @@ body {
     -webkit-overflow-scrolling: none;
     overflow-x: hidden;
     position: relative;
+    padding: 0 3.2rem;
+
+    @include media("<phone") {
+        padding: 0 1.6rem;
+    }
 }
 
 // main,

@@ -1,9 +1,29 @@
 .hero {
-    min-height: 60rem;
+    min-height: 75rem;
     height: 100vh;
 
+    @include media("<lanscape") {
+        padding-top: 10rem;
+        height: auto;
+
+        & .d-between-center {
+            flex-direction: column-reverse;
+        }
+    }
+
     &__left {
+        flex: 0 0 auto;
+        width: 100%;
         max-width: 50rem;
+
+        @include media("<tablet") {
+            max-width: 40rem;
+        }
+
+        @include media("<lanscape") {
+            margin-top: 3.2rem;
+            max-width: 60rem;
+        }
     }
 
     &__right {
@@ -14,6 +34,12 @@
         padding-top: 60%;
         overflow: hidden;
         background-color: var(--color-grey);
+
+        @include media("<lanscape") {
+            width: 100%;
+            height: 40rem;
+            padding-top: 0;
+        }
     }
 
     &__text {
@@ -21,5 +47,10 @@
         font-size: 2.4rem;
         font-weight: 600;
         line-height: 1.5;
+
+        @include media("<lanscape") {
+            font-size: 2rem;
+            line-height: 1.6;
+        }
     }
 }
