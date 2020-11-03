@@ -3,11 +3,6 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-
-    // @include media("<tablet") {
-    //     padding-left: 3.2rem;
-    //     padding-right: 3.2rem;
-    // }
 }
 
 //display
@@ -50,6 +45,10 @@
 
 .mt-160 {
     margin-top: 16rem;
+
+    @include media("<lanscape") {
+        margin-top: 8rem;
+    }
 }
 
 .mt-240 {
@@ -60,8 +59,11 @@
     }
 }
 
-//Typo
+.mb-80 {
+    margin-bottom: 8rem;
+}
 
+//Typo
 .h1 {
     font-size: 6.4rem;
     font-weight: 700;

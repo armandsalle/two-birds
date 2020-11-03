@@ -4,6 +4,8 @@ import Hero from "../components/hero"
 import Process from "../components/process"
 import ProjectsList from "../components/projectsList"
 import Trust from "../components/trust"
+import Contact from "../components/contact"
+import Footer from "../components/footer"
 
 export default function Home() {
   const projects = [
@@ -76,6 +78,8 @@ export default function Home() {
       <ProjectsList projects={projects} />
       <Process process={processes} />
       <Trust />
+      <Contact />
+      <Footer />
     </>
   )
 }

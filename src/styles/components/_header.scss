@@ -4,16 +4,12 @@ header {
     left: 0;
     right: 0;
     padding: 0 3.2rem;
+    max-width: 128rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 
     @include media("<phone") {
         padding: 0 1.6rem;
-    }
-
-    .logo {
-        height: 2.4rem;
-
-        &__svg {
-            height: 100%;
-        }
     }
 }
