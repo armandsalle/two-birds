@@ -1,4 +1,3 @@
-import { Link } from "gatsby"
 import React from "react"
 
 const SocialLink = ({ to = "#", is = "twitter" }) => {
@@ -113,9 +112,9 @@ const SocialLink = ({ to = "#", is = "twitter" }) => {
     ),
   }
   return (
-    <Link to={to} className="social-link">
+    <a href={to} target="_blank" rel="noreferrer" className="social-link">
       {icones[is]}
-    </Link>
+    </a>
   )
 }
 

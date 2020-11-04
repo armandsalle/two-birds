@@ -1,4 +1,5 @@
 import React from "react"
+import CustomRichText from "../richText"
 
 const ProcessItem = ({ title, desc, items }) => {
   return (
@@ -7,11 +8,7 @@ const ProcessItem = ({ title, desc, items }) => {
       <div className="process-item__content">
         <h3 className="h3">{title}</h3>
         <p className="mt-16">{desc}</p>
-        <ul className="mt-24">
-          {items.map((item, i) => (
-            <li key={i}>{item}</li>
-          ))}
-        </ul>
+        <CustomRichText data={items} isText className="mt-24" />
       </div>
     </div>
   )
