@@ -20,6 +20,11 @@ export default function Home({
         processList,
         projectsTitle,
         projectssList,
+        trustText,
+        trustTitle,
+        birds,
+        contactTitle,
+        contactCtaText,
       },
     },
   },
@@ -31,8 +36,8 @@ export default function Home({
       <Hero title={heroTitle} text={heroText} cta={heroCtaText} />
       <ProjectsList title={projectsTitle} projects={projectssList} />
       <Process title={processTitle} processList={processList} />
-      <Trust />
-      <Contact />
+      <Trust title={trustTitle} text={trustText} birds={birds} />
+      <Contact title={contactTitle} cta={contactCtaText} />
       <Footer />
     </>
   )
@@ -65,14 +70,33 @@ export const indexQuery = graphql`
               projectThumbnail
               projectThumbnailSharp {
                 childImageSharp {
-                  fluid(maxWidth: 488, quality: 75) {
-                    ...GatsbyImageSharpFluid
+                  fluid(maxWidth: 488, quality: 70) {
+                    ...GatsbyImageSharpFluid_withWebp_noBase64
                   }
                 }
               }
             }
           }
         }
+        trustTitle
+        trustText
+        birds {
+          birdsTwitter
+          birdsText
+          birdsName
+          birdsLinkedin
+          birdsInstagram
+          birdsImage
+          birdsImageSharp {
+            childImageSharp {
+              fluid(maxWidth: 512, quality: 70) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
+              }
+            }
+          }
+        }
+        contactTitle
+        contactCtaText
       }
     }
   }

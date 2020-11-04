@@ -1,44 +1,69 @@
 import React from "react"
+import Img from "gatsby-image"
+import CustomRichText from "../richText"
 import SocialLink from "../scocialLink"
 
-const Trust = () => {
+const Trust = ({ title, text, birds }) => {
+  const firstBird = birds[0]
+  const secondBird = birds[1]
+
   return (
     <section className="trust container mt-240">
       <div className="trust__top">
-        <h2 className="h2 text-center">Why trust us</h2>
-        <p className="text-center mt-24 ">
-          Two birds that hatched @lecolededesign,  eager to help your product
-          fly as high as your expectations.
-        </p>
+        <h2 className="h2 text-center">{title}</h2>
+        <CustomRichText data={text} className="text-center mt-24" isText />
       </div>
       <div className="trust__birds mt-160">
         <div className="trust__birds__half">
-          <div className="img"></div>
-          <h3 className="h3 mt-80">Vincent</h3>
-          <p className="p mt-24">
-            He studies transcultural design in Shanghai then moves to Paris to
-            work with startups as well as with big corporations. His main assets
-            are his sens of observation and his analytical mind. His things are
-            sociology, videogames and basketball. He gives a hand @wero on his
-            spare time.
-          </p>
+          <div className="img">
+            <Img
+              fluid={firstBird.birdsImageSharp.childImageSharp.fluid}
+              alt={firstBird.birdsImage?.alt}
+              fadeIn={false}
+            />
+          </div>
+          <h3 className="h3 mt-80">{firstBird.birdsName}</h3>
+          <CustomRichText
+            data={firstBird.birdsText}
+            className="p mt-24"
+            isText
+          />
           <div className="trust__birds__social mt-32">
-            <SocialLink to="#" is="twitter" />
-            <SocialLink to="#" is="linkedin" />
+            {firstBird.birdsTwitter && (
+              <SocialLink to={firstBird.birdsTwitter} is="twitter" />
+            )}
+            {firstBird.birdsLinkedin && (
+              <SocialLink to={firstBird.birdsLinkedin} is="linkedin" />
+            )}
+            {firstBird.birdsInstagram && (
+              <SocialLink to={firstBird.birdsInstagram} is="instagram" />
+            )}
           </div>
         </div>
         <div className="trust__birds__half">
-          <div className="img"></div>
-          <h3 className="h3 mt-80">Clément</h3>
-          <p className="p mt-24">
-            He studies tangible interfaces and project management. Over the last
-            years, he’ve been evolving his skills @Tigerspike, Sydney.  His main
-            assets are his eye for details and his creative energy. He also love
-            to explore the world and capture the beauty it have to offer.
-          </p>
+          <div className="img">
+            <Img
+              fluid={secondBird.birdsImageSharp.childImageSharp.fluid}
+              alt={secondBird.birdsImage?.alt}
+              fadeIn={false}
+            />
+          </div>
+          <h3 className="h3 mt-80">{secondBird.birdsName}</h3>
+          <CustomRichText
+            data={secondBird.birdsText}
+            className="p mt-24"
+            isText
+          />
           <div className="trust__birds__social mt-32">
-            <SocialLink to="#" is="instagram" />
-            <SocialLink to="#" is="linkedin" />
+            {secondBird.birdsTwitter && (
+              <SocialLink to={secondBird.birdsTwitter} is="twitter" />
+            )}
+            {secondBird.birdsLinkedin && (
+              <SocialLink to={secondBird.birdsLinkedin} is="linkedin" />
+            )}
+            {secondBird.birdsInstagram && (
+              <SocialLink to={secondBird.birdsInstagram} is="instagram" />
+            )}
           </div>
         </div>
       </div>

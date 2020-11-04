@@ -11,6 +11,7 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
             fluid={thumbnailSharp.fluid}
             alt={thumbnail?.alt}
             className="project-item-link__image"
+            fadeIn={false}
           />
         ) : (
           <img

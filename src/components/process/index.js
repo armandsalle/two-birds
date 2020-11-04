@@ -2,7 +2,6 @@ import React from "react"
 import ProcessItem from "./ProcessItem"
 
 const Process = ({ title, processList }) => {
-  console.log(processList)
   return (
     <section className="process container mt-240">
       <h2 className="h2">{title}</h2>

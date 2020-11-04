@@ -1,13 +1,13 @@
 import React from "react"
 import Button from "../button"
 
-const Contact = () => {
+const Contact = ({ title, cta }) => {
   return (
     <section className="contact container mt-240">
       <div className="contact__content">
-        <h2 className="h2 text-center">Enough about us, what about you?</h2>
+        <h2 className="h2 text-center">{title}</h2>
         <Button to="#" className="mt-40">
-          Contact us
+          {cta}
         </Button>
       </div>
     </section>
