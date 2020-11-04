@@ -1,10 +1,21 @@
 import { Link } from "gatsby"
 import Img from "gatsby-image"
-import React from "react"
+import React, { useEffect, useRef } from "react"
+import reveal from "../../animations/reveal"
 
 const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
+  const linkRef = useRef(null)
+
+  useEffect(() => {
+    reveal(linkRef.current, linkRef.current, true)
+  }, [])
+
   return (
-    <Link to={`/${uid}`} className="project-item-link">
+    <Link
+      to={`/${uid}`}
+      className="project-item-link ty-80 opacity-0"
+      ref={linkRef}
+    >
       <div className="project-item-link__wrapper__image">
         {thumbnailSharp.fluid ? (
           <Img

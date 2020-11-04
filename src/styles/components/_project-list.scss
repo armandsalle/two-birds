@@ -40,10 +40,6 @@
             max-width: 48.8rem;
             width: 100%;
             max-height: 61rem;
-            // padding-top: 115%;
-            // background-color: red;
-            // position: relative;
-            // overflow: hidden;
         }
 
         &__image {
@@ -79,14 +75,6 @@
                 margin-top: 8rem;
             }
         }
-
-        // &:nth-child(odd) {
-        //     @include media("<tablet") {
-        //         margin-top: 30rem;
-
-        //     }
-
-        // }
 
         &:last-child {
             margin-bottom: 0;

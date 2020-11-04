@@ -1,10 +1,36 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import ProcessItem from "./ProcessItem"
+import { gsap } from "gsap"
+import reveal from "../../animations/reveal"
 
 const Process = ({ title, processList }) => {
+  const titleRef = useRef(null)
+  const processSectionRef = useRef(null)
+
+  useEffect(() => {
+    const processItems = gsap.utils.toArray(".process-item")
+
+    reveal(titleRef.current, processSectionRef.current, false)
+
+    gsap.to(processItems, {
+      scrollTrigger: {
+        trigger: processItems[0],
+        start: () => `-=80 center`,
+      },
+      opacity: 1,
+      y: 0,
+      stagger: {
+        amount: 0.2,
+      },
+      ease: "Quad.easeOut",
+    })
+  }, [])
+
   return (
-    <section className="process container mt-240">
-      <h2 className="h2">{title}</h2>
+    <section className="process container mt-240" ref={processSectionRef}>
+      <h2 className="h2 ty-80 opacity-0" ref={titleRef}>
+        {title}
+      </h2>
       <div className="process-list mt-80">
         {processList.map(({ processName, processText, processItems }, i) => (
           <ProcessItem
