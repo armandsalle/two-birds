@@ -7,7 +7,7 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
   const linkRef = useRef(null)
 
   useEffect(() => {
-    reveal(linkRef.current, linkRef.current, true)
+    reveal(linkRef.current, linkRef.current, true, "70%")
   }, [])
 
   return (

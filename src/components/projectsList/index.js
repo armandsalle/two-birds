@@ -7,7 +7,7 @@ const ProjectsList = ({ title, projects }) => {
   const projectSectionRef = useRef(null)
 
   useEffect(() => {
-    reveal(titleRef.current, projectSectionRef.current, false)
+    reveal(titleRef.current, projectSectionRef.current, false, "70%")
   }, [])
 
   return (

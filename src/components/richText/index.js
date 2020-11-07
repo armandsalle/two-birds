@@ -1,18 +1,18 @@
-import React from "react"
+import React, { forwardRef } from "react"
 import PropTypes from "prop-types"
 import { RichText } from "prismic-reactjs"
 import { linkResolver } from "../../utils/linkResolver"
 import cn from "classnames"
 
-const CustomRichText = ({ data, className, isText }) => {
+const CustomRichText = forwardRef(({ data, className, isText }, ref) => {
   if (!data) return null
 
   return (
-    <div className={cn(isText && "richtext", className)}>
+    <div className={cn(isText && "richtext", className)} ref={ref}>
       {RichText.render(data, linkResolver)}
     </div>
   )
-}
+})
 
 CustomRichText.defaultProps = {
   isText: false,

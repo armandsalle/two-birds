@@ -10,12 +10,12 @@ const Process = ({ title, processList }) => {
   useEffect(() => {
     const processItems = gsap.utils.toArray(".process-item")
 
-    reveal(titleRef.current, processSectionRef.current, false)
+    reveal(titleRef.current, processSectionRef.current, false, "70%")
 
     gsap.to(processItems, {
       scrollTrigger: {
         trigger: processItems[0],
-        start: () => `-=80 center`,
+        start: () => `-=80 70%`,
       },
       opacity: 1,
       y: 0,
