@@ -20,7 +20,7 @@ const Contact = ({ title, cta }) => {
     tl.to(sectionRef.current, {
       opacity: 1,
       y: 0,
-      duration: 2,
+      duration: 1,
     })
     tl.to(title, {
       opacity: 1,

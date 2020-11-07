@@ -9,6 +9,7 @@
     font-weight: 700;
     position: relative;
     overflow: hidden;
+    z-index: 5;
 
     &::before {
         content: '';
@@ -19,12 +20,16 @@
         height: 100%;
         z-index: -1;
         background-color: var(--color-black);
-
+        transition: background-color .1s 0s;
     }
-
 
     @include media(">tablet") {
         &:hover {
+            &::before {
+                background-color: transparent;
+                transition: background-color .1s .1s;
+            }
+
             .cta__circle {
                 transform: scale(1) translate(-50%, -50%);
             }
