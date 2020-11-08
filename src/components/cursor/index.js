@@ -6,17 +6,21 @@ const Cursor = () => {
   const cursorRef = useRef()
   const cursorWrapperRef = useRef()
 
-  const mouse = useRef({
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-  })
-
-  const prevMouse = useRef({
-    x: window.innerWidth / 2,
-    y: window.innerHeight / 2,
-  })
+  const mouse = useRef()
+  const prevMouse = useRef()
 
   const isToucheDevice = useIsTouchDesign()
+
+  useEffect(() => {
+    if (window !== "undefined") {
+      const initState = {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+      }
+      mouse.current = initState
+      prevMouse.current = initState
+    }
+  }, [])
 
   useEffect(() => {
     const getMousePos = ({ clientX, clientY }) => {
