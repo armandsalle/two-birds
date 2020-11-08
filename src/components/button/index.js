@@ -34,7 +34,10 @@ const Button = ({ children, to = "#", className }) => {
   })
 
   useEffect(() => {
-    if (window.matchMedia("screen and (min-width: 991px)").matches) {
+    if (
+      window !== "undefined" &&
+      window.matchMedia("screen and (min-width: 991px)").matches
+    ) {
       cursor.current = document.querySelector(".cursor-wrapper")
       ctaRef.current.addEventListener("mouseenter", setCirclePosition.current)
       ctaRef.current.addEventListener("mouseleave", setCirclePosition.current)
