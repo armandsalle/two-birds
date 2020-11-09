@@ -53,7 +53,7 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
   return (
     <Link
       to={`/${uid}`}
-      className="project-item-link ty-80 opacity-0"
+      className="project-item-link "
       ref={linkRef}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}

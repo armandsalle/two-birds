@@ -1,7 +1,6 @@
+import React, { useRef, useEffect } from "react"
 import { Link } from "gatsby"
-import React, { useRef } from "react"
 import cn from "classnames"
-import { useEffect } from "react"
 import { gsap } from "gsap"
 
 const Button = ({ children, to = "#", className }) => {
@@ -10,13 +9,15 @@ const Button = ({ children, to = "#", className }) => {
 
   const setCirclePosition = useRef(function (e) {
     if (e.type === "mouseenter") {
-      gsap.set(cursor.current, {
-        zIndex: -1,
+      gsap.to(cursor.current, {
+        scale: 0,
+        duration: 0.2,
       })
     }
     if (e.type === "mouseleave") {
-      gsap.set(cursor.current, {
-        zIndex: 3,
+      gsap.to(cursor.current, {
+        scale: 0.16,
+        duration: 0.2,
       })
     }
 
@@ -33,14 +34,39 @@ const Button = ({ children, to = "#", className }) => {
     circle.style.top = relY + "px"
   })
 
+  const setActive = useRef(() => {
+    gsap.to(ctaRef.current, {
+      keyframes: [
+        { scale: 0.95, duration: 0.08 },
+        { scale: 1, duration: 0.08 },
+      ],
+    })
+  })
+
   useEffect(() => {
-    if (
-      window !== "undefined" &&
-      window.matchMedia("screen and (min-width: 991px)").matches
-    ) {
-      cursor.current = document.querySelector(".cursor-wrapper")
-      ctaRef.current.addEventListener("mouseenter", setCirclePosition.current)
-      ctaRef.current.addEventListener("mouseleave", setCirclePosition.current)
+    const cta = ctaRef.current
+    const fnsetCirclePosition = setCirclePosition.current
+    const fnsetActive = setActive.current
+
+    if (window !== "undefined") {
+      cta.addEventListener("click", fnsetActive, false)
+
+      if (window.matchMedia("screen and (min-width: 991px)").matches) {
+        cursor.current = document.querySelector(".cursor")
+        cta.addEventListener("mouseenter", fnsetCirclePosition, false)
+        cta.addEventListener("mouseleave", fnsetCirclePosition, false)
+      }
+    }
+
+    return () => {
+      cta.removeEventListener("click", fnsetActive, false)
+      if (
+        window !== "undefined" &&
+        window.matchMedia("screen and (min-width: 991px)").matches
+      ) {
+        cta.removeEventListener("mouseenter", fnsetCirclePosition, false)
+        cta.removeEventListener("mouseleave", fnsetCirclePosition, false)
+      }
     }
   }, [])
 

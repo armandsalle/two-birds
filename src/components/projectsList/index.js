@@ -13,7 +13,7 @@ const ProjectsList = ({ title, projects }) => {
   return (
     <section className="container mt-240" ref={projectSectionRef}>
       <div className="projects-list">
-        <h2 className="h2 ty-80 opacity-0" ref={titleRef}>
+        <h2 className="h2 " ref={titleRef}>
           {title}
         </h2>
         {projects.map(

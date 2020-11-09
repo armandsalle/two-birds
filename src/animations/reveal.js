@@ -6,15 +6,22 @@ const reveal = (
   hasOffset = false,
   offsetTrigger = "center"
 ) => {
-  return gsap.to(target, {
-    scrollTrigger: {
-      trigger: trigger,
-      start: () => `${hasOffset ? "-=80" : "top"} ${offsetTrigger}`,
+  return gsap.fromTo(
+    target,
+    {
+      opacity: 0,
+      y: 80,
     },
-    opacity: 1,
-    y: 0,
-    ease: "Quad.easeOut",
-  })
+    {
+      scrollTrigger: {
+        trigger: trigger,
+        start: () => `${hasOffset ? "-=80" : "top"} ${offsetTrigger}`,
+      },
+      opacity: 1,
+      y: 0,
+      ease: "Quad.easeOut",
+    }
+  )
 }
 
 export default reveal

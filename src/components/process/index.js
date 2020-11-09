@@ -12,23 +12,27 @@ const Process = ({ title, processList }) => {
 
     reveal(titleRef.current, processSectionRef.current, false, "70%")
 
-    gsap.to(processItems, {
-      scrollTrigger: {
-        trigger: processItems[0],
-        start: () => `-=80 70%`,
-      },
-      opacity: 1,
-      y: 0,
-      stagger: {
-        amount: 0.2,
-      },
-      ease: "Quad.easeOut",
-    })
+    gsap.fromTo(
+      processItems,
+      { opacity: 0, y: 80 },
+      {
+        scrollTrigger: {
+          trigger: processItems[0],
+          start: () => `-=80 70%`,
+        },
+        opacity: 1,
+        y: 0,
+        stagger: {
+          amount: 0.2,
+        },
+        ease: "Quad.easeOut",
+      }
+    )
   }, [])
 
   return (
     <section className="process container mt-240" ref={processSectionRef}>
-      <h2 className="h2 ty-80 opacity-0" ref={titleRef}>
+      <h2 className="h2 " ref={titleRef}>
         {title}
       </h2>
       <div className="process-list mt-80">

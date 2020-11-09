@@ -17,18 +17,30 @@ const Contact = ({ title, cta }) => {
         start: () => `top 70%`,
       },
     })
-    tl.to(sectionRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-    })
-    tl.to(title, {
-      opacity: 1,
-      y: 0,
-      duration: 1,
-    })
-    tl.to(
+    tl.fromTo(
+      sectionRef.current,
+      {
+        opacity: 0,
+        y: 80,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+      }
+    )
+    tl.fromTo(
+      title,
+      { opacity: 0, y: 80 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+      }
+    )
+    tl.fromTo(
       btn,
+      { opacity: 0, y: 80 },
       {
         opacity: 1,
         y: 0,
@@ -40,13 +52,10 @@ const Contact = ({ title, cta }) => {
   }, [])
 
   return (
-    <section
-      className="contact container mt-240 ty-80 opacity-0"
-      ref={sectionRef}
-    >
+    <section className="contact container mt-240" ref={sectionRef}>
       <div className="contact__content" ref={contentRef}>
-        <h2 className="h2 text-center ty-80 opacity-0">{title}</h2>
-        <Button to="#" className="mt-40 btn ty-80 opacity-0">
+        <h2 className="h2 text-center">{title}</h2>
+        <Button to="#" className="mt-40 btn">
           {cta}
         </Button>
       </div>

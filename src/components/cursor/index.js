@@ -6,45 +6,39 @@ const Cursor = () => {
   const cursorRef = useRef()
   const cursorWrapperRef = useRef()
 
-  const mouse = useRef()
-  const prevMouse = useRef()
-
   const isToucheDevice = useIsTouchDesign()
 
   useEffect(() => {
-    if (window !== "undefined") {
+    let mouse,
+      prevMouse = { x: 0, y: 0 }
+
+    const getMousePos = ({ clientX, clientY }) => {
+      mouse.x = clientX
+      mouse.y = clientY
+    }
+
+    const animate = () => {
+      requestAnimationFrame(animate)
+
+      prevMouse.x += (mouse.x - prevMouse.x) * 0.2
+      prevMouse.y += (mouse.y - prevMouse.y) * 0.2
+
+      gsap.set(cursorRef.current, {
+        x: prevMouse.x,
+        y: prevMouse.y,
+      })
+    }
+
+    if (window !== "undefined" && !isToucheDevice) {
       const initState = {
         x: window.innerWidth / 2,
         y: window.innerHeight / 2,
       }
-      mouse.current = initState
-      prevMouse.current = initState
-    }
-  }, [])
 
-  useEffect(() => {
-    const getMousePos = ({ clientX, clientY }) => {
-      mouse.current.x = clientX
-      mouse.current.y = clientY
-    }
+      mouse = { ...initState }
+      prevMouse = { ...initState }
 
-    if (!isToucheDevice) {
       document.addEventListener("mousemove", getMousePos)
-
-      const animate = () => {
-        requestAnimationFrame(animate)
-        const x = mouse.current.x
-        const y = mouse.current.y
-
-        prevMouse.current.x += (x - prevMouse.current.x) * 0.2
-        prevMouse.current.y += (y - prevMouse.current.y) * 0.2
-
-        gsap.set(cursorRef.current, {
-          x: prevMouse.current.x,
-          y: prevMouse.current.y,
-        })
-      }
-
       animate()
     } else {
       cursorWrapperRef.current.style.display = "none"
@@ -63,7 +57,7 @@ const Cursor = () => {
         <span className="cursor__span">
           View
           <br />
-          Case
+          case
         </span>
       </div>
     </div>

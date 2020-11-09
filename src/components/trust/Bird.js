@@ -38,19 +38,16 @@ const Bird = ({ align, bird }) => {
           fadeIn={false}
         />
       </div>
-      <h3 className="h3 mt-80 ty-80 opacity-0" ref={titleRef}>
+      <h3 className="h3 mt-80 " ref={titleRef}>
         {bird.birdsName}
       </h3>
       <CustomRichText
         data={bird.birdsText}
-        className="p mt-24 ty-80 opacity-0"
+        className="p mt-24 "
         isText
         ref={textRef}
       />
-      <div
-        className="trust__birds__social mt-32 ty-80 opacity-0"
-        ref={socialRef}
-      >
+      <div className="trust__birds__social mt-32 " ref={socialRef}>
         {bird.birdsTwitter && (
           <SocialLink to={bird.birdsTwitter} is="twitter" />
         )}

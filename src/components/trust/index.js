@@ -18,12 +18,12 @@ const Trust = ({ title, text, birds }) => {
   return (
     <section className="trust container mt-240">
       <div className="trust__top">
-        <h2 className="h2 ty-80 opacity-0 text-center" ref={titleRef}>
+        <h2 className="h2  text-center" ref={titleRef}>
           {title}
         </h2>
         <CustomRichText
           data={text}
-          className="text-center mt-24 ty-80 opacity-0"
+          className="text-center mt-24 "
           isText
           ref={textRef}
         />
