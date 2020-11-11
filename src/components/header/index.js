@@ -21,7 +21,7 @@ const Header = () => {
   const { siteLogo } = prismic.allLayouts.edges.slice(0, 1).pop().node
 
   return (
-    <header className="mt-40 ">
+    <header className="mt-40 index-header">
       <div className="logo">
         <Link to="/">
           <img src={siteLogo?.url} alt="two birds logo" />

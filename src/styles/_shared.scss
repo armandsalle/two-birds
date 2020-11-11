@@ -59,6 +59,10 @@
     }
 }
 
+.mb-32 {
+    margin-bottom: 3.2rem;
+}
+
 .mb-80 {
     margin-bottom: 8rem;
 }
@@ -93,6 +97,11 @@
     @include media("<lanscape") {
         font-size: 4rem;
         line-height: 1.2;
+    }
+
+    @include media("<lanscape") {
+        font-size: 3.6rem;
+        line-height: 1.33;
     }
 }
 

@@ -1,0 +1,133 @@
+.get-back {
+    position: fixed;
+    left: 4rem;
+    top: 4rem;
+    right: auto;
+    bottom: auto;
+    z-index: 10;
+    width: 4rem;
+    height: 4rem;
+
+    @include media("<phone") {
+        left: 1.6rem;
+        top: 3.2rem;
+        width: 4.4rem;
+        height: 4.4rem;
+    }
+
+    & a {
+        display: block;
+    }
+
+    & a,
+    & svg {
+        width: 4rem;
+        height: 4rem;
+
+        @include media("<phone") {
+            width: 4.4rem;
+            height: 4.4rem;
+        }
+    }
+}
+
+.project-header {
+    margin-bottom: 16rem;
+
+    h1 {
+        max-width: 80rem;
+        perspective: 600px;
+
+        span {
+            display: block;
+
+        }
+
+        @include media("<tablet") {
+            max-width: 70rem;
+        }
+
+        @include media("<lanscape") {
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
+            max-width: 58rem;
+        }
+    }
+
+    &__logo {
+        height: 6.4rem;
+
+        @include media("<lanscape") {
+            height: 4.8rem;
+        }
+    }
+
+    &__description {
+        font-size: 2.8rem;
+        line-height: 1.57;
+        margin-top: 4.8rem;
+
+        @include media("<lanscape") {
+            margin-top: 1.6rem;
+            font-size: 2rem;
+            line-height: 1.6;
+        }
+    }
+
+    &__infos {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+
+        @include media("<lanscape") {
+            flex-direction: column;
+        }
+    }
+
+    &__date,
+    &__tags,
+    &__visit-link {
+        width: 33%;
+        padding-right: 3.2rem;
+
+        @include media("<lanscape") {
+            margin-top: 3.2rem;
+            width: 100%;
+        }
+    }
+
+    &__visit-link {
+        & a {
+            border-bottom: 2px solid var(--color-black);
+            font-size: 2.4rem;
+            line-height: 1.5;
+            font-weight: 500;
+
+            @include media("<lanscape") {
+                font-size: 1.6rem;
+                line-height: 1.75;
+            }
+
+            & svg {
+                width: 1.6rem;
+                height: 1.6rem;
+                margin-left: .8rem;
+            }
+        }
+    }
+
+    &__tag,
+    &__date {
+        font-size: 2.4rem;
+        line-height: 1.5;
+        font-weight: 500;
+        color: var(--color-grey-lighter);
+
+        @include media("<lanscape") {
+            font-size: 1.6rem;
+            line-height: 1.75;
+        }
+    }
+}

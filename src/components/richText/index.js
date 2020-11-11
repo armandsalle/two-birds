@@ -4,14 +4,30 @@ import { RichText } from "prismic-reactjs"
 import { linkResolver } from "../../utils/linkResolver"
 import cn from "classnames"
 
-const CustomRichText = forwardRef(({ data, className, isText }, ref) => {
+const CustomRichText = forwardRef(({ data, className, isText, as }, ref) => {
   if (!data) return null
 
-  return (
-    <div className={cn(isText && "richtext", className)} ref={ref}>
-      {RichText.render(data, linkResolver)}
-    </div>
-  )
+  let result
+
+  switch (as) {
+    case "h1":
+      result = (
+        <h1 className={className} ref={ref}>
+          {RichText.render(data, linkResolver)}
+        </h1>
+      )
+      break
+
+    default:
+      result = (
+        <div className={cn(isText && "richtext", className)} ref={ref}>
+          {RichText.render(data, linkResolver)}
+        </div>
+      )
+      break
+  }
+
+  return result
 })
 
 CustomRichText.defaultProps = {
@@ -21,6 +37,7 @@ CustomRichText.defaultProps = {
 CustomRichText.propTypes = {
   data: PropTypes.array,
   className: PropTypes.string,
+  as: PropTypes.string,
   isText: PropTypes.bool,
 }
 
