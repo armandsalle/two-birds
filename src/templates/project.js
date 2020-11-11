@@ -13,7 +13,7 @@ const Project = ({
 }) => {
   const {
     projectName,
-    projectTitle,
+    projectTitleRich,
     projectLogo,
     projectLogoSharp,
     preojectDescription,
@@ -132,7 +132,7 @@ const Project = ({
           />
         )}
         <h1 className="h2 mt-16 project-header__title">
-          {projectTitle.map((t, i) => (
+          {projectTitleRich.map((t, i) => (
             <span key={i}>{t.text}</span>
           ))}
         </h1>
@@ -190,7 +190,7 @@ export const projectQuery = graphql`
             }
           }
         }
-        projectTitle
+        projectTitleRich
         projectName
         preojectDescription
         projectLink
