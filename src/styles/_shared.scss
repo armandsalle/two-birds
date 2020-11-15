@@ -136,3 +136,11 @@
 .color-grey {
     color: var(--color-grey);
 }
+
+//Special
+.line {
+    width: calc(6.4rem + 100vw);
+    height: 1px;
+    background-color: var(--color-light-grey);
+    transform: translateX(-3.2rem);
+}

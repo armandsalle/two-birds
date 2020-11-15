@@ -5,10 +5,12 @@ import { gsap } from "gsap"
 import SEO from "../components/seo"
 import CustomRichText from "../components/richText"
 import ProjectSlices from "../components/projectSlices"
+import SocialLink from "../components/scocialLink"
+import Button from "../components/button"
 
 const Project = ({
   data: {
-    prismic: { project },
+    prismic: { project, layout },
   },
 }) => {
   const {
@@ -22,6 +24,15 @@ const Project = ({
     projectDate,
     body,
   } = project
+
+  const {
+    footerTwitter,
+    footerLinkedin,
+    footerInstagram,
+    footerFacebook,
+    footerDribbble,
+    footerBehance,
+  } = layout.edges.slice(0, 1).pop().node
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -173,7 +184,24 @@ const Project = ({
         </div>
       </header>
       <ProjectSlices slices={body} />
-      <footer className="footer-project"></footer>
+      <footer className="footer-project container">
+        <h2 className="h2 text-center">You have a project?</h2>
+        <Button to="#" className="mt-40">
+          Contact us
+        </Button>
+        <p className="footer-project__info  text-center">Or get in touch on</p>
+        <div className="footer-project__links">
+          {footerDribbble && <SocialLink to={footerDribbble} is="dribble" />}
+          {footerBehance && <SocialLink to={footerBehance} is="behance" />}
+          {footerTwitter && <SocialLink to={footerTwitter} is="twitter" />}
+          {footerInstagram && (
+            <SocialLink to={footerInstagram} is="instagram" />
+          )}
+          {footerFacebook && <SocialLink to={footerFacebook} is="facebook" />}
+          {footerLinkedin && <SocialLink to={footerLinkedin} is="linkedin" />}
+        </div>
+      </footer>
+      <div className="line"></div>
     </>
   )
 }
@@ -181,6 +209,18 @@ const Project = ({
 export const projectQuery = graphql`
   query projectPage($uid: String!) {
     prismic {
+      layout: allLayouts {
+        edges {
+          node {
+            footerTwitter
+            footerLinkedin
+            footerInstagram
+            footerFacebook
+            footerDribbble
+            footerBehance
+          }
+        }
+      }
       project: projects(uid: $uid, lang: "fr-fr") {
         projectLogo
         projectLogoSharp {
