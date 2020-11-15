@@ -8,7 +8,7 @@ import ProjectSlices from "../components/projectSlices"
 
 const Project = ({
   data: {
-    prismic: { projects: project },
+    prismic: { project },
   },
 }) => {
   const {
@@ -181,7 +181,7 @@ const Project = ({
 export const projectQuery = graphql`
   query projectPage($uid: String!) {
     prismic {
-      projects(lang: "fr-fr", uid: $uid) {
+      project: projects(uid: $uid, lang: "fr-fr") {
         projectLogo
         projectLogoSharp {
           childImageSharp {

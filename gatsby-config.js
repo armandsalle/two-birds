@@ -38,23 +38,12 @@ module.exports = {
         repositoryName: "twobirds", // required
         defaultLang: "fr-fr", // optional, but recommended
         accessToken: process.env.PRISMIC_ACCESS_TOKEN, // optional
-        previews: true, // optional, default: true
+        previews: false, // optional, default: true
         path: "/preview", // optional, default: /preview
         pages: [
           {
             type: "projects",
             match: "/:uid",
-            // customPath: node => {
-            //   return `/${node.categorie._meta.uid}/${node._meta.uid}`
-            // },
-            // extraPageFields: `categorie {
-            //   _linkType
-            //   ... on PRISMIC__Document{
-            //     _meta {
-            //       uid
-            //     }
-            //   }
-            // }`,
             previewPath: "/project",
             component: require.resolve("./src/templates/project.js"),
           },
