@@ -16,22 +16,13 @@ const Layout = ({ children, location }) => {
     if (animationsCanRuns) {
       gsap.to(node, {
         opacity: 0,
-        duration: 0.4,
-        // stagger: {
-        //   amount: 0.1,
-        // },
+        duration: 0.25,
         onStart: () => {
           document.querySelector("body").style.pointerEvents = "none"
           console.log("transition start")
         },
         onComplete: () => {
           document.querySelector("body").style.pointerEvents = "all"
-          // gsap.set("main", {
-          //   opacity: 0,
-          // })
-          // gsap.set(".overlay-transition", {
-          //   scaleX: 0,
-          // })
         },
       })
     }
@@ -46,7 +37,7 @@ const Layout = ({ children, location }) => {
         },
         {
           opacity: 1,
-          duration: 0.4,
+          duration: 0.25,
         }
       )
     }
@@ -58,15 +49,13 @@ const Layout = ({ children, location }) => {
       <SwitchTransition mode="out-in">
         <Transition
           key={location.pathname}
-          timeout={600}
+          timeout={500}
           onExit={node => playExit(node)}
           onEnter={node => playEnter(node)}
         >
           <main>{children}</main>
         </Transition>
       </SwitchTransition>
-      {/* <div className="overlay-transition overlay-transition--black"></div> */}
-      {/* <div className="overlay-transition overlay-transition--white"></div> */}
     </Loaded>
   )
 }
