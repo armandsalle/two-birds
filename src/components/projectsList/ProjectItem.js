@@ -50,6 +50,20 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
     })
   }, [colors])
 
+  const mouseClick = useCallback(() => {
+    gsap.to(".cursor", {
+      keyframes: [
+        { scale: 0.95, duration: 0.08 },
+        { scale: 1, duration: 0.08 },
+      ],
+      onComplete: () => {
+        setTimeout(() => {
+          mouseLeave()
+        }, 500)
+      },
+    })
+  }, [mouseLeave])
+
   return (
     <Link
       to={`/${uid}`}
@@ -57,7 +71,7 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
       ref={linkRef}
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
-      onClick={mouseLeave}
+      onClick={mouseClick}
     >
       <div className="project-item-link__wrapper__image">
         {thumbnailSharp.fluid ? (
