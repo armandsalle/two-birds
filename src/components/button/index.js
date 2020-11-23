@@ -16,7 +16,7 @@ const Button = ({ children, to = "#", className }) => {
     }
     if (e.type === "mouseleave") {
       gsap.to(cursor.current, {
-        scale: 0.16,
+        scale: 0.2,
         duration: 0.2,
       })
     }

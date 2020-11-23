@@ -40,7 +40,7 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
 
   const mouseLeave = useCallback(() => {
     gsap.to(".cursor", {
-      scale: 0.16,
+      scale: 0.2,
       backgroundColor: colors.black,
       duration: 0.2,
     })

@@ -46,7 +46,7 @@ const Cursor = () => {
         document.addEventListener("mousemove", getMousePos)
         gsap.to(cursorRef.current, {
           opacity: 1,
-          scale: 0.16,
+          scale: 0.2,
           duration: 0.25,
         })
         animate()

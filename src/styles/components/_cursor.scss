@@ -22,7 +22,7 @@
     border-radius: 50%;
     background-color: var(--color-black);
     transform-origin: 50% 50%;
-    transform: translate(-50%, -50%) scale(.16);
+    transform: translate(-50%, -50%) scale(.2);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,6 +34,6 @@
         opacity: 0;
         font-size: 1.6rem;
         line-height: 1.25;
-        font-weight: 700;
+        font-weight: 500;
     }
 }
