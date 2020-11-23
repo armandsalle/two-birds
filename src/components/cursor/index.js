@@ -9,8 +9,11 @@ const Cursor = () => {
   const isToucheDevice = useIsTouchDesign()
 
   useEffect(() => {
+    // hide curosr
+    gsap.set(cursorRef.current, { opacity: 0, scale: 0 })
+
     let mouse,
-      prevMouse = { x: 0, y: 0 }
+      prevMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
 
     const getMousePos = ({ clientX, clientY }) => {
       mouse.x = clientX
@@ -38,8 +41,16 @@ const Cursor = () => {
       mouse = { ...initState }
       prevMouse = { ...initState }
 
-      document.addEventListener("mousemove", getMousePos)
-      animate()
+      // start the animation after 500ms and show the cursor
+      setTimeout(() => {
+        document.addEventListener("mousemove", getMousePos)
+        gsap.to(cursorRef.current, {
+          opacity: 1,
+          scale: 0.16,
+          duration: 0.25,
+        })
+        animate()
+      }, 500)
     } else {
       cursorWrapperRef.current.style.display = "none"
     }
