@@ -16,5 +16,5 @@ export const shouldUpdateScroll = () => {
 export const onRouteUpdate = () => {
   setTimeout(() => {
     window.scrollTo(0, 0)
-  }, 250)
+  }, 400)
 }
