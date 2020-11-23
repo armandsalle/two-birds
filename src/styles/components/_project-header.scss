@@ -8,6 +8,13 @@
     width: 4rem;
     height: 4rem;
 
+    @include media("<lanscape") {
+        left: 2.6rem;
+        top: 2.6rem;
+        width: 4.4rem;
+        height: 4.4rem;
+    }
+
     @include media("<phone") {
         left: 1.6rem;
         top: 3.2rem;
