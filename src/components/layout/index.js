@@ -17,9 +17,9 @@ const Layout = ({ children, location }) => {
       gsap.to(".overlay-transition", {
         scaleX: 1,
         duration: 0.5,
-        stagger: {
-          amount: 0.1,
-        },
+        // stagger: {
+        //   amount: 0.1,
+        // },
         onStart: () => {
           document.querySelector("body").style.pointerEvents = "none"
           console.log("transition start")
@@ -65,7 +65,7 @@ const Layout = ({ children, location }) => {
           <main>{children}</main>
         </Transition>
       </SwitchTransition>
-      <div className="overlay-transition overlay-transition--black"></div>
+      {/* <div className="overlay-transition overlay-transition--black"></div> */}
       <div className="overlay-transition overlay-transition--white"></div>
     </Loaded>
   )
