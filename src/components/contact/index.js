@@ -55,7 +55,11 @@ const Contact = ({ title, cta }) => {
     <section className="contact container mt-240" ref={sectionRef}>
       <div className="contact__content" ref={contentRef}>
         <h2 className="h2 text-center">{title}</h2>
-        <Button to="#" className="mt-40 btn">
+        <Button
+          to="mailto:bonjour@twobirds.design?subject=On%20vole%20ensemble%20?"
+          as="a"
+          className="mt-40 btn"
+        >
           {cta}
         </Button>
       </div>

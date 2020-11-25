@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 import cn from "classnames"
 import { gsap } from "gsap"
 
-const Button = ({ children, to = "#", className }) => {
+const Button = ({ children, to = "#", className, as }) => {
   const ctaRef = useRef(null)
   const cursor = useRef()
 
@@ -71,10 +71,20 @@ const Button = ({ children, to = "#", className }) => {
   }, [])
 
   return (
-    <Link to={to} className={cn("cta", className)} ref={ctaRef}>
-      <span className="cta__text">{children}</span>
-      <div className="cta__circle"></div>
-    </Link>
+    <>
+      {as !== "a" && (
+        <Link to={to} className={cn("cta", className)} ref={ctaRef}>
+          <span className="cta__text">{children}</span>
+          <div className="cta__circle"></div>
+        </Link>
+      )}
+      {as === "a" && (
+        <a href={to} className={cn("cta", className)} ref={ctaRef}>
+          <span className="cta__text">{children}</span>
+          <div className="cta__circle"></div>
+        </a>
+      )}
+    </>
   )
 }
 
