@@ -1,13 +1,44 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
+import { gsap } from "gsap"
+import NumberItem from "./numberItem"
 
 const Numbers = ({ fields }) => {
+  const numbersRef = useRef()
+
+  useEffect(() => {
+    const target = numbersRef.current.querySelectorAll(
+      ".slice-numbers__number__title, .slice-numbers__number__text"
+    )
+
+    const isLanscape = window.matchMedia("screen and (max-width: 767px)")
+      .matches
+
+    if (!isLanscape) {
+      gsap.fromTo(
+        target,
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          scrollTrigger: {
+            trigger: numbersRef.current,
+            start: () => `top 70%`,
+          },
+          opacity: 1,
+          y: 0,
+          ease: "Quad.easeOut",
+          duration: 1,
+          stagger: { amount: 1 },
+        }
+      )
+    }
+  }, [])
+
   return (
-    <section className="slice-numbers container mt-240">
+    <section className="slice-numbers container mt-240" ref={numbersRef}>
       {fields.map(({ numberTitle, numberText }, i) => (
-        <div key={i} className="slice-numbers__number mb-32">
-          <span className="slice-numbers__number__title h1">{numberTitle}</span>
-          <span className="slice-numbers__number__text">{numberText}</span>
-        </div>
+        <NumberItem key={i} numberTitle={numberTitle} numberText={numberText} />
       ))}
     </section>
   )

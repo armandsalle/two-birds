@@ -16,8 +16,8 @@
     }
 
     @include media("<phone") {
-        left: 1.6rem;
-        top: 3.2rem;
+        left: 2.6rem;
+        top: 1.6rem;
         width: 4.4rem;
         height: 4.4rem;
     }
@@ -51,6 +51,10 @@
 
         span {
             display: block;
+
+            @include media("<lanscape") {
+                hyphens: auto;
+            }
         }
 
         @include media("<tablet") {
@@ -58,10 +62,6 @@
         }
 
         @include media("<lanscape") {
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
             max-width: 58rem;
         }
     }

@@ -7,25 +7,67 @@ const ImageDouble = ({ primary }) => {
   const imageDoubleRef = useRef()
 
   useEffect(() => {
-    gsap.fromTo(
-      imageDoubleRef.current.querySelectorAll(
-        ".slice-image-double__left, .slice-image-double__right"
-      ),
-      {
-        opacity: 0,
-        y: 80,
-      },
-      {
-        scrollTrigger: {
-          trigger: imageDoubleRef.current,
-          start: () => `top 70%`,
-        },
-        opacity: 1,
-        y: 0,
-        stagger: 0.3,
-        ease: "Quad.easeOut",
-      }
+    const isMobile = window.matchMedia("screen and (max-width: 478px)").matches
+
+    const rightImage = imageDoubleRef.current.querySelector(
+      ".slice-image-double__right"
     )
+    const leftImage = imageDoubleRef.current.querySelector(
+      ".slice-image-double__left"
+    )
+
+    if (!isMobile) {
+      gsap.fromTo(
+        [leftImage, rightImage],
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          scrollTrigger: {
+            trigger: imageDoubleRef.current,
+            start: () => `top 70%`,
+          },
+          opacity: 1,
+          y: 0,
+          stagger: 0.3,
+          ease: "Quad.easeOut",
+        }
+      )
+    } else {
+      gsap.fromTo(
+        rightImage,
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          scrollTrigger: {
+            trigger: rightImage,
+            start: () => `top 70%`,
+          },
+          opacity: 1,
+          y: 0,
+          ease: "Quad.easeOut",
+        }
+      )
+      gsap.fromTo(
+        leftImage,
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          scrollTrigger: {
+            trigger: leftImage,
+            start: () => `top 70%`,
+          },
+          opacity: 1,
+          y: 0,
+          ease: "Quad.easeOut",
+        }
+      )
+    }
   }, [])
 
   return (

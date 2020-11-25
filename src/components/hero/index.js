@@ -8,7 +8,11 @@ const Hero = ({ title, text, cta }) => {
         <div className="hero__left">
           <h1 className="h1">{title}</h1>
           <p className="hero__text">{text}</p>
-          <Button to="#" className="mt-48 d-center-center">
+          <Button
+            to="mailto:bonjour@twobirds.design?subject=On%20vole%20ensemble%20?"
+            as="a"
+            className="mt-48 d-center-center"
+          >
             {cta}
           </Button>
         </div>

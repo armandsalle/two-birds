@@ -17,13 +17,13 @@ const Layout = ({ children, location }) => {
       gsap.to(node, {
         opacity: 0,
         duration: 0.25,
-        onStart: () => {
-          document.querySelector("body").style.pointerEvents = "none"
-          console.log("transition start")
-        },
-        onComplete: () => {
-          document.querySelector("body").style.pointerEvents = "all"
-        },
+        // onStart: () => {
+        //   document.querySelector("body").style.pointerEvents = "none"
+        //   console.log("transition start")
+        // },
+        // onComplete: () => {
+        //   document.querySelector("body").style.pointerEvents = "all"
+        // },
       })
     }
   }

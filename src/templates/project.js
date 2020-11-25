@@ -5,14 +5,34 @@ import { gsap } from "gsap"
 import SEO from "../components/seo"
 import CustomRichText from "../components/richText"
 import ProjectSlices from "../components/projectSlices"
-import SocialLink from "../components/scocialLink"
-import Button from "../components/button"
+import FooterProject from "../components/footerProject"
 
 const Project = ({
   data: {
-    prismic: { project, layout },
+    prismic: { layout, allProjects },
   },
+  pageContext: { uid },
 }) => {
+  const {
+    footerTwitter,
+    footerLinkedin,
+    footerInstagram,
+    footerFacebook,
+    footerDribbble,
+    footerBehance,
+  } = layout.edges.slice(0, 1).pop().node
+
+  const { projectssList } = allProjects
+
+  let currId = 0
+  projectssList.forEach((pr, i) => {
+    if (pr.projectsItem._meta.uid === uid) {
+      currId = i
+    }
+  })
+
+  const nextProjectId = currId + 1 > projectssList.length - 1 ? 0 : currId + 1
+
   const {
     projectName,
     projectTitleRich,
@@ -23,16 +43,9 @@ const Project = ({
     projectTags,
     projectDate,
     body,
-  } = project
+  } = projectssList[currId].projectsItem
 
-  const {
-    footerTwitter,
-    footerLinkedin,
-    footerInstagram,
-    footerFacebook,
-    footerDribbble,
-    footerBehance,
-  } = layout.edges.slice(0, 1).pop().node
+  const nextProject = projectssList[nextProjectId].projectsItem
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -184,30 +197,45 @@ const Project = ({
         </div>
       </header>
       <ProjectSlices slices={body} />
-      <footer className="footer-project container">
-        <h2 className="h2 text-center">You have a project?</h2>
-        <Button to="#" className="mt-40">
-          Contact us
-        </Button>
-        <p className="footer-project__info  text-center">Or get in touch on</p>
-        <div className="footer-project__links">
-          {footerDribbble && <SocialLink to={footerDribbble} is="dribble" />}
-          {footerBehance && <SocialLink to={footerBehance} is="behance" />}
-          {footerTwitter && <SocialLink to={footerTwitter} is="twitter" />}
-          {footerInstagram && (
-            <SocialLink to={footerInstagram} is="instagram" />
-          )}
-          {footerFacebook && <SocialLink to={footerFacebook} is="facebook" />}
-          {footerLinkedin && <SocialLink to={footerLinkedin} is="linkedin" />}
-        </div>
-      </footer>
+      <FooterProject
+        dribbble={footerDribbble}
+        behance={footerBehance}
+        twitter={footerTwitter}
+        instagram={footerInstagram}
+        facebook={footerFacebook}
+        linkedin={footerLinkedin}
+      />
       <div className="line"></div>
+      <section className="project-transition">
+        <div className="project-transition__bg"></div>
+        <div className="container">
+          {nextProject.projectLogoSharp.fluid ? (
+            <Img
+              fluid={nextProject.projectLogoSharp.fluid}
+              alt={nextProject.projectLogo?.alt}
+              className="project-transition__logo"
+              fadeIn={false}
+            />
+          ) : (
+            <img
+              src={nextProject.projectLogo.url}
+              alt={nextProject.projectLogo?.alt}
+              className="project-transition__logo"
+            />
+          )}
+          <h1 className="h2 mt-16">
+            {nextProject.projectTitleRich.map((t, i) => (
+              <span key={i}>{t.text}</span>
+            ))}
+          </h1>
+        </div>
+      </section>
     </>
   )
 }
 
 export const projectQuery = graphql`
-  query projectPage($uid: String!) {
+  query projectPage {
     prismic {
       layout: allLayouts {
         edges {
@@ -221,73 +249,149 @@ export const projectQuery = graphql`
           }
         }
       }
-      project: projects(uid: $uid, lang: "fr-fr") {
-        projectLogo
-        projectLogoSharp {
-          childImageSharp {
-            fluid(maxWidth: 64, quality: 70) {
-              ...GatsbyImageSharpFluid_withWebp_noBase64
-            }
-          }
-        }
-        projectTitleRich
-        projectName
-        preojectDescription
-        projectLink
-        projectTags {
-          projectTag
-        }
-        projectDate
-        body {
-          ... on PRISMIC_ProjectsBodyImage_full {
-            type
-            primary {
-              imageFull
-              imageFullSharp {
+      allProjects: home(lang: "fr-fr", uid: "home") {
+        projectssList {
+          projectsItem {
+            ... on PRISMIC_Projects {
+              _meta {
+                uid
+              }
+              projectLogo
+              projectLogoSharp {
                 childImageSharp {
-                  fluid(maxWidth: 1920, quality: 70) {
+                  fluid(maxWidth: 64, quality: 70) {
                     ...GatsbyImageSharpFluid_withWebp_noBase64
                   }
                 }
               }
-            }
-          }
-          ... on PRISMIC_ProjectsBodyImage_double {
-            type
-            primary {
-              leftImage
-              leftImageSharp {
-                childImageSharp {
-                  fluid(maxWidth: 944, quality: 70) {
-                    ...GatsbyImageSharpFluid_withWebp_noBase64
+              projectTitleRich
+              projectName
+              preojectDescription
+              projectLink
+              projectTags {
+                projectTag
+              }
+              projectDate
+              body {
+                ... on PRISMIC_ProjectsBodyImage_full {
+                  type
+                  primary {
+                    imageFull
+                    imageFullSharp {
+                      childImageSharp {
+                        fluid(maxWidth: 1920, quality: 70) {
+                          ...GatsbyImageSharpFluid_withWebp_noBase64
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on PRISMIC_ProjectsBodyImage_double {
+                  type
+                  primary {
+                    leftImage
+                    leftImageSharp {
+                      childImageSharp {
+                        fluid(maxWidth: 944, quality: 70) {
+                          ...GatsbyImageSharpFluid_withWebp_noBase64
+                        }
+                      }
+                    }
+                    rightImage
+                    rightImageSharp {
+                      childImageSharp {
+                        fluid(maxWidth: 944, quality: 70) {
+                          ...GatsbyImageSharpFluid_withWebp_noBase64
+                        }
+                      }
+                    }
+                  }
+                }
+                ... on PRISMIC_ProjectsBodyNumbers {
+                  type
+                  fields {
+                    numberText
+                    numberTitle
+                  }
+                }
+                ... on PRISMIC_ProjectsBodyDescription {
+                  type
+                  primary {
+                    description
                   }
                 }
               }
-              rightImage
-              rightImageSharp {
-                childImageSharp {
-                  fluid(maxWidth: 944, quality: 70) {
-                    ...GatsbyImageSharpFluid_withWebp_noBase64
-                  }
-                }
-              }
-            }
-          }
-          ... on PRISMIC_ProjectsBodyNumbers {
-            type
-            fields {
-              numberText
-              numberTitle
-            }
-          }
-          ... on PRISMIC_ProjectsBodyDescription {
-            type
-            primary {
-              description
             }
           }
         }
       }
+      # project: projects(uid: $uid, lang: "fr-fr") {
+      #   projectLogo
+      #   projectLogoSharp {
+      #     childImageSharp {
+      #       fluid(maxWidth: 64, quality: 70) {
+      #         ...GatsbyImageSharpFluid_withWebp_noBase64
+      #       }
+      #     }
+      #   }
+      #   projectTitleRich
+      #   projectName
+      #   preojectDescription
+      #   projectLink
+      #   projectTags {
+      #     projectTag
+      #   }
+      #   projectDate
+      #   body {
+      #     ... on PRISMIC_ProjectsBodyImage_full {
+      #       type
+      #       primary {
+      #         imageFull
+      #         imageFullSharp {
+      #           childImageSharp {
+      #             fluid(maxWidth: 1920, quality: 70) {
+      #               ...GatsbyImageSharpFluid_withWebp_noBase64
+      #             }
+      #           }
+      #         }
+      #       }
+      #     }
+      #     ... on PRISMIC_ProjectsBodyImage_double {
+      #       type
+      #       primary {
+      #         leftImage
+      #         leftImageSharp {
+      #           childImageSharp {
+      #             fluid(maxWidth: 944, quality: 70) {
+      #               ...GatsbyImageSharpFluid_withWebp_noBase64
+      #             }
+      #           }
+      #         }
+      #         rightImage
+      #         rightImageSharp {
+      #           childImageSharp {
+      #             fluid(maxWidth: 944, quality: 70) {
+      #               ...GatsbyImageSharpFluid_withWebp_noBase64
+      #             }
+      #           }
+      #         }
+      #       }
+      #     }
+      #     ... on PRISMIC_ProjectsBodyNumbers {
+      #       type
+      #       fields {
+      #         numberText
+      #         numberTitle
+      #       }
+      #     }
+      #     ... on PRISMIC_ProjectsBodyDescription {
+      #       type
+      #       primary {
+      #         description
+      #       }
+      #     }
+      #   }
+      # }
     }
   }
 `
