@@ -4,7 +4,7 @@ require("dotenv").config({
 
 module.exports = {
   siteMetadata: {
-    title: `Two Birds`,
+    title: `twobirds.`,
     description: `Two Birds`,
   },
   plugins: [
@@ -74,7 +74,7 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Two Birds`,
-        short_name: `TwoBirds`,
+        short_name: `twobirds.`,
         start_url: `/`,
         lang: `en`,
         theme_color_in_head: false,
