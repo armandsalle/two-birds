@@ -20,6 +20,7 @@ const reveal = (
       opacity: 1,
       y: 0,
       ease: "Quad.easeOut",
+      duration: 1,
     }
   )
 }
