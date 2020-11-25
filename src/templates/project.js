@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { graphql, Link } from "gatsby"
+import { graphql, Link, navigate } from "gatsby"
 import Img from "gatsby-image"
 import { gsap } from "gsap"
 import SEO from "../components/seo"
@@ -46,6 +46,22 @@ const Project = ({
   } = projectssList[currId].projectsItem
 
   const nextProject = projectssList[nextProjectId].projectsItem
+
+  useEffect(() => {
+    const navigateToNextProject = () => {
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+        document.querySelector("body").style.overflowY = "hidden"
+        setTimeout(() => {
+          navigate("/" + nextProject._meta.uid)
+        }, 1000)
+      }
+    }
+    window.addEventListener("scroll", navigateToNextProject)
+
+    return () => {
+      window.removeEventListener("scroll", navigateToNextProject)
+    }
+  }, [nextProject._meta.uid])
 
   useEffect(() => {
     const tl = gsap.timeline({
