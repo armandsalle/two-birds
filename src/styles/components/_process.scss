@@ -15,12 +15,14 @@
     padding: 2.4rem 3.2rem 5.6rem 3.2rem;
     border-radius: 2.4rem;
     background-color: transparent;
-    transition: background-color .2s cubic-bezier(.17, .67, .78, .98);
+
 
     &:hover {
+        transition: background-color .2s cubic-bezier(.17, .67, .78, .98);
         background-color: var(--color-purple-grey);
 
         ul {
+            transition: all .2s cubic-bezier(.17, .67, .78, .98);
             color: var(--color-black);
             transform: translateY(0);
         }
@@ -32,8 +34,12 @@
         justify-content: space-between;
         width: 93%;
         margin-bottom: 6.4rem;
-        background-color: var(--color-purple-grey);
+        //background-color: var(--color-purple-grey);
         padding: 4rem 8rem 5.6rem 2.4rem;
+
+        &:hover {
+            background-color: transparent;
+        }
 
         &:nth-child(even) {
             flex-direction: row-reverse;
@@ -61,11 +67,6 @@
             padding-left: 1.6rem;
             padding-right: 1.6rem;
         }
-    }
-
-    @media (hover: none) {
-        background-color: var(--color-purple-grey);
-
     }
 
     & .fake-img {
@@ -117,7 +118,7 @@
         padding-left: 2.2rem;
         color: var(--color-white);
         transform: translateY(2rem);
-        transition: all .2s cubic-bezier(.17, .67, .78, .98);
+
 
         @include media("<tablet") {
             color: var(--color-black);

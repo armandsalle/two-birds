@@ -41,13 +41,16 @@
 .project-header {
     margin-bottom: 16rem;
 
+    @include media("<lanscape") {
+        margin-bottom: 8rem;
+    }
+
     h1 {
         max-width: 80rem;
         perspective: 600px;
 
         span {
             display: block;
-
         }
 
         @include media("<tablet") {
