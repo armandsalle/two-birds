@@ -10,22 +10,30 @@ import Loaded from "../loaded"
 gsap.registerPlugin(ScrollTrigger)
 
 const Layout = ({ children, location }) => {
-  const { animationsCanRuns } = useContext(AnimationContext)
+  const {
+    animationsCanRuns,
+    exitAnimation,
+    enterAnimation,
+    setProjectAnimationCanRuns,
+  } = useContext(AnimationContext)
 
   const playExit = node => {
-    if (animationsCanRuns) {
+    if (animationsCanRuns && exitAnimation === "opacity") {
       gsap.to(node, {
         opacity: 0,
         duration: 0.25,
         onStart: () => {
           document.querySelector("body").style.pointerEvents = "none"
         },
+        onComplete: () => {
+          setProjectAnimationCanRuns(true)
+        },
       })
     }
   }
 
   const playEnter = () => {
-    if (animationsCanRuns) {
+    if (animationsCanRuns && enterAnimation === "opacity") {
       gsap.fromTo(
         "main",
         {
@@ -40,6 +48,8 @@ const Layout = ({ children, location }) => {
           },
         }
       )
+    } else {
+      document.querySelector("body").style.overflowY = "unset"
     }
   }
 
