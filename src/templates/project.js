@@ -80,16 +80,16 @@ const Project = ({
           opacity: 0,
           duration: 1,
         })
-        tl.to(
-          ".get-back",
+        // tl.to(
+        //   ".get-back",
 
-          {
-            opacity: 0,
-            y: -80,
-            duration: 1,
-          },
-          0
-        )
+        //   {
+        //     opacity: 0,
+        //     y: -80,
+        //     duration: 1,
+        //   },
+        //   0
+        // )
         tl.to(".line", { opacity: 0 }, 0)
         tl.to(
           ".project-transition__bg",

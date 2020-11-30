@@ -57,6 +57,8 @@ module.exports = {
           "rightImage",
           "seoImage",
           "birdsImage",
+          "birdsImageHover",
+          "birdsImageLookingAt",
           "siteImage",
           "siteLogo",
         ],

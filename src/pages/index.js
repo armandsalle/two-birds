@@ -86,6 +86,22 @@ export const indexQuery = graphql`
           birdsName
           birdsLinkedin
           birdsInstagram
+          birdsImageHover
+          birdsImageHoverSharp {
+            childImageSharp {
+              fluid(maxWidth: 512, quality: 70) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
+              }
+            }
+          }
+          birdsImageLookingAt
+          birdsImageLookingAtSharp {
+            childImageSharp {
+              fluid(maxWidth: 512, quality: 70) {
+                ...GatsbyImageSharpFluid_withWebp_noBase64
+              }
+            }
+          }
           birdsImage
           birdsImageSharp {
             childImageSharp {

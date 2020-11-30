@@ -7,7 +7,9 @@
     overflow: hidden;
     user-select: none;
     pointer-events: none;
-    z-index: 15;
+    z-index: 9999999;
+    // mix-blend-mode: difference;
+    color: var(--color-black);
 }
 
 .cursor {
@@ -20,7 +22,8 @@
     width: 8rem;
     height: 8rem;
     border-radius: 50%;
-    background-color: var(--color-black);
+    background-color: currentColor;
+
     transform-origin: 50% 50%;
     transform: translate(-50%, -50%) scale(.2);
     display: flex;

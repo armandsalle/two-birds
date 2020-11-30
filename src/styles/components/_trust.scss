@@ -20,10 +20,9 @@
             flex-direction: column;
         }
 
-
         &__half {
             width: 50%;
-            padding: 0 4rem;
+            position: relative;
 
             @include media("<lanscape") {
                 width: 100%;
@@ -34,10 +33,12 @@
                 }
             }
 
-            & .img {
-                position: relative;
+            &__header {
                 width: 100%;
-                opacity: 0;
+                max-width: 60.8rem;
+                height: 0;
+                padding-top: 81.25%;
+                position: relative;
 
                 &.left {
                     transform: translateX(10rem);
@@ -45,6 +46,35 @@
 
                 &.right {
                     transform: translateX(-10rem);
+                }
+            }
+
+            &__content {
+                padding: 0 4rem;
+
+                & .richtext a {
+                    text-decoration: underline;
+                }
+            }
+
+            & .img {
+                position: absolute;
+
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                opacity: 0;
+
+                &:last-child {
+                    opacity: 1;
+                }
+
+                &.hover .lottie {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    z-index: 4;
                 }
 
                 &.gatsby-image-wrapper {
