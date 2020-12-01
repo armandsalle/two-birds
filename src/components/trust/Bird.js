@@ -13,7 +13,7 @@ const Bird = ({ align, bird, anim }) => {
   const textRef = useRef()
   const socialRef = useRef()
 
-  const [animPlay, setAnimPlay] = useState()
+  const [animPlay, setAnimPlay] = useState(false)
 
   useEffect(() => {
     reveal(titleRef.current, titleRef.current, false, "70%")
@@ -83,7 +83,7 @@ const Bird = ({ align, bird, anim }) => {
         </div>
         <div className="img hover">
           <div className="lottie">
-            <Lottie animationData={JSON.parse(anim)} autoPlay={animPlay} />
+            <Lottie animationData={anim} autoplay={animPlay} />
           </div>
           <Img
             fluid={bird.birdsImageHoverSharp.childImageSharp.fluid}

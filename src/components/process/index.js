@@ -2,6 +2,15 @@ import React, { useEffect, useRef } from "react"
 import ProcessItem from "./ProcessItem"
 import { gsap } from "gsap"
 import reveal from "../../animations/reveal"
+import serviceHummingbird from "../../images/serviceHummingbird.json"
+import serviceOwl from "../../images/serviceOwl.json"
+import serviceToucan from "../../images/serviceToucan.json"
+
+const animations = [
+  JSON.parse(serviceHummingbird),
+  JSON.parse(serviceOwl),
+  JSON.parse(serviceToucan),
+]
 
 const Process = ({ title, processList }) => {
   const titleRef = useRef(null)
@@ -42,6 +51,7 @@ const Process = ({ title, processList }) => {
             title={processName}
             desc={processText}
             items={processItems}
+            anim={animations[i]}
           />
         ))}
       </div>
