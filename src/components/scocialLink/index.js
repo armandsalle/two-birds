@@ -1,4 +1,5 @@
 import React from "react"
+import { socialEnter, socialLeave } from "../../animations/cursor"
 
 const SocialLink = ({ to = "#", is = "twitter" }) => {
   const icones = {
@@ -112,7 +113,14 @@ const SocialLink = ({ to = "#", is = "twitter" }) => {
     ),
   }
   return (
-    <a href={to} target="_blank" rel="noreferrer" className="social-link">
+    <a
+      href={to}
+      target="_blank"
+      rel="noreferrer"
+      className="social-link"
+      onMouseEnter={socialEnter}
+      onMouseLeave={socialLeave}
+    >
       {icones[is]}
     </a>
   )

@@ -1,8 +1,11 @@
 import { gsap } from "gsap"
+import { isTouchDevice } from "../hooks/useIsTouchDesign"
 
 const colors = {
   pink: "rgb(255, 90, 120)",
+  green: "rgb(0, 165, 135)",
   black: "rgb(0, 0, 0)",
+  white: "rgb(255, 255, 255)",
 }
 
 const mouseEnter = () => {
@@ -43,4 +46,32 @@ const mouseClick = () => {
   })
 }
 
-export { mouseEnter, mouseLeave, mouseClick }
+const socialEnter = () => {
+  if (isTouchDevice()) {
+    return
+  }
+  gsap.set(".cursor-wrapper", { mixBlendMode: "difference" })
+  gsap.set(".cursor", {
+    backgroundColor: colors.white,
+  })
+  gsap.to(".cursor", {
+    scale: 1,
+    duration: 0.2,
+  })
+}
+
+const socialLeave = () => {
+  if (isTouchDevice()) {
+    return
+  }
+  gsap.set(".cursor-wrapper", { mixBlendMode: "normal" })
+  gsap.set(".cursor", {
+    backgroundColor: colors.black,
+  })
+  gsap.to(".cursor", {
+    scale: 0.2,
+    duration: 0.2,
+  })
+}
+
+export { mouseEnter, mouseLeave, mouseClick, socialEnter, socialLeave }

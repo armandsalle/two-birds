@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-function isTouchDevice() {
+export function isTouchDevice() {
   return (
     !!(
       typeof window !== "undefined" &&

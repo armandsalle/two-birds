@@ -2,6 +2,7 @@ import { Link } from "gatsby"
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import SocialLink from "../scocialLink"
+import { socialEnter, socialLeave } from "../../animations/cursor"
 
 const Footer = () => {
   const { prismic } = useStaticQuery(
@@ -58,9 +59,15 @@ const Footer = () => {
           {footerLinkedin && <SocialLink to={footerLinkedin} is="linkedin" />}
         </div>
         <div className="footer__links mt-16">
-          <Link to="#">Parlez-vous français ?</Link>
-          <Link to="#">Legal</Link>
-          <Link to="#">Cookies</Link>
+          <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
+            Parlez-vous français ?
+          </Link>
+          <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
+            Legal
+          </Link>
+          <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
+            Cookies
+          </Link>
         </div>
       </div>
     </footer>
