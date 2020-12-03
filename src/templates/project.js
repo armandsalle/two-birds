@@ -8,6 +8,7 @@ import FooterProject from "../components/footerProject"
 // import { AnimationContext } from "../contexts/animationContext"
 import ProjectHeader from "../components/projectHeader"
 import ProjectNav from "../components/projectNav"
+import { mouseEnter, mouseLeave, mouseClick } from "../animations/cursor"
 
 const Project = ({
   data: {
@@ -66,57 +67,47 @@ const Project = ({
 
   useEffect(() => {
     const navigateToNextProject = () => {
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-        document.querySelector("body").style.overflowY = "hidden"
+      document.querySelector("body").style.overflowY = "hidden"
 
-        const transitionContainerRect = document
-          .querySelector(".project-transition .container")
-          .getBoundingClientRect()
+      const transitionContainerRect = document
+        .querySelector(".project-transition .container")
+        .getBoundingClientRect()
 
-        const ydDiff = transitionContainerRect.y - headerRect
-        const tl = gsap.timeline()
+      const ydDiff = transitionContainerRect.y - headerRect
 
-        tl.to(".project-header, .all-slices, footer", {
-          opacity: 0,
+      const tl = gsap.timeline()
+
+      tl.to(".project-header, .all-slices, footer", {
+        opacity: 0,
+        duration: 1,
+      })
+      tl.to(".line", { opacity: 0, duration: 0.1 }, 0)
+      tl.to(
+        ".project-transition__bg",
+        {
+          scaleY: 4,
           duration: 1,
-        })
-        // tl.to(
-        //   ".get-back",
-
-        //   {
-        //     opacity: 0,
-        //     y: -80,
-        //     duration: 1,
-        //   },
-        //   0
-        // )
-        tl.to(".line", { opacity: 0 }, 0)
-        tl.to(
-          ".project-transition__bg",
-          {
-            scaleY: 4,
-            duration: 1,
+        },
+        0
+      )
+      tl.to(
+        ".project-transition .container",
+        {
+          duration: 1.5,
+          y: -ydDiff,
+          onComplete: () => {
+            navigate("/" + nextProject._meta.uid)
           },
-          0
-        )
-        tl.to(
-          ".project-transition .container",
-          {
-            duration: 1.5,
-            y: -ydDiff,
-            onComplete: () => {
-              navigate("/" + nextProject._meta.uid)
-            },
-          },
-          0
-        )
-      }
+        },
+        0
+      )
     }
 
-    window.addEventListener("scroll", navigateToNextProject)
+    const pageTransitionTag = document.querySelector(".project-transition")
+    pageTransitionTag.addEventListener("click", navigateToNextProject)
 
     return () => {
-      window.removeEventListener("scroll", navigateToNextProject)
+      pageTransitionTag.removeEventListener("click", navigateToNextProject)
     }
   }, [nextProject._meta.uid, headerRect])
 
@@ -218,7 +209,12 @@ const Project = ({
         linkedin={footerLinkedin}
       />
       <div className="line"></div>
-      <section className="project-transition">
+      <section
+        className="project-transition"
+        onMouseEnter={mouseEnter}
+        onMouseLeave={mouseLeave}
+        onClick={mouseClick}
+      >
         <div className="project-transition__bg"></div>
         <div className="container" style={{ zIndex: 8, position: "relative" }}>
           {nextProject.projectLogoSharp.fluid ? (
