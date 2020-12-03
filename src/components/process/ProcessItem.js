@@ -1,21 +1,22 @@
-import React, { useState, useCallback } from "react"
+import React, { useEffect, useRef, useCallback } from "react"
 import CustomRichText from "../richText"
 import Lottie from "lottie-react"
 
 const ProcessItem = ({ title, desc, items, anim }) => {
-  const [animPlay, setAnimPlay] = useState(false)
+  // const [animPlay, setAnimPlay] = useState(false)
+  const lottieRef = useRef()
 
-  const hoverImg = useCallback(
-    (e, state) => {
-      if (state === "in") {
-        setAnimPlay(true)
-      }
-      if (state === "out") {
-        setAnimPlay(false)
-      }
-    },
-    [setAnimPlay]
-  )
+  useEffect(() => {
+    lottieRef.current.pause()
+  }, [])
+  const hoverImg = useCallback((e, state) => {
+    if (state === "in") {
+      lottieRef.current.play()
+    }
+    if (state === "out") {
+      lottieRef.current.stop()
+    }
+  }, [])
 
   return (
     <div
@@ -24,7 +25,7 @@ const ProcessItem = ({ title, desc, items, anim }) => {
       onMouseLeave={e => hoverImg(e, "out")}
     >
       <div className="fake-img">
-        <Lottie animationData={anim} autoplay={animPlay} />
+        <Lottie animationData={anim} lottieRef={lottieRef} />
       </div>
       <div className="process-item__content">
         <h3 className="h3">{title}</h3>

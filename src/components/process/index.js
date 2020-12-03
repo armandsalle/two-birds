@@ -4,13 +4,9 @@ import { gsap } from "gsap"
 import reveal from "../../animations/reveal"
 import serviceHummingbird from "../../images/serviceHummingbird.json"
 import serviceOwl from "../../images/serviceOwl.json"
-import serviceToucan from "../../images/serviceToucan.json"
+import toucan from "../../images/serviceToucan.json"
 
-const animations = [
-  JSON.parse(serviceHummingbird),
-  JSON.parse(serviceOwl),
-  JSON.parse(serviceToucan),
-]
+const animations = [serviceHummingbird, serviceOwl, toucan]
 
 const Process = ({ title, processList }) => {
   const titleRef = useRef(null)
