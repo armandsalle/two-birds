@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useContext } from "react"
 import { graphql } from "gatsby"
 import Header from "../components/header"
 import Hero from "../components/hero"
@@ -8,6 +8,7 @@ import Trust from "../components/trust"
 import Contact from "../components/contact"
 import Footer from "../components/footer"
 import SEO from "../components/seo"
+import { AnimationContext } from "../contexts/animationContext"
 
 export default function Home({
   data: {
@@ -29,6 +30,12 @@ export default function Home({
     },
   },
 }) {
+  const { setIsOnProjectPage } = useContext(AnimationContext)
+
+  useEffect(() => {
+    setIsOnProjectPage(false)
+  }, [setIsOnProjectPage])
+
   return (
     <>
       <SEO title="" />

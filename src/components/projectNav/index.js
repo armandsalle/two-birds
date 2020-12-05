@@ -1,9 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
 
-const ProjectNav = () => {
+const ProjectNav = ({ is }) => {
   return (
-    <nav className="get-back">
+    <nav className="get-back" style={{ display: is ? "block" : "none" }}>
       <Link to="/">
         <svg
           width="40"

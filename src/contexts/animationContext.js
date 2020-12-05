@@ -7,8 +7,8 @@ const defaultState = {
   setEnterAnimation: () => {},
   animationsCanRuns: false,
   setAnimationsCanRuns: () => {},
-  projectAnimationCanRuns: true,
-  setProjectAnimationCanRuns: () => {},
+  isOnProjectPage: false,
+  setIsOnProjectPage: () => {},
 }
 export const AnimationContext = createContext(defaultState)
 
@@ -16,7 +16,7 @@ export const AnimationProvider = ({ children }) => {
   const [exitAnimation, setExitAnimation] = useState("opacity")
   const [enterAnimation, setEnterAnimation] = useState("opacity")
   const [animationsCanRuns, setAnimationsCanRuns] = useState(false)
-  const [projectAnimationCanRuns, setProjectAnimationCanRuns] = useState(true)
+  const [isOnProjectPage, setIsOnProjectPage] = useState(false)
 
   return (
     <AnimationContext.Provider
@@ -27,8 +27,8 @@ export const AnimationProvider = ({ children }) => {
         setEnterAnimation,
         animationsCanRuns,
         setAnimationsCanRuns,
-        projectAnimationCanRuns,
-        setProjectAnimationCanRuns,
+        isOnProjectPage,
+        setIsOnProjectPage,
       }}
     >
       {children}

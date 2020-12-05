@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { graphql, navigate } from "gatsby"
-import Img from "gatsby-image"
-import { gsap } from "gsap"
+import React, { useEffect, useContext } from "react"
+import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import ProjectSlices from "../components/projectSlices"
 import FooterProject from "../components/footerProject"
-// import { AnimationContext } from "../contexts/animationContext"
 import ProjectHeader from "../components/projectHeader"
-import ProjectNav from "../components/projectNav"
-import { mouseEnter, mouseLeave, mouseClick } from "../animations/cursor"
+import ProjectTransition from "../components/projectTransition"
+import gsap from "gsap/gsap-core"
+import { animationStatut, setAnimation } from "../contexts/animationState"
+import { AnimationContext } from "../contexts/animationContext"
 
 const Project = ({
   data: {
@@ -16,10 +15,6 @@ const Project = ({
   },
   pageContext: { uid },
 }) => {
-  // const { projectAnimationCanRuns, setProjectAnimationCanRuns } = useContext(
-  //   AnimationContext
-  // )
-
   const {
     footerTwitter,
     footerLinkedin,
@@ -55,95 +50,58 @@ const Project = ({
 
   const nextProject = projectssList[nextProjectId].projectsItem
 
-  const [headerRect, setHeaderRect] = useState()
+  const { setIsOnProjectPage } = useContext(AnimationContext)
 
   useEffect(() => {
-    const haederRect = document
-      .querySelector(".project-header")
-      .getBoundingClientRect()
-
-    setHeaderRect(haederRect.y)
-  }, [setHeaderRect])
+    setIsOnProjectPage(true)
+  }, [setIsOnProjectPage])
 
   useEffect(() => {
-    const navigateToNextProject = () => {
-      document.querySelector("body").style.overflowY = "hidden"
-
-      const transitionContainerRect = document
-        .querySelector(".project-transition .container")
-        .getBoundingClientRect()
-
-      const ydDiff = transitionContainerRect.y - headerRect
-
-      const tl = gsap.timeline()
-
-      tl.to(".project-header, .all-slices, footer", {
-        opacity: 0,
-        duration: 1,
-      })
-      tl.to(".line", { opacity: 0, duration: 0.1 }, 0)
-      tl.to(
-        ".project-transition__bg",
-        {
-          scaleY: 4,
-          duration: 1,
-        },
-        0
-      )
-      tl.to(
-        ".project-transition .container",
-        {
-          duration: 1.5,
-          y: -ydDiff,
-          onComplete: () => {
-            navigate("/" + nextProject._meta.uid)
-          },
-        },
-        0
-      )
-    }
-
-    const pageTransitionTag = document.querySelector(".project-transition")
-    pageTransitionTag.addEventListener("click", navigateToNextProject)
-
-    return () => {
-      pageTransitionTag.removeEventListener("click", navigateToNextProject)
-    }
-  }, [nextProject._meta.uid, headerRect])
-
-  useEffect(() => {
-    const tl = gsap.timeline({
-      ease: "Quad.easeOut",
-    })
-
-    tl.fromTo(
-      ".project-header__logo",
-      {
-        opacity: 0,
-        y: 80,
-      },
-      {
+    if (animationStatut === "TRANSITION") {
+      gsap.set(".project-header__logo", {
         opacity: 1,
         y: 0,
-        duration: 1,
-      }
-    ).fromTo(
-      ".project-header__title span",
-      {
-        y: "100%",
-        rotateX: "-40deg",
-        opacity: 0,
-      },
-      {
+      })
+      gsap.set(".project-header__title span", {
         y: "0%",
         rotateX: 0,
         opacity: 1,
-        duration: 1,
-        stagger: 0.13,
-      },
-      0.3
-    )
+      })
+    }
 
+    const tl = gsap.timeline({
+      ease: "Quad.easeOut",
+      paused: true,
+    })
+    if (animationStatut === "ORIGINAL") {
+      tl.fromTo(
+        ".project-header__logo",
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+        }
+      ).fromTo(
+        ".project-header__title span",
+        {
+          y: "100%",
+          rotateX: "-40deg",
+          opacity: 0,
+        },
+        {
+          y: "0%",
+          rotateX: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.13,
+        },
+        0.3
+      )
+    }
     tl.fromTo(
       ".project-header__description",
       {
@@ -170,22 +128,27 @@ const Project = ({
       },
       0.9
     )
-    tl.fromTo(
-      ".get-back",
-      { opacity: 0, y: -80 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-      },
-      1.8
-    )
+    if (animationStatut === "ORIGINAL") {
+      tl.fromTo(
+        ".get-back",
+        { opacity: 0, y: -80 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+        },
+        1.8
+      )
+    }
+
+    tl.play()
+    setAnimation("ORIGINAL")
   }, [])
 
   return (
     <>
       <SEO title={projectName} />
-      <ProjectNav />
+
       <ProjectHeader
         infos={{
           projectTitleRich,
@@ -209,35 +172,7 @@ const Project = ({
         linkedin={footerLinkedin}
       />
       <div className="line"></div>
-      <section
-        className="project-transition"
-        onMouseEnter={mouseEnter}
-        onMouseLeave={mouseLeave}
-        onClick={mouseClick}
-      >
-        <div className="project-transition__bg"></div>
-        <div className="container" style={{ zIndex: 8, position: "relative" }}>
-          {nextProject.projectLogoSharp.fluid ? (
-            <Img
-              fluid={nextProject.projectLogoSharp.fluid}
-              alt={nextProject.projectLogo?.alt}
-              className="project-transition__logo"
-              fadeIn={false}
-            />
-          ) : (
-            <img
-              src={nextProject.projectLogo.url}
-              alt={nextProject.projectLogo?.alt}
-              className="project-transition__logo"
-            />
-          )}
-          <h1 className="h2 mt-16">
-            {nextProject.projectTitleRich.map((t, i) => (
-              <span key={i}>{t.text}</span>
-            ))}
-          </h1>
-        </div>
-      </section>
+      <ProjectTransition nextProject={nextProject} />
     </>
   )
 }

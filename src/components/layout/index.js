@@ -6,6 +6,9 @@ import { Transition, SwitchTransition } from "react-transition-group"
 import { AnimationContext } from "../../contexts/animationContext"
 import Cursor from "../cursor"
 import Loaded from "../loaded"
+import ProjectNav from "../projectNav"
+import { useEffect } from "react"
+import { useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -14,8 +17,14 @@ const Layout = ({ children, location }) => {
     animationsCanRuns,
     exitAnimation,
     enterAnimation,
-    setProjectAnimationCanRuns,
+    isOnProjectPage,
   } = useContext(AnimationContext)
+
+  const [isHomePage, setHomePage] = useState()
+
+  useEffect(() => {
+    setHomePage(location.pathname.length === 1)
+  }, [setHomePage, location])
 
   const playExit = node => {
     if (animationsCanRuns && exitAnimation === "opacity") {
@@ -25,10 +34,9 @@ const Layout = ({ children, location }) => {
         onStart: () => {
           document.querySelector("body").style.pointerEvents = "none"
         },
-        onComplete: () => {
-          setProjectAnimationCanRuns(true)
-        },
       })
+    } else {
+      document.querySelector("body").style.pointerEvents = "none"
     }
   }
 
@@ -49,6 +57,7 @@ const Layout = ({ children, location }) => {
         }
       )
     } else {
+      document.querySelector("body").style.pointerEvents = "all"
       document.querySelector("body").style.overflowY = "unset"
     }
   }
@@ -66,6 +75,7 @@ const Layout = ({ children, location }) => {
           <main>{children}</main>
         </Transition>
       </SwitchTransition>
+      <ProjectNav is={isOnProjectPage} />
     </Loaded>
   )
 }
