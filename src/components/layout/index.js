@@ -7,8 +7,8 @@ import { AnimationContext } from "../../contexts/animationContext"
 import Cursor from "../cursor"
 import Loaded from "../loaded"
 import ProjectNav from "../projectNav"
-import { useEffect } from "react"
-import { useState } from "react"
+// import { useEffect } from "react"
+// import { useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -20,11 +20,11 @@ const Layout = ({ children, location }) => {
     isOnProjectPage,
   } = useContext(AnimationContext)
 
-  const [isHomePage, setHomePage] = useState()
+  // const [isHomePage, setHomePage] = useState()
 
-  useEffect(() => {
-    setHomePage(location.pathname.length === 1)
-  }, [setHomePage, location])
+  // useEffect(() => {
+  //   setHomePage(location.pathname.length === 1)
+  // }, [setHomePage, location])
 
   const playExit = node => {
     if (animationsCanRuns && exitAnimation === "opacity") {
