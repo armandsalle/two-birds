@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Img from "gatsby-image"
 import CustomRichText from "../richText"
+import { socialEnter, socialLeave } from "../../animations/cursor"
 
 const ProjectHeader = ({
   infos: {
@@ -13,6 +14,34 @@ const ProjectHeader = ({
     projectDate,
   },
 }) => {
+  useEffect(() => {
+    const links = [
+      ...document.querySelectorAll(".project-header__description.richtext a"),
+    ]
+
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => {
+        socialEnter()
+      })
+
+      link.addEventListener("mouseleave", () => {
+        socialLeave()
+      })
+    })
+
+    return () => {
+      links.forEach(link => {
+        link.removeEventListener("mouseenter", () => {
+          socialEnter()
+        })
+
+        link.removeEventListener("mouseleave", () => {
+          socialLeave()
+        })
+      })
+    }
+  }, [])
+
   return (
     <header className="container mt-240 project-header">
       {projectLogoSharp.fluid ? (

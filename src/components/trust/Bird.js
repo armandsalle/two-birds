@@ -6,6 +6,7 @@ import CustomRichText from "../richText"
 import reveal from "../../animations/reveal"
 import { gsap } from "gsap"
 import Lottie from "lottie-react"
+import { socialEnter, socialLeave } from "../../animations/cursor"
 
 const Bird = ({ align, bird, anim }) => {
   const imgRef = useRef()
@@ -30,6 +31,34 @@ const Bird = ({ align, bird, anim }) => {
       ease: "Quad.easeOut",
       duration: 2,
     })
+  }, [])
+
+  useEffect(() => {
+    const links = [
+      ...document.querySelectorAll(".trust__birds__half .richtext a"),
+    ]
+
+    links.forEach(link => {
+      link.addEventListener("mouseenter", () => {
+        socialEnter()
+      })
+
+      link.addEventListener("mouseleave", () => {
+        socialLeave()
+      })
+    })
+
+    return () => {
+      links.forEach(link => {
+        link.removeEventListener("mouseenter", () => {
+          socialEnter()
+        })
+
+        link.removeEventListener("mouseleave", () => {
+          socialLeave()
+        })
+      })
+    }
   }, [])
 
   const hoverImg = useCallback(
@@ -106,7 +135,7 @@ const Bird = ({ align, bird, anim }) => {
         </h3>
         <CustomRichText
           data={bird.birdsText}
-          className="p mt-24 "
+          className="p mt-24"
           isText
           ref={textRef}
         />

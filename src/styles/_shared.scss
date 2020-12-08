@@ -136,6 +136,10 @@
     }
 }
 
+.richtext a {
+    text-decoration: underline;
+}
+
 //Colors
 .color-grey {
     color: var(--color-grey);
