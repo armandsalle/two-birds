@@ -3,14 +3,7 @@ import reveal from "../../animations/reveal"
 import Button from "../button"
 import SocialLink from "../scocialLink"
 
-const FooterProject = ({
-  dribbble,
-  behance,
-  twitter,
-  instagram,
-  facebook,
-  linkedin,
-}) => {
+const FooterProject = ({ dribbble, twitter, instagram, linkedin }) => {
   const footerRef = useRef()
 
   useEffect(() => {
@@ -30,10 +23,8 @@ const FooterProject = ({
       <p className="footer-project__info  text-center">Or get in touch on</p>
       <div className="footer-project__links">
         {dribbble && <SocialLink to={dribbble} is="dribble" />}
-        {behance && <SocialLink to={behance} is="behance" />}
         {twitter && <SocialLink to={twitter} is="twitter" />}
         {instagram && <SocialLink to={instagram} is="instagram" />}
-        {facebook && <SocialLink to={facebook} is="facebook" />}
         {linkedin && <SocialLink to={linkedin} is="linkedin" />}
       </div>
     </footer>

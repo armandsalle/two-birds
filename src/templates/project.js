@@ -19,9 +19,7 @@ const Project = ({
     footerTwitter,
     footerLinkedin,
     footerInstagram,
-    footerFacebook,
     footerDribbble,
-    footerBehance,
   } = layout.edges.slice(0, 1).pop().node
 
   const { projectssList } = allProjects
@@ -165,10 +163,8 @@ const Project = ({
       </div>
       <FooterProject
         dribbble={footerDribbble}
-        behance={footerBehance}
         twitter={footerTwitter}
         instagram={footerInstagram}
-        facebook={footerFacebook}
         linkedin={footerLinkedin}
       />
       <div className="line"></div>
@@ -186,9 +182,7 @@ export const projectQuery = graphql`
             footerTwitter
             footerLinkedin
             footerInstagram
-            footerFacebook
             footerDribbble
-            footerBehance
           }
         }
       }

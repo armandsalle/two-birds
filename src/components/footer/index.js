@@ -15,9 +15,7 @@ const Footer = () => {
                 footerTwitter
                 footerLinkedin
                 footerInstagram
-                footerFacebook
                 footerDribbble
-                footerBehance
                 siteLogo
               }
             }
@@ -31,9 +29,7 @@ const Footer = () => {
     footerTwitter,
     footerLinkedin,
     footerInstagram,
-    footerFacebook,
     footerDribbble,
-    footerBehance,
     siteLogo,
   } = prismic.allLayouts.edges.slice(0, 1).pop().node
 
@@ -50,12 +46,10 @@ const Footer = () => {
       <div className="footer__right">
         <div className="footer__social__links">
           {footerDribbble && <SocialLink to={footerDribbble} is="dribble" />}
-          {footerBehance && <SocialLink to={footerBehance} is="behance" />}
           {footerTwitter && <SocialLink to={footerTwitter} is="twitter" />}
           {footerInstagram && (
             <SocialLink to={footerInstagram} is="instagram" />
           )}
-          {footerFacebook && <SocialLink to={footerFacebook} is="facebook" />}
           {footerLinkedin && <SocialLink to={footerLinkedin} is="linkedin" />}
         </div>
         <div className="footer__links mt-16">
