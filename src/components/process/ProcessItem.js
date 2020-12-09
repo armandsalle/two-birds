@@ -1,20 +1,39 @@
 import React, { useEffect, useRef, useCallback } from "react"
 import CustomRichText from "../richText"
 import Lottie from "lottie-react"
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 
 const ProcessItem = ({ title, desc, items, anim }) => {
   // const [animPlay, setAnimPlay] = useState(false)
+  const processRef = useRef()
   const lottieRef = useRef()
 
   useEffect(() => {
     lottieRef.current.pause()
   }, [])
-  const hoverImg = useCallback((e, state) => {
-    if (state === "in") {
-      lottieRef.current.play()
+
+  useEffect(() => {
+    if (window.matchMedia("screen and (max-width: 992px)").matches) {
+      ScrollTrigger.create({
+        trigger: processRef.current,
+        start: "top 80%",
+        once: true,
+        // markers: true,
+        onEnter: () => {
+          lottieRef.current.play()
+        },
+      })
     }
-    if (state === "out") {
-      lottieRef.current.stop()
+  }, [])
+
+  const hoverImg = useCallback((e, state) => {
+    if (window.matchMedia("screen and (min-width: 992px)").matches) {
+      if (state === "in") {
+        lottieRef.current.play()
+      }
+      if (state === "out") {
+        lottieRef.current.stop()
+      }
     }
   }, [])
 
@@ -23,9 +42,10 @@ const ProcessItem = ({ title, desc, items, anim }) => {
       className="process-item"
       onMouseEnter={e => hoverImg(e, "in")}
       onMouseLeave={e => hoverImg(e, "out")}
+      ref={processRef}
     >
       <div className="fake-img">
-        <Lottie animationData={anim} lottieRef={lottieRef} />
+        <Lottie animationData={anim} lottieRef={lottieRef} loop={false} />
       </div>
       <div className="process-item__content">
         <h3 className="h3">{title}</h3>

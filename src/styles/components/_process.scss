@@ -1,3 +1,13 @@
+.process .h2 {
+    @include media("<tablet") {
+        text-align: center;
+    }
+
+    @include media("<lanscape") {
+        text-align: left;
+    }
+}
+
 .process-list {
     display: flex;
     align-items: flex-start;
@@ -16,7 +26,6 @@
     border-radius: 2.4rem;
     background-color: transparent;
 
-
     &:hover {
         transition: background-color .2s cubic-bezier(.17, .67, .78, .98);
         background-color: var(--color-purple-grey);
@@ -32,9 +41,7 @@
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
-        width: 93%;
-        margin-bottom: 6.4rem;
-        //background-color: var(--color-purple-grey);
+        width: 100%;
         padding: 4rem 8rem 5.6rem 2.4rem;
 
         &:hover {
@@ -49,28 +56,16 @@
 
     @include media("<lanscape") {
         flex-direction: column;
-        padding-left: 4rem;
-        padding-right: 4rem;
-        width: 100%;
+        padding: 0;
+        margin-bottom: 6rem;
 
         &:nth-child(even) {
             flex-direction: column;
-            padding: 4rem 4rem 5.6rem 4rem;
-        }
-    }
-
-    @include media("<phone") {
-        padding-left: 1.6rem;
-        padding-right: 1.6rem;
-
-        &:nth-child(even) {
-            padding-left: 1.6rem;
-            padding-right: 1.6rem;
+            padding: 0;
         }
     }
 
     & .fake-img {
-        // flex: 0 0 auto;
         width: 100%;
         height: 0;
         padding-top: 100%;
