@@ -1,99 +1,107 @@
 import React, { useEffect, useRef, useCallback, useState } from "react"
 import cn from "classnames"
 import Img from "gatsby-image"
+import { gsap } from "gsap"
+import Lottie from "lottie-react"
 import SocialLink from "../scocialLink"
 import CustomRichText from "../richText"
 import reveal from "../../animations/reveal"
-import { gsap } from "gsap"
-import Lottie from "lottie-react"
-import { socialEnter, socialLeave } from "../../animations/cursor"
 
-const Bird = ({ align, bird, anim }) => {
+const Bird = ({ align, bird, anim, id }) => {
   const imgRef = useRef()
   const titleRef = useRef()
-  const textRef = useRef()
+  const descRef = useRef()
   const socialRef = useRef()
 
   const [animPlay, setAnimPlay] = useState(false)
+  const [animLoop, setAnimLoop] = useState(true)
 
   useEffect(() => {
-    reveal(titleRef.current, titleRef.current, false, "70%")
-    reveal(textRef.current, textRef.current, false, "70%")
-    reveal(socialRef.current, socialRef.current, false, "70%")
-
-    gsap.to(imgRef.current, {
-      scrollTrigger: {
-        trigger: imgRef.current,
-        start: () => `top center`,
-      },
-      opacity: 1,
-      x: 0,
-      ease: "Quad.easeOut",
-      duration: 2,
-    })
-  }, [])
-
-  useEffect(() => {
-    const links = [
-      ...document.querySelectorAll(".trust__birds__half .richtext a"),
-    ]
-
-    links.forEach(link => {
-      link.addEventListener("mouseenter", () => {
-        socialEnter()
+    if (window.matchMedia("screen and (min-width: 767px)").matches) {
+      gsap.to(imgRef.current, {
+        scrollTrigger: {
+          trigger: imgRef.current,
+          start: () => `top 80%`,
+        },
+        opacity: 1,
+        x: 0,
+        ease: "Quad.easeOut",
+        duration: 2,
       })
-
-      link.addEventListener("mouseleave", () => {
-        socialLeave()
-      })
-    })
-
-    return () => {
-      links.forEach(link => {
-        link.removeEventListener("mouseenter", () => {
-          socialEnter()
-        })
-
-        link.removeEventListener("mouseleave", () => {
-          socialLeave()
-        })
-      })
+    } else {
+      gsap.set(imgRef.current, { x: 0 })
     }
   }, [])
 
+  useEffect(() => {
+    if (window.matchMedia("screen and (max-width: 767px)").matches) {
+      setAnimLoop(false)
+      gsap.fromTo(
+        imgRef.current,
+        {
+          opacity: 0,
+          y: 80,
+        },
+        {
+          scrollTrigger: {
+            trigger: imgRef.current,
+            start: () => `top 80%`,
+          },
+          opacity: 1,
+          y: 0,
+          ease: "Quad.easeOut",
+          duration: 1,
+          onStart: () => {
+            setAnimPlay(true)
+          },
+        }
+      )
+      reveal(titleRef.current, titleRef.current, false, "80%")
+      reveal(descRef.current, descRef.current, false, "80%")
+      reveal(socialRef.current, socialRef.current, false, "80%")
+    }
+  }, [setAnimLoop, setAnimPlay])
+
   const hoverImg = useCallback(
     (e, state) => {
-      if (state === "in") {
-        setAnimPlay(true)
-      }
-      if (state === "out") {
-        setAnimPlay(false)
-      }
+      if (window.matchMedia("screen and (min-width: 767px)").matches) {
+        if (state === "in") {
+          setAnimPlay(true)
+        }
+        if (state === "out") {
+          setAnimPlay(false)
+        }
 
-      const birds = [...document.querySelectorAll(".trust__birds__half")]
-      const otherBird = birds.filter(el => el !== e.currentTarget)
+        const birds = [...document.querySelectorAll(".trust__birds__half")]
+        const content = [
+          ...document.querySelectorAll(".trust__birds__half__content"),
+        ]
+        const otherBird = birds.filter(el => el !== e.currentTarget)
 
-      const imgShow = e.currentTarget.querySelector(".hover")
-      const imgNormal = e.currentTarget.querySelector(".normal")
+        const imgShow = e.currentTarget.querySelector(".hover")
+        const imgNormal = e.currentTarget.querySelector(".normal")
 
-      const otherImgNormal = otherBird[0].querySelector(".normal")
-      const otherImgLooinkgAt = otherBird[0].querySelector(".looking-at")
+        const otherImgNormal = otherBird[0].querySelector(".normal")
+        const otherImgLooinkgAt = otherBird[0].querySelector(".looking-at")
 
-      if (state === "in") {
-        gsap.set(imgNormal, { opacity: 0 })
-        gsap.set(imgShow, { opacity: 1 })
-        gsap.set(otherImgNormal, { opacity: 0 })
-        gsap.set(otherImgLooinkgAt, { opacity: 1 })
-      }
+        if (state === "in") {
+          gsap.set(imgNormal, { opacity: 0 })
+          gsap.set(imgShow, { opacity: 1 })
+          gsap.set(otherImgNormal, { opacity: 0 })
+          gsap.set(otherImgLooinkgAt, { opacity: 1 })
+          gsap.set(content[id === 0 ? 1 : 0], { display: "none", opacity: 0 })
+          gsap.set(content[id], { display: "block", opacity: 1 })
+        }
 
-      if (state === "out") {
-        gsap.set(imgNormal, { opacity: 1 })
-        gsap.set(imgShow, { opacity: 0 })
-        gsap.set(otherImgNormal, { opacity: 1 })
-        gsap.set(otherImgLooinkgAt, { opacity: 0 })
+        if (state === "out") {
+          gsap.set(imgNormal, { opacity: 1 })
+          gsap.set(imgShow, { opacity: 0 })
+          gsap.set(otherImgNormal, { opacity: 1 })
+          gsap.set(otherImgLooinkgAt, { opacity: 0 })
+        }
       }
     },
-    [setAnimPlay]
+    [setAnimPlay, id]
   )
 
   return (
@@ -113,7 +121,7 @@ const Bird = ({ align, bird, anim }) => {
         </div>
         <div className="img hover">
           <div className="lottie">
-            <Lottie animationData={anim} autoplay={animPlay} />
+            <Lottie animationData={anim} autoplay={animPlay} loop={animLoop} />
           </div>
           <Img
             fluid={bird.birdsImageHoverSharp.childImageSharp.fluid}
@@ -129,17 +137,17 @@ const Bird = ({ align, bird, anim }) => {
           />
         </div>
       </div>
-      <div className="trust__birds__half__content">
-        <h3 className="h3 mt-80 " ref={titleRef}>
+      <div className="trust__birds__half__content--mobile">
+        <h3 className="h3" ref={titleRef}>
           {bird.birdsName}
         </h3>
         <CustomRichText
           data={bird.birdsText}
-          className="p mt-24"
+          className="p"
           isText
-          ref={textRef}
+          ref={descRef}
         />
-        <div className="trust__birds__social mt-32 " ref={socialRef}>
+        <div className="trust__birds__social mt-32" ref={socialRef}>
           {bird.birdsTwitter && (
             <SocialLink to={bird.birdsTwitter} is="twitter" />
           )}
