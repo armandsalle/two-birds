@@ -30,7 +30,7 @@
         &__content__wrapper {
             position: relative;
 
-            @include media("<lanscape") {
+            @include media("<tablet") {
                 display: none;
             }
         }
@@ -94,8 +94,14 @@
             }
 
             &__content--mobile {
-                @include media(">lanscape") {
+                padding: 0 2rem;
+
+                @include media(">tablet") {
                     display: none;
+                }
+
+                @include media("<lanscape") {
+                    padding: 0;
                 }
 
                 .trust__birds__social {
@@ -113,13 +119,13 @@
                 width: 100%;
                 opacity: 0;
 
-                @include media("<lanscape") {
+                @include media("<tablet") {
                     opacity: 100%;
                 }
 
                 &.looking-at,
                 &.normal {
-                    @include media("<lanscape") {
+                    @include media("<tablet") {
                         display: none;
                     }
                 }

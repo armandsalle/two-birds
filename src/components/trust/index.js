@@ -7,6 +7,7 @@ import SocialLink from "../scocialLink"
 import animClement from "../../images/aboutUsClement.json"
 import animVincent from "../../images/aboutUsVincent.json"
 import gsap from "gsap/gsap-core"
+import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
 const Trust = ({ title, text, birds }) => {
   const titleRef = useRef()
@@ -14,16 +15,21 @@ const Trust = ({ title, text, birds }) => {
 
   const firstBird = birds[0]
   const secondBird = birds[1]
+  const isTouchDesign = useIsTouchDesign()
 
   useEffect(() => {
     // Get the heightest height of both contents on screen larger than a smartphone
-    if (window.matchMedia("screen and (min-width: 767px)").matches) {
+    if (
+      window.matchMedia("screen and (min-width: 992px)").matches &&
+      !isTouchDesign
+    ) {
       const contentWrapper = document.querySelector(
         ".trust__birds__content__wrapper"
       )
       const contents = [
         ...document.querySelectorAll(".trust__birds__half__content"),
       ]
+      // Filter the heightest height
       const heights = contents.map(e => e.getBoundingClientRect().height)
       const highestHeight = Math.max.apply(null, heights)
 
@@ -32,23 +38,31 @@ const Trust = ({ title, text, birds }) => {
       let hasRunOnce = false
 
       // Check which side of the content is first enter to diplay the content
+      // and start animation of the hover birds
       contentWrapper.addEventListener("mouseenter", e => {
-        if (!hasRunOnce) {
+        const hasDisplayBlock = contents.filter(
+          e => e.style.display === "block"
+        )
+        const halfs = document.querySelectorAll(".trust__birds__half")
+
+        if (!hasRunOnce && hasDisplayBlock.length === 0) {
           const mouseX = e.clientX
           const wrapperWidth = contentWrapper.getBoundingClientRect().width
 
           if (mouseX > wrapperWidth / 2) {
             // right
             gsap.set(contents[1], { display: "block", opacity: 1 })
+            halfs[1].click()
           } else if (mouseX < wrapperWidth / 2) {
             // left
             gsap.set(contents[0], { display: "block", opacity: 1 })
+            halfs[0].click()
           }
           hasRunOnce = true
         }
       })
     }
-  }, [])
+  }, [isTouchDesign])
 
   useEffect(() => {
     reveal(titleRef.current, titleRef.current, false, "70%")

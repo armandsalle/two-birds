@@ -17,7 +17,7 @@ const Bird = ({ align, bird, anim, id }) => {
   const [animLoop, setAnimLoop] = useState(true)
 
   useEffect(() => {
-    if (window.matchMedia("screen and (min-width: 767px)").matches) {
+    if (window.matchMedia("screen and (min-width: 992px)").matches) {
       gsap.to(imgRef.current, {
         scrollTrigger: {
           trigger: imgRef.current,
@@ -34,7 +34,7 @@ const Bird = ({ align, bird, anim, id }) => {
   }, [])
 
   useEffect(() => {
-    if (window.matchMedia("screen and (max-width: 767px)").matches) {
+    if (window.matchMedia("screen and (max-width: 992px)").matches) {
       setAnimLoop(false)
       gsap.fromTo(
         imgRef.current,
@@ -63,42 +63,30 @@ const Bird = ({ align, bird, anim, id }) => {
   }, [setAnimLoop, setAnimPlay])
 
   const hoverImg = useCallback(
-    (e, state) => {
-      if (window.matchMedia("screen and (min-width: 767px)").matches) {
-        if (state === "in") {
-          setAnimPlay(true)
-        }
-        if (state === "out") {
-          setAnimPlay(false)
-        }
+    e => {
+      if (window.matchMedia("screen and (min-width: 992px)").matches) {
+        setAnimPlay(true)
 
         const birds = [...document.querySelectorAll(".trust__birds__half")]
         const content = [
           ...document.querySelectorAll(".trust__birds__half__content"),
         ]
-        const otherBird = birds.filter(el => el !== e.currentTarget)
+        const otherBird = id === 0 ? birds[1] : id === 1 ? birds[0] : birds[0]
 
         const imgShow = e.currentTarget.querySelector(".hover")
+        const imgLookingAt = e.currentTarget.querySelector(".looking-at")
+        const otherImgLooinkgAt = otherBird.querySelector(".looking-at")
+        const otherImgShow = otherBird.querySelector(".hover")
         const imgNormal = e.currentTarget.querySelector(".normal")
+        const otherImgNormal = otherBird.querySelector(".normal")
 
-        const otherImgNormal = otherBird[0].querySelector(".normal")
-        const otherImgLooinkgAt = otherBird[0].querySelector(".looking-at")
-
-        if (state === "in") {
-          gsap.set(imgNormal, { opacity: 0 })
-          gsap.set(imgShow, { opacity: 1 })
-          gsap.set(otherImgNormal, { opacity: 0 })
-          gsap.set(otherImgLooinkgAt, { opacity: 1 })
-          gsap.set(content[id === 0 ? 1 : 0], { display: "none", opacity: 0 })
-          gsap.set(content[id], { display: "block", opacity: 1 })
-        }
-
-        if (state === "out") {
-          gsap.set(imgNormal, { opacity: 1 })
-          gsap.set(imgShow, { opacity: 0 })
-          gsap.set(otherImgNormal, { opacity: 1 })
-          gsap.set(otherImgLooinkgAt, { opacity: 0 })
-        }
+        //iamge show
+        gsap.set([imgNormal, otherImgNormal], { display: "none" })
+        gsap.set([otherImgShow, imgLookingAt], { opacity: 0 })
+        gsap.set([imgShow, otherImgLooinkgAt], { opacity: 1 })
+        //content show
+        gsap.set(content[id === 0 ? 1 : 0], { display: "none", opacity: 0 })
+        gsap.set(content[id], { display: "block", opacity: 1 })
       }
     },
     [setAnimPlay, id]
@@ -108,8 +96,8 @@ const Bird = ({ align, bird, anim, id }) => {
     <div
       className="trust__birds__half"
       role="content"
-      onMouseEnter={e => hoverImg(e, "in")}
-      onMouseLeave={e => hoverImg(e, "out")}
+      onMouseEnter={e => hoverImg(e)}
+      onClick={e => hoverImg(e)}
     >
       <div className={cn("trust__birds__half__header", align)} ref={imgRef}>
         <div className="img looking-at">
