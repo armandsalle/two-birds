@@ -29,7 +29,7 @@ const Hero = ({ title, text, cta }) => {
 
   const removeArrivalLottie = useCallback(animName => {
     if (animName === "plants") {
-      plantsRef.current.destroy()
+      plantsRef.current.stop()
       heroRef.current
         .querySelector(".plants .lottie-wrapper.none")
         .classList.remove("none")
@@ -37,7 +37,7 @@ const Hero = ({ title, text, cta }) => {
     }
 
     if (animName === "cockatoo") {
-      cockatooRef.current.destroy()
+      cockatooRef.current.stop()
       heroRef.current
         .querySelector(".cockatoo .lottie-wrapper.none")
         .classList.remove("none")
@@ -45,7 +45,7 @@ const Hero = ({ title, text, cta }) => {
     }
 
     if (animName === "macaw") {
-      macawRef.current.destroy()
+      macawRef.current.stop()
       heroRef.current
         .querySelector(".macaw .lottie-wrapper.none")
         .classList.remove("none")
@@ -127,7 +127,7 @@ const Hero = ({ title, text, cta }) => {
               onComplete={() => {
                 removeArrivalLottie("plants")
               }}
-              className="lottie-wrapper"
+              className="lottie-wrapper arrival"
             />
             <Lottie
               animationData={animationsLoop[0]}
