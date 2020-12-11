@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect } from "react"
 import { graphql } from "gatsby"
 import Header from "../components/header"
 import Hero from "../components/hero"
@@ -8,7 +8,6 @@ import Trust from "../components/trust"
 import Contact from "../components/contact"
 import Footer from "../components/footer"
 import SEO from "../components/seo"
-import { AnimationContext } from "../contexts/animationContext"
 
 export default function Home({
   data: {
@@ -30,11 +29,9 @@ export default function Home({
     },
   },
 }) {
-  const { setIsOnProjectPage } = useContext(AnimationContext)
-
   useEffect(() => {
-    setIsOnProjectPage(false)
-  }, [setIsOnProjectPage])
+    document.querySelector(".get-back").style.display = "none"
+  }, [])
 
   return (
     <>
@@ -78,7 +75,7 @@ export const indexQuery = graphql`
               projectThumbnailSharp {
                 childImageSharp {
                   fluid(maxWidth: 488, quality: 70) {
-                    ...GatsbyImageSharpFluid_withWebp_noBase64
+                    ...GatsbyImageSharpFluid_withWebp
                   }
                 }
               }
@@ -97,7 +94,7 @@ export const indexQuery = graphql`
           birdsImageHoverSharp {
             childImageSharp {
               fluid(maxWidth: 512, quality: 70) {
-                ...GatsbyImageSharpFluid_withWebp_noBase64
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
@@ -105,7 +102,7 @@ export const indexQuery = graphql`
           birdsImageLookingAtSharp {
             childImageSharp {
               fluid(maxWidth: 512, quality: 70) {
-                ...GatsbyImageSharpFluid_withWebp_noBase64
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }
@@ -113,7 +110,7 @@ export const indexQuery = graphql`
           birdsImageSharp {
             childImageSharp {
               fluid(maxWidth: 512, quality: 70) {
-                ...GatsbyImageSharpFluid_withWebp_noBase64
+                ...GatsbyImageSharpFluid_withWebp
               }
             }
           }

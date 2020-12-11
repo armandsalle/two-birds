@@ -17,7 +17,7 @@ const Layout = ({ children, location }) => {
     animationsCanRuns,
     exitAnimation,
     enterAnimation,
-    isOnProjectPage,
+    //isOnProjectPage,
   } = useContext(AnimationContext)
 
   // const [isHomePage, setHomePage] = useState()
@@ -75,7 +75,7 @@ const Layout = ({ children, location }) => {
           <main>{children}</main>
         </Transition>
       </SwitchTransition>
-      <ProjectNav is={isOnProjectPage} />
+      <ProjectNav />
     </Loaded>
   )
 }

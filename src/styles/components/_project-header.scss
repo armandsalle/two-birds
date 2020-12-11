@@ -8,6 +8,8 @@
     width: 4rem;
     height: 4rem;
 
+    display: none;
+
     @include media("<lanscape") {
         left: 2.6rem;
         top: 2.6rem;

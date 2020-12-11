@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect } from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import ProjectSlices from "../components/projectSlices"
@@ -7,7 +7,6 @@ import ProjectHeader from "../components/projectHeader"
 import ProjectTransition from "../components/projectTransition"
 import gsap from "gsap/gsap-core"
 import { animationStatut, setAnimation } from "../contexts/animationState"
-import { AnimationContext } from "../contexts/animationContext"
 
 const Project = ({
   data: {
@@ -48,11 +47,9 @@ const Project = ({
 
   const nextProject = projectssList[nextProjectId].projectsItem
 
-  const { setIsOnProjectPage } = useContext(AnimationContext)
-
   useEffect(() => {
-    setIsOnProjectPage(true)
-  }, [setIsOnProjectPage])
+    document.querySelector(".get-back").style.display = "block"
+  }, [])
 
   useEffect(() => {
     if (animationStatut === "TRANSITION") {
@@ -197,7 +194,7 @@ export const projectQuery = graphql`
               projectLogoSharp {
                 childImageSharp {
                   fluid(maxWidth: 64, quality: 70) {
-                    ...GatsbyImageSharpFluid_withWebp_noBase64
+                    ...GatsbyImageSharpFluid_withWebp
                   }
                 }
               }
@@ -217,7 +214,7 @@ export const projectQuery = graphql`
                     imageFullSharp {
                       childImageSharp {
                         fluid(maxWidth: 1920, quality: 70) {
-                          ...GatsbyImageSharpFluid_withWebp_noBase64
+                          ...GatsbyImageSharpFluid_withWebp
                         }
                       }
                     }
@@ -230,7 +227,7 @@ export const projectQuery = graphql`
                     leftImageSharp {
                       childImageSharp {
                         fluid(maxWidth: 944, quality: 70) {
-                          ...GatsbyImageSharpFluid_withWebp_noBase64
+                          ...GatsbyImageSharpFluid_withWebp
                         }
                       }
                     }
@@ -238,7 +235,7 @@ export const projectQuery = graphql`
                     rightImageSharp {
                       childImageSharp {
                         fluid(maxWidth: 944, quality: 70) {
-                          ...GatsbyImageSharpFluid_withWebp_noBase64
+                          ...GatsbyImageSharpFluid_withWebp
                         }
                       }
                     }
