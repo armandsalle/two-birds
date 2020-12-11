@@ -29,7 +29,7 @@ const Loaded = ({ children }) => {
 
       setTimeout(() => {
         setAnimationsCanRuns(true)
-      }, 1800 + diff)
+      }, 300 + diff)
     })
   }, [setAnimationsCanRuns, loadedStart])
 

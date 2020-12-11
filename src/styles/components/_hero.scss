@@ -32,13 +32,56 @@
         width: 100%;
         height: 0;
         padding-top: 60%;
-        overflow: hidden;
-        background-color: var(--color-grey);
 
         @include media("<lanscape") {
+            padding-top: 100%;
+        }
+
+        .plants,
+        .macaw,
+        .cockatoo,
+        .lottie-wrapper {
+            position: absolute;
             width: 100%;
-            height: 40rem;
-            padding-top: 0;
+        }
+
+        .lottie-wrapper {
+            top: 0;
+            left: 0;
+
+            &.none {
+                display: none;
+            }
+        }
+
+        .plants {
+            top: 10%;
+            left: 5%;
+        }
+
+        .cockatoo {
+            top: -5%;
+            left: 0;
+            max-width: 43rem;
+
+            @include media("<desktop") {
+                top: -10%;
+                width: 80%;
+            }
+
+            @include media("<tablet") {
+                top: -20%;
+            }
+        }
+
+        .macaw {
+            top: 45%;
+            left: 10%;
+            max-width: 56rem;
+
+            @include media("<desktop") {
+                width: 80%;
+            }
         }
     }
 

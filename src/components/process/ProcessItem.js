@@ -4,7 +4,6 @@ import Lottie from "lottie-react"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 
 const ProcessItem = ({ title, desc, items, anim }) => {
-  // const [animPlay, setAnimPlay] = useState(false)
   const processRef = useRef()
   const lottieRef = useRef()
 
@@ -18,7 +17,6 @@ const ProcessItem = ({ title, desc, items, anim }) => {
         trigger: processRef.current,
         start: "top 80%",
         once: true,
-        // markers: true,
         onEnter: () => {
           lottieRef.current.play()
         },
