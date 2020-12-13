@@ -1,5 +1,7 @@
-import React from "react"
+import React, { useRef, useEffect } from "react"
 import { socialEnter, socialLeave } from "../../animations/cursor"
+import CoolButton from "../../animations/magnet"
+import useIsTouchDevice from "../../hooks/useIsTouchDesign"
 
 const SocialLink = ({ to = "#", is = "twitter" }) => {
   const icones = {
@@ -80,6 +82,25 @@ const SocialLink = ({ to = "#", is = "twitter" }) => {
       </svg>
     ),
   }
+
+  const linkRef = useRef()
+
+  const isTouchMobile = useIsTouchDevice()
+
+  useEffect(() => {
+    const magneticButton = new CoolButton(linkRef.current)
+
+    if (!isTouchMobile) {
+      magneticButton.init()
+    }
+
+    return () => {
+      if (!isTouchMobile) {
+        magneticButton.destroy()
+      }
+    }
+  }, [isTouchMobile])
+
   return (
     <a
       href={to}
@@ -88,6 +109,7 @@ const SocialLink = ({ to = "#", is = "twitter" }) => {
       className="social-link"
       onMouseEnter={socialEnter}
       onMouseLeave={socialLeave}
+      ref={linkRef}
     >
       {icones[is]}
     </a>
