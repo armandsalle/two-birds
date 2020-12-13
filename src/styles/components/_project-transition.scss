@@ -19,6 +19,24 @@
         background-color: white;
     }
 
+    &__next {
+        padding-bottom: 2.4rem;
+        font-size: 1.6rem;
+        line-height: 1.75;
+        color: var(--color-grey-lighter);
+
+        @media (hover: hover) {
+            display: none;
+        }
+    }
+
+    &__button {
+        margin-top: 2.4rem;
+
+        @media (hover: hover) {
+            display: none;
+        }
+    }
 
     h1 {
         max-width: 80rem;

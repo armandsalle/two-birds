@@ -4,7 +4,7 @@ import cn from "classnames"
 import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
-const Button = ({ children, to = "#", className, as }) => {
+const Button = ({ children, to = "#", className, as, onClick }) => {
   const ctaRef = useRef(null)
   const cursor = useRef()
 
@@ -73,13 +73,23 @@ const Button = ({ children, to = "#", className, as }) => {
   return (
     <>
       {as !== "a" && (
-        <Link to={to} className={cn("cta", className)} ref={ctaRef}>
+        <Link
+          to={to}
+          className={cn("cta", className)}
+          ref={ctaRef}
+          onClick={e => onClick && onClick(e)}
+        >
           <span className="cta__text">{children}</span>
           <div className="cta__circle"></div>
         </Link>
       )}
       {as === "a" && (
-        <a href={to} className={cn("cta", className)} ref={ctaRef}>
+        <a
+          href={to}
+          className={cn("cta", className)}
+          ref={ctaRef}
+          onClick={e => onClick && onClick(e)}
+        >
           <span className="cta__text">{children}</span>
           <div className="cta__circle"></div>
         </a>
