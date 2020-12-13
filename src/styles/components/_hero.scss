@@ -66,11 +66,11 @@
 
             @include media("<desktop") {
                 top: -10%;
-                width: 80%;
+                width: 60%;
             }
 
             @include media("<tablet") {
-                top: -20%;
+                top: 0%;
             }
         }
 
