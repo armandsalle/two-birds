@@ -72,8 +72,46 @@ const Hero = ({ title, text, cta }) => {
     const title = heroRef.current.querySelector(".h1")
     const text = heroRef.current.querySelector(".hero__text")
     const button = heroRef.current.querySelector("a")
+    const heroRight = heroRef.current.querySelector(".hero__right")
 
     if (animationsCanRuns) {
+      heroRight.style.opacity = "100%"
+      gsap.fromTo(
+        ".cockatoo, .macaw",
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 0.6,
+          ease: "Quad.easeOut",
+        }
+      )
+      gsap.fromTo(
+        ".cockatoo, .macaw",
+        {
+          y: "-20%",
+          x: "20%",
+        },
+        {
+          y: "0",
+          x: "0",
+          ease: "Quad.easeOut",
+          duration: 2,
+        }
+      )
+      gsap.fromTo(
+        ".plants",
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          ease: "Quad.easeOut",
+          duration: 1.5,
+        }
+      )
+
       plantsRef.current.play()
       cockatooRef.current.play()
       macawRef.current.play()
@@ -132,7 +170,7 @@ const Hero = ({ title, text, cta }) => {
             {cta}
           </Button>
         </div>
-        <div className="hero__right">
+        <div className="hero__right" style={{ opacity: 0 }}>
           <div className="plants">
             <Lottie
               animationData={animations.current[0]}
