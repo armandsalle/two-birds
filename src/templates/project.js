@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import ProjectSlices from "../components/projectSlices"
@@ -7,6 +7,7 @@ import ProjectHeader from "../components/projectHeader"
 import ProjectTransition from "../components/projectTransition"
 import gsap from "gsap/gsap-core"
 import { animationStatut, setAnimation } from "../contexts/animationState"
+import { AnimationContext } from "../contexts/animationContext"
 
 const Project = ({
   data: {
@@ -14,6 +15,8 @@ const Project = ({
   },
   pageContext: { uid },
 }) => {
+  const { animationsCanRuns } = useContext(AnimationContext)
+
   const {
     footerTwitter,
     footerLinkedin,
@@ -68,6 +71,7 @@ const Project = ({
       ease: "Quad.easeOut",
       paused: true,
     })
+
     if (animationStatut === "ORIGINAL") {
       tl.fromTo(
         ".project-header__logo",
@@ -97,6 +101,7 @@ const Project = ({
         0.3
       )
     }
+
     tl.fromTo(
       ".project-header__description",
       {
@@ -123,6 +128,7 @@ const Project = ({
       },
       0.9
     )
+
     if (animationStatut === "ORIGINAL") {
       tl.fromTo(
         ".get-back",
@@ -135,10 +141,11 @@ const Project = ({
         1.8
       )
     }
-
-    tl.play()
-    setAnimation("ORIGINAL")
-  }, [])
+    if (animationsCanRuns) {
+      tl.play()
+      setAnimation("ORIGINAL")
+    }
+  }, [animationsCanRuns])
 
   return (
     <>

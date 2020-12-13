@@ -68,7 +68,7 @@ const Button = ({ children, to = "#", className, as, onClick }) => {
         cta.removeEventListener("mouseleave", fnsetCirclePosition, false)
       }
     }
-  }, [])
+  }, [isTouchDevice])
 
   return (
     <>

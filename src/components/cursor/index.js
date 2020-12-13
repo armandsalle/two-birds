@@ -1,17 +1,17 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useContext } from "react"
 import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
+import { AnimationContext } from "../../contexts/animationContext"
 
 const Cursor = () => {
+  const { animationsCanRuns } = useContext(AnimationContext)
+
   const cursorRef = useRef()
   const cursorWrapperRef = useRef()
 
   const isToucheDevice = useIsTouchDesign()
 
   useEffect(() => {
-    // hide curosr
-    gsap.set(cursorRef.current, { opacity: 0, scale: 0 })
-
     let mouse,
       prevMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
 
@@ -20,39 +20,44 @@ const Cursor = () => {
       mouse.y = clientY
     }
 
-    const animate = () => {
-      requestAnimationFrame(animate)
+    if (animationsCanRuns && window !== "undefined") {
+      // hide curosr
+      gsap.set(cursorRef.current, { opacity: 0, scale: 0 })
 
-      prevMouse.x += (mouse.x - prevMouse.x) * 0.2
-      prevMouse.y += (mouse.y - prevMouse.y) * 0.2
+      const animate = () => {
+        requestAnimationFrame(animate)
 
-      gsap.set(cursorRef.current, {
-        x: prevMouse.x,
-        y: prevMouse.y,
-      })
-    }
+        prevMouse.x += (mouse.x - prevMouse.x) * 0.2
+        prevMouse.y += (mouse.y - prevMouse.y) * 0.2
 
-    if (window !== "undefined" && !isToucheDevice) {
-      const initState = {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
+        gsap.set(cursorRef.current, {
+          x: prevMouse.x,
+          y: prevMouse.y,
+        })
       }
 
-      mouse = { ...initState }
-      prevMouse = { ...initState }
+      if (!isToucheDevice) {
+        const initState = {
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2,
+        }
 
-      // start the animation after 500ms and show the cursor
-      setTimeout(() => {
-        document.addEventListener("mousemove", getMousePos)
-        gsap.to(cursorRef.current, {
-          opacity: 1,
-          scale: 0.2,
-          duration: 0.25,
-        })
-        animate()
-      }, 500)
-    } else {
-      cursorWrapperRef.current.style.display = "none"
+        mouse = { ...initState }
+        prevMouse = { ...initState }
+
+        // start the animation after 500ms and show the cursor
+        setTimeout(() => {
+          document.addEventListener("mousemove", getMousePos)
+          gsap.to(cursorRef.current, {
+            opacity: 1,
+            scale: 0.2,
+            duration: 0.25,
+          })
+          animate()
+        }, 500)
+      } else {
+        cursorWrapperRef.current.style.display = "none"
+      }
     }
 
     return () => {
@@ -60,7 +65,7 @@ const Cursor = () => {
         document.removeEventListener("mousemove", getMousePos)
       }
     }
-  }, [isToucheDevice])
+  }, [isToucheDevice, animationsCanRuns])
 
   return (
     <div className="cursor-wrapper" ref={cursorWrapperRef}>
