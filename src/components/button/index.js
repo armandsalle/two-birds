@@ -2,10 +2,13 @@ import React, { useRef, useEffect } from "react"
 import { Link } from "gatsby"
 import cn from "classnames"
 import { gsap } from "gsap"
+import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
 const Button = ({ children, to = "#", className, as }) => {
   const ctaRef = useRef(null)
   const cursor = useRef()
+
+  const isTouchDevice = useIsTouchDesign()
 
   const setCirclePosition = useRef(function (e) {
     if (e.type === "mouseenter") {
@@ -51,7 +54,7 @@ const Button = ({ children, to = "#", className, as }) => {
     if (window !== "undefined") {
       cta.addEventListener("click", fnsetActive, false)
 
-      if (window.matchMedia("screen and (min-width: 991px)").matches) {
+      if (!isTouchDevice) {
         cursor.current = document.querySelector(".cursor")
         cta.addEventListener("mouseenter", fnsetCirclePosition, false)
         cta.addEventListener("mouseleave", fnsetCirclePosition, false)
@@ -60,10 +63,7 @@ const Button = ({ children, to = "#", className, as }) => {
 
     return () => {
       cta.removeEventListener("click", fnsetActive, false)
-      if (
-        window !== "undefined" &&
-        window.matchMedia("screen and (min-width: 991px)").matches
-      ) {
+      if (window !== "undefined" && !isTouchDevice) {
         cta.removeEventListener("mouseenter", fnsetCirclePosition, false)
         cta.removeEventListener("mouseleave", fnsetCirclePosition, false)
       }
