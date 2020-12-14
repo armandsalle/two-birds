@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react"
 import ProcessItem from "./ProcessItem"
 import { gsap } from "gsap"
 import reveal from "../../animations/reveal"
-import serviceHummingbird from "../../images/serviceHummingbird.json"
-import serviceOwl from "../../images/serviceOwl.json"
-import toucan from "../../images/serviceToucan.json"
+import serviceHummingbird from "../../images/services/serviceHummingbird.json"
+import serviceOwl from "../../images/services/serviceOwl.json"
+import toucan from "../../images/services/serviceToucan.json"
 
 const animations = [serviceHummingbird, serviceOwl, toucan]
 
