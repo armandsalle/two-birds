@@ -83,11 +83,13 @@
                 margin-top: 1.6rem;
             }
 
-            &:hover {
-                &::after {
-                    transition: transform .2s ease-out;
-                    transform-origin: 100%;
-                    transform: scaleX(0);
+            @media (hover: hover) {
+                &:hover {
+                    &::after {
+                        transition: transform .2s ease-out;
+                        transform-origin: 100%;
+                        transform: scaleX(0);
+                    }
                 }
             }
 

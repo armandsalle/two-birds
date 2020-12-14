@@ -57,6 +57,10 @@
         .plants {
             top: 10%;
             left: 5%;
+
+            @include media("<desktop") {
+                width: 95%;
+            }
         }
 
         .cockatoo {
@@ -66,12 +70,12 @@
 
             @include media("<desktop") {
                 top: -10%;
-                width: 60%;
+                width: 70%;
             }
 
-            @include media("<tablet") {
-                top: 0%;
-            }
+            // @include media("<tablet") {
+            //     top: 0%;
+            // }
         }
 
         .macaw {
@@ -80,7 +84,7 @@
             max-width: 56rem;
 
             @include media("<desktop") {
-                width: 80%;
+                width: 90%;
             }
         }
     }
