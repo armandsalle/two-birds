@@ -90,8 +90,8 @@ const Hero = ({ title, text, cta }) => {
       gsap.fromTo(
         ".cockatoo, .macaw",
         {
-          y: "-20%",
-          x: "20%",
+          y: "-30%",
+          x: "30%",
         },
         {
           y: "0",
@@ -108,7 +108,7 @@ const Hero = ({ title, text, cta }) => {
         {
           opacity: 1,
           ease: "Quad.easeOut",
-          duration: 1.5,
+          duration: 1,
         }
       )
 
