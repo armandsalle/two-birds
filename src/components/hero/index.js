@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import Lottie from "lottie-react"
 import Button from "../button"
 import { AnimationContext } from "../../contexts/animationContext"
+// Lotties
 import plants from "../../images/hero/plants.json"
 import cockatoo from "../../images/hero/cockatoo.json"
 import macaw from "../../images/hero/macaw.json"
@@ -27,46 +28,82 @@ const Hero = ({ title, text, cta }) => {
   const cockatooLoopRef = useRef()
   const macawLoopRef = useRef()
 
-  const removeArrivalLottie = useCallback(animName => {
-    const getEl = (name, state) =>
-      heroRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
+  const allrefs = {
+    plants: {
+      arrival: plantsRef.current,
+      loop: plantsLoopRef.current,
+    },
+    cockatoo: {
+      arrival: cockatooRef.current,
+      loop: cockatooLoopRef.current,
+    },
+    macaw: {
+      arrival: macawRef.current,
+      loop: macawLoopRef.current,
+    },
+  }
 
-    if (animName === "plants") {
-      plantsRef.current.stop()
+  const removeArrivalLottie = useCallback(
+    animName => {
+      const getEl = (name, state) =>
+        heroRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
 
-      const plantsArrival = getEl("plants", "arrival")
-      plantsArrival.parentNode.removeChild(plantsArrival)
+      const elemArrival = getEl(animName, "arrival")
+      const elemLoop = getEl(animName, "none")
 
-      const plantsLoop = getEl("plants", "none")
-      plantsLoop.classList.remove("none")
+      if (elemArrival) {
+        allrefs[animName].arrival.stop()
+        elemArrival.parentNode.removeChild(elemArrival)
+      }
 
-      plantsLoopRef.current.play()
-    }
+      if (elemLoop) {
+        elemLoop.classList.remove("none")
+        allrefs[animName].loop.play()
+      }
+    },
+    [allrefs]
+  )
 
-    if (animName === "cockatoo") {
-      cockatooRef.current.stop()
+  // const removeArrivalLottie = useCallback(animName => {
+  //   const getEl = (name, state) =>
+  //     heroRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
 
-      const cockatooArrival = getEl("cockatoo", "arrival")
-      cockatooArrival.parentNode.removeChild(cockatooArrival)
+  //   if (animName === "plants") {
+  //     plantsRef.current.stop()
 
-      const cockatooLoop = getEl("cockatoo", "none")
-      cockatooLoop.classList.remove("none")
+  //     const plantsArrival = getEl("plants", "arrival")
+  //     plantsArrival.parentNode.removeChild(plantsArrival)
 
-      cockatooLoopRef.current.play()
-    }
+  //     const plantsLoop = getEl("plants", "none")
+  //     plantsLoop.classList.remove("none")
 
-    if (animName === "macaw") {
-      macawRef.current.stop()
+  //     plantsLoopRef.current.play()
+  //   }
 
-      const macawArrival = getEl("macaw", "arrival")
-      macawArrival.parentNode.removeChild(macawArrival)
+  //   if (animName === "cockatoo") {
+  //     cockatooRef.current.stop()
 
-      const macawLoop = getEl("macaw", "none")
-      macawLoop.classList.remove("none")
+  //     const cockatooArrival = getEl("cockatoo", "arrival")
+  //     cockatooArrival.parentNode.removeChild(cockatooArrival)
 
-      macawLoopRef.current.play()
-    }
-  }, [])
+  //     const cockatooLoop = getEl("cockatoo", "none")
+  //     cockatooLoop.classList.remove("none")
+
+  //     cockatooLoopRef.current.play()
+  //   }
+
+  //   if (animName === "macaw") {
+  //     macawRef.current.stop()
+
+  //     const macawArrival = getEl("macaw", "arrival")
+  //     macawArrival.parentNode.removeChild(macawArrival)
+
+  //     const macawLoop = getEl("macaw", "none")
+  //     macawLoop.classList.remove("none")
+
+  //     macawLoopRef.current.play()
+  //   }
+  // }, [])
 
   useEffect(() => {
     const title = heroRef.current.querySelector(".h1")

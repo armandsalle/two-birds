@@ -5,6 +5,100 @@
     height: 60rem;
     position: relative;
 
+    &__loties {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        .lottie-wrapper,
+        .cloud,
+        .hill,
+        .bird1,
+        .bird2,
+        .bird3,
+        .bird4,
+        .bird5,
+        .bird6 {
+            position: absolute;
+            width: 100%;
+        }
+
+        .lottie-wrapper {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 100%;
+
+            &.none {
+                display: none;
+            }
+        }
+
+        & .cloud {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        & .hill {
+            height: 42rem;
+            width: 100%;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        & .bird1 {
+            right: 6%;
+            bottom: 20.5%;
+            width: 24rem;
+            height: 13rem;
+            transform: scale(1.4);
+        }
+
+        & .bird2 {
+            width: 12rem;
+            height: 13rem;
+            top: 65%;
+            left: 64%;
+            transform: scale(1.5);
+        }
+
+        & .bird3 {
+            left: 66%;
+            top: -10%;
+            width: 10rem;
+            height: 14rem;
+            transform: scale(1.9);
+        }
+
+        & .bird4 {
+            height: 12rem;
+            width: 13rem;
+            left: 7.5%;
+            top: 39%;
+            transform: scale(1.7);
+        }
+
+        & .bird5 {
+            width: 12rem;
+            height: 8rem;
+            left: 9%;
+            top: 77%;
+            transform: scale(1.7);
+        }
+
+        & .bird6 {
+            height: 8rem;
+            width: 12rem;
+            left: 19%;
+            top: 72%;
+            transform: scale(1.7);
+        }
+    }
+
     &__content {
         position: absolute;
         //  z-index: 1;
