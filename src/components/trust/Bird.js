@@ -12,8 +12,8 @@ const Bird = ({ align, bird, anim, id }) => {
   const titleRef = useRef()
   const descRef = useRef()
   const socialRef = useRef()
+  const lottieRef = useRef()
 
-  const [animPlay, setAnimPlay] = useState(false)
   const [animLoop, setAnimLoop] = useState(true)
 
   useEffect(() => {
@@ -52,7 +52,8 @@ const Bird = ({ align, bird, anim, id }) => {
           ease: "Quad.easeOut",
           duration: 1,
           onStart: () => {
-            setAnimPlay(true)
+            lottieRef.current.stop()
+            lottieRef.current.play()
           },
         }
       )
@@ -60,12 +61,13 @@ const Bird = ({ align, bird, anim, id }) => {
       reveal(descRef.current, descRef.current, false, "80%")
       reveal(socialRef.current, socialRef.current, false, "80%")
     }
-  }, [setAnimLoop, setAnimPlay])
+  }, [setAnimLoop, lottieRef])
 
   const hoverImg = useCallback(
     e => {
       if (window.matchMedia("screen and (min-width: 992px)").matches) {
-        setAnimPlay(true)
+        lottieRef.current.stop()
+        lottieRef.current.play()
 
         const birds = [...document.querySelectorAll(".trust__birds__half")]
         const content = [
@@ -89,7 +91,7 @@ const Bird = ({ align, bird, anim, id }) => {
         gsap.set(content[id], { display: "block", opacity: 1 })
       }
     },
-    [setAnimPlay, id]
+    [id, lottieRef]
   )
 
   return (
@@ -109,7 +111,11 @@ const Bird = ({ align, bird, anim, id }) => {
         </div>
         <div className="img hover">
           <div className="lottie">
-            <Lottie animationData={anim} autoplay={animPlay} loop={animLoop} />
+            <Lottie
+              animationData={anim}
+              loop={animLoop}
+              lottieRef={lottieRef}
+            />
           </div>
           <Img
             fluid={bird.birdsImageHoverSharp.childImageSharp.fluid}

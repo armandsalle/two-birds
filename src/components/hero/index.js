@@ -64,47 +64,6 @@ const Hero = ({ title, text, cta }) => {
     [allrefs]
   )
 
-  // const removeArrivalLottie = useCallback(animName => {
-  //   const getEl = (name, state) =>
-  //     heroRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
-
-  //   if (animName === "plants") {
-  //     plantsRef.current.stop()
-
-  //     const plantsArrival = getEl("plants", "arrival")
-  //     plantsArrival.parentNode.removeChild(plantsArrival)
-
-  //     const plantsLoop = getEl("plants", "none")
-  //     plantsLoop.classList.remove("none")
-
-  //     plantsLoopRef.current.play()
-  //   }
-
-  //   if (animName === "cockatoo") {
-  //     cockatooRef.current.stop()
-
-  //     const cockatooArrival = getEl("cockatoo", "arrival")
-  //     cockatooArrival.parentNode.removeChild(cockatooArrival)
-
-  //     const cockatooLoop = getEl("cockatoo", "none")
-  //     cockatooLoop.classList.remove("none")
-
-  //     cockatooLoopRef.current.play()
-  //   }
-
-  //   if (animName === "macaw") {
-  //     macawRef.current.stop()
-
-  //     const macawArrival = getEl("macaw", "arrival")
-  //     macawArrival.parentNode.removeChild(macawArrival)
-
-  //     const macawLoop = getEl("macaw", "none")
-  //     macawLoop.classList.remove("none")
-
-  //     macawLoopRef.current.play()
-  //   }
-  // }, [])
-
   useEffect(() => {
     const title = heroRef.current.querySelector(".h1")
     const text = heroRef.current.querySelector(".hero__text")

@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react"
 import CustomRichText from "../richText"
 import reveal from "../../animations/reveal"
 import Bird from "./Bird"
-import { socialEnter, socialLeave } from "../../animations/cursor"
 import SocialLink from "../scocialLink"
 import animClement from "../../images/about/aboutUsClement.json"
 import animVincent from "../../images/about/aboutUsVincent.json"
@@ -67,32 +66,6 @@ const Trust = ({ title, text, birds }) => {
   useEffect(() => {
     reveal(titleRef.current, titleRef.current, false, "70%")
     reveal(textRef.current, textRef.current, false, "70%")
-  }, [])
-
-  useEffect(() => {
-    const links = [...document.querySelectorAll(".trust .richtext a")]
-
-    links.forEach(link => {
-      link.addEventListener("mouseenter", () => {
-        socialEnter()
-      })
-
-      link.addEventListener("mouseleave", () => {
-        socialLeave()
-      })
-    })
-
-    return () => {
-      links.forEach(link => {
-        link.removeEventListener("mouseenter", () => {
-          socialEnter()
-        })
-
-        link.removeEventListener("mouseleave", () => {
-          socialLeave()
-        })
-      })
-    }
   }, [])
 
   return (
