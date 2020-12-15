@@ -174,8 +174,27 @@ const Contact = ({ title, cta }) => {
   }, [])
 
   useEffect(() => {
+    let st
+
+    const cloud = cloudRef.current
+    const hill = hillRef.current
+    const bird1 = bird1Ref.current
+    const bird2 = bird2Ref.current
+    const bird3 = bird3Ref.current
+    const bird4 = bird4Ref.current
+    const bird5 = bird5Ref.current
+    const bird6 = bird6Ref.current
+    const cloudLoop = cloudLoopRef.current
+    const hillLoop = hillLoopRef.current
+    const bird1Loop = bird1LoopRef.current
+    const bird2Loop = bird2LoopRef.current
+    const bird3Loop = bird3LoopRef.current
+    const bird4Loop = bird4LoopRef.current
+    const bird5Loop = bird5LoopRef.current
+    const bird6Loop = bird6LoopRef.current
+
     if (animationsCanRuns) {
-      ScrollTrigger.create({
+      st = ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "-80px bottom",
         end: "bottom-=80 top",
@@ -193,6 +212,28 @@ const Contact = ({ title, cta }) => {
           pauseLotties()
         },
       })
+    }
+
+    return () => {
+      if (animationsCanRuns) {
+        st.kill()
+        cloud.destroy()
+        hill.destroy()
+        bird1.destroy()
+        bird2.destroy()
+        bird3.destroy()
+        bird4.destroy()
+        bird5.destroy()
+        bird6.destroy()
+        cloudLoop.destroy()
+        hillLoop.destroy()
+        bird1Loop.destroy()
+        bird2Loop.destroy()
+        bird3Loop.destroy()
+        bird4Loop.destroy()
+        bird5Loop.destroy()
+        bird6Loop.destroy()
+      }
     }
   }, [animationsCanRuns, playLotties, pauseLotties])
 
