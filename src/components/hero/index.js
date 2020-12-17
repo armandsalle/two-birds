@@ -141,7 +141,6 @@ const Hero = ({ title, text, cta }) => {
         trigger: ".hero",
         start: "top-=80 top",
         end: "bottom",
-        markers: true,
         once: false,
         onEnter: () => {
           playLotties()
