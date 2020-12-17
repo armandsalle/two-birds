@@ -1,14 +1,17 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useContext, useState } from "react"
+import gsap from "gsap/gsap-core"
 import CustomRichText from "../richText"
 import reveal from "../../animations/reveal"
 import Bird from "./Bird"
 import SocialLink from "../scocialLink"
-import animClement from "../../images/about/aboutUsClement.json"
-import animVincent from "../../images/about/aboutUsVincent.json"
-import gsap from "gsap/gsap-core"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
+import { AnimationContext } from "../../contexts/animationContext"
 
 const Trust = ({ title, text, birds }) => {
+  const { trustLotties, animationsCanRuns } = useContext(AnimationContext)
+
+  const [lotties, setLotties] = useState(null)
+
   const titleRef = useRef()
   const textRef = useRef()
 
@@ -20,7 +23,8 @@ const Trust = ({ title, text, birds }) => {
     // Get the heightest height of both contents on screen larger than a smartphone
     if (
       window.matchMedia("screen and (min-width: 992px)").matches &&
-      !isTouchDesign
+      !isTouchDesign &&
+      lotties
     ) {
       const contentWrapper = document.querySelector(
         ".trust__birds__content__wrapper"
@@ -61,7 +65,19 @@ const Trust = ({ title, text, birds }) => {
         }
       })
     }
-  }, [isTouchDesign])
+  }, [isTouchDesign, lotties])
+
+  useEffect(() => {
+    if (animationsCanRuns) {
+      const lotties = trustLotties.reduce((prev, el) => {
+        return {
+          ...prev,
+          [Object.keys(el)[0]]: el[Object.keys(el)[0]],
+        }
+      }, {})
+      setLotties(lotties)
+    }
+  }, [animationsCanRuns, trustLotties, setLotties])
 
   useEffect(() => {
     reveal(titleRef.current, titleRef.current, false, "70%")
@@ -82,8 +98,22 @@ const Trust = ({ title, text, birds }) => {
         />
       </div>
       <div className="trust__birds mt-160">
-        <Bird align="left" bird={firstBird} anim={animVincent} id={0} />
-        <Bird align="right" bird={secondBird} anim={animClement} id={1} />
+        {lotties && (
+          <>
+            <Bird
+              align="left"
+              bird={firstBird}
+              anim={lotties.trust_lottie_vincent}
+              id={0}
+            />
+            <Bird
+              align="right"
+              bird={secondBird}
+              anim={lotties.trust_lottie_clement}
+              id={1}
+            />
+          </>
+        )}
       </div>
       <div className="trust__birds__content__wrapper">
         <div className="trust__birds__half__content">

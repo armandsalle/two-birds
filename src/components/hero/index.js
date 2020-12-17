@@ -1,32 +1,12 @@
-import React, {
-  useRef,
-  useEffect,
-  useCallback,
-  useContext,
-  useState,
-} from "react"
+import React, { useRef, useEffect, useCallback, useContext } from "react"
 import { gsap } from "gsap/gsap-core"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import Lottie from "lottie-react"
 import Button from "../button"
 import { AnimationContext } from "../../contexts/animationContext"
-import axios from "axios"
-// Lotties
-import plants from "../../images/hero/plants.json"
-import cockatoo from "../../images/hero/cockatoo.json"
-import macaw from "../../images/hero/macaw.json"
-import plantsLoop from "../../images/hero/plantsLoop.json"
-import cockatooLoop from "../../images/hero/cockatooLoop.json"
-import macawLoop from "../../images/hero/macawLoop.json"
 
-const Hero = ({ title, text, cta, heroLotties }) => {
-  console.log(heroLotties)
-  const { animationsCanRuns } = useContext(AnimationContext)
-
-  const animations = useRef([plants, cockatoo, macaw])
-  const animationsLoop = useRef([plantsLoop, cockatooLoop, macawLoop])
-
-  // const [lotties, setLotties] = useState([])
+const Hero = ({ title, text, cta }) => {
+  const { animationsCanRuns, heroLotties } = useContext(AnimationContext)
 
   const heroRef = useRef(null)
   // arrival Ref
@@ -38,57 +18,38 @@ const Hero = ({ title, text, cta, heroLotties }) => {
   const cockatooLoopRef = useRef()
   const macawLoopRef = useRef()
 
-  const allrefs = {
-    plants: {
-      arrival: plantsRef.current,
-      loop: plantsLoopRef.current,
-    },
-    cockatoo: {
-      arrival: cockatooRef.current,
-      loop: cockatooLoopRef.current,
-    },
-    macaw: {
-      arrival: macawRef.current,
-      loop: macawLoopRef.current,
-    },
-  }
+  const removeArrivalLottie = useCallback(animName => {
+    const getEl = (name, state) =>
+      heroRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
 
-  // const getsomethig = async () => {
-  //   const state = []
+    const allrefs = {
+      plants: {
+        arrival: plantsRef.current,
+        loop: plantsLoopRef.current,
+      },
+      cockatoo: {
+        arrival: cockatooRef.current,
+        loop: cockatooLoopRef.current,
+      },
+      macaw: {
+        arrival: macawRef.current,
+        loop: macawLoopRef.current,
+      },
+    }
 
-  //   await heroLotties.forEach(async el => {
-  //     const res = await axios.get(el[0])
-  //     const lottie = await res.data
-  //     state.push(lottie)
-  //   })
+    const elemArrival = getEl(animName, "arrival")
+    const elemLoop = getEl(animName, "none")
 
-  //   setLotties(allLotties)
-  // }
+    if (elemArrival) {
+      allrefs[animName].arrival.stop()
+      elemArrival.parentNode.removeChild(elemArrival)
+    }
 
-  // useEffect(() => {
-  //   getsomethig()
-  // }, [heroLotties])
-
-  const removeArrivalLottie = useCallback(
-    animName => {
-      const getEl = (name, state) =>
-        heroRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
-
-      const elemArrival = getEl(animName, "arrival")
-      const elemLoop = getEl(animName, "none")
-
-      if (elemArrival) {
-        allrefs[animName].arrival.stop()
-        elemArrival.parentNode.removeChild(elemArrival)
-      }
-
-      if (elemLoop) {
-        elemLoop.classList.remove("none")
-        allrefs[animName].loop.play()
-      }
-    },
-    [allrefs]
-  )
+    if (elemLoop) {
+      elemLoop.classList.remove("none")
+      allrefs[animName].loop.play()
+    }
+  }, [])
 
   const playLotties = useCallback(() => {
     const loops = heroRef.current.querySelectorAll(`.lottie-wrapper.none`)
@@ -131,9 +92,7 @@ const Hero = ({ title, text, cta, heroLotties }) => {
     const plantsCurrent = plantsRef.current
     const cockatooCurrent = cockatooRef.current
     const macawCurrent = macawRef.current
-    const plantsLoopCurrent = plantsLoopRef.current
-    const cockatooLoopCurrent = cockatooLoopRef.current
-    const macawLoopCurrent = macawLoopRef.current
+
     let st
 
     if (animationsCanRuns) {
@@ -223,15 +182,9 @@ const Hero = ({ title, text, cta, heroLotties }) => {
     return () => {
       if (animationsCanRuns) {
         st.kill()
-        plantsCurrent.destroy()
-        cockatooCurrent.destroy()
-        macawCurrent.destroy()
-        plantsLoopCurrent.destroy()
-        cockatooLoopCurrent.destroy()
-        macawLoopCurrent.destroy()
       }
     }
-  }, [animationsCanRuns, playLotties, pauseLotties])
+  }, [playLotties, pauseLotties, animationsCanRuns])
 
   return (
     <section className="hero d-center-center" ref={heroRef}>
@@ -247,67 +200,69 @@ const Hero = ({ title, text, cta, heroLotties }) => {
             {cta}
           </Button>
         </div>
-        <div className="hero__right" style={{ opacity: 0 }}>
-          <div className="plants">
-            <Lottie
-              animationData={animations.current[0]}
-              autoplay={false}
-              loop={false}
-              lottieRef={plantsRef}
-              onComplete={() => {
-                removeArrivalLottie("plants")
-              }}
-              className="lottie-wrapper arrival"
-            />
-            <Lottie
-              animationData={animationsLoop.current[0]}
-              loop={true}
-              autoplay={false}
-              lottieRef={plantsLoopRef}
-              className="lottie-wrapper none"
-            />
-          </div>
+        {animationsCanRuns && (
+          <div className="hero__right" style={{ opacity: 0 }}>
+            <div className="plants">
+              <Lottie
+                animationData={heroLotties[0].hero_lottie_plants}
+                autoplay={false}
+                loop={false}
+                lottieRef={plantsRef}
+                onComplete={() => {
+                  removeArrivalLottie("plants")
+                }}
+                className="lottie-wrapper arrival"
+              />
+              <Lottie
+                animationData={heroLotties[1].hero_lottie_plants_loop}
+                loop={true}
+                autoplay={false}
+                lottieRef={plantsLoopRef}
+                className="lottie-wrapper none"
+              />
+            </div>
 
-          <div className="cockatoo">
-            <Lottie
-              animationData={animations.current[1]}
-              autoplay={false}
-              loop={false}
-              lottieRef={cockatooRef}
-              onComplete={() => {
-                removeArrivalLottie("cockatoo")
-              }}
-              className="lottie-wrapper arrival"
-            />
-            <Lottie
-              animationData={animationsLoop.current[1]}
-              loop={true}
-              autoplay={false}
-              lottieRef={cockatooLoopRef}
-              className="lottie-wrapper none"
-            />
-          </div>
+            <div className="cockatoo">
+              <Lottie
+                animationData={heroLotties[4].hero_lottie_cockatoo}
+                autoplay={false}
+                loop={false}
+                lottieRef={cockatooRef}
+                onComplete={() => {
+                  removeArrivalLottie("cockatoo")
+                }}
+                className="lottie-wrapper arrival"
+              />
+              <Lottie
+                animationData={heroLotties[5].hero_lottie_cockatoo_loop}
+                loop={true}
+                autoplay={false}
+                lottieRef={cockatooLoopRef}
+                className="lottie-wrapper none"
+              />
+            </div>
 
-          <div className="macaw">
-            <Lottie
-              animationData={animations.current[2]}
-              autoplay={false}
-              loop={false}
-              lottieRef={macawRef}
-              onComplete={() => {
-                removeArrivalLottie("macaw")
-              }}
-              className="lottie-wrapper arrival"
-            />
-            <Lottie
-              animationData={animationsLoop.current[2]}
-              loop={true}
-              autoplay={false}
-              lottieRef={macawLoopRef}
-              className="lottie-wrapper none"
-            />
+            <div className="macaw">
+              <Lottie
+                animationData={heroLotties[2].hero_lottie_macaw}
+                autoplay={false}
+                loop={false}
+                lottieRef={macawRef}
+                onComplete={() => {
+                  removeArrivalLottie("macaw")
+                }}
+                className="lottie-wrapper arrival"
+              />
+              <Lottie
+                animationData={heroLotties[3].hero_lottie_macaw_loop}
+                loop={true}
+                autoplay={false}
+                lottieRef={macawLoopRef}
+                className="lottie-wrapper none"
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   )

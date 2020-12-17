@@ -25,25 +25,10 @@ export default function Home({
         birds,
         contactTitle,
         contactCtaText,
-        hero_lottie_plants,
-        hero_lottie_plants_loop,
-        hero_lottie_macaw,
-        hero_lottie_macaw_loop,
-        hero_lottie_cockatoo,
-        hero_lottie_cockatoo_loop,
       },
     },
   },
 }) {
-  const heroLotties = [
-    { plants: hero_lottie_plants },
-    { plantsLoop: hero_lottie_plants_loop },
-    { macaw: hero_lottie_macaw },
-    { macawLoop: hero_lottie_macaw_loop },
-    { cockatoo: hero_lottie_cockatoo },
-    { cockatooLoop: hero_lottie_cockatoo_loop },
-  ]
-
   useEffect(() => {
     document.querySelector(".get-back").style.display = "none"
   }, [])
@@ -52,12 +37,7 @@ export default function Home({
     <>
       <SEO title="" />
       <Header />
-      <Hero
-        title={heroTitle}
-        text={heroText}
-        cta={heroCtaText}
-        heroLotties={heroLotties}
-      />
+      <Hero title={heroTitle} text={heroText} cta={heroCtaText} />
       <ProjectsList title={projectsTitle} projects={projectssList} />
       <Process title={processTitle} processList={processList} />
       <Trust title={trustTitle} text={trustText} birds={birds} />
@@ -137,36 +117,6 @@ export const indexQuery = graphql`
         }
         contactTitle
         contactCtaText
-        hero_lottie_plants {
-          ... on PRISMIC__FileLink {
-            url
-          }
-        }
-        hero_lottie_plants_loop {
-          ... on PRISMIC__FileLink {
-            url
-          }
-        }
-        hero_lottie_macaw {
-          ... on PRISMIC__FileLink {
-            url
-          }
-        }
-        hero_lottie_macaw_loop {
-          ... on PRISMIC__FileLink {
-            url
-          }
-        }
-        hero_lottie_cockatoo {
-          ... on PRISMIC__FileLink {
-            url
-          }
-        }
-        hero_lottie_cockatoo_loop {
-          ... on PRISMIC__FileLink {
-            url
-          }
-        }
       }
     }
   }

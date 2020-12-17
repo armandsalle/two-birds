@@ -7,6 +7,14 @@ const defaultState = {
   setEnterAnimation: () => {},
   animationsCanRuns: false,
   setAnimationsCanRuns: () => {},
+  heroLotties: null,
+  setHeroLotties: () => {},
+  processLotties: null,
+  setProcessLotties: () => {},
+  trustLotties: null,
+  setTrustLotties: () => {},
+  contactLotties: null,
+  setContactLotties: () => {},
 }
 export const AnimationContext = createContext(defaultState)
 
@@ -14,6 +22,10 @@ export const AnimationProvider = ({ children }) => {
   const [exitAnimation, setExitAnimation] = useState("opacity")
   const [enterAnimation, setEnterAnimation] = useState("opacity")
   const [animationsCanRuns, setAnimationsCanRuns] = useState(false)
+  const [heroLotties, setHeroLotties] = useState(null)
+  const [processLotties, setProcessLotties] = useState(null)
+  const [trustLotties, setTrustLotties] = useState(null)
+  const [contactLotties, setContactLotties] = useState(null)
 
   return (
     <AnimationContext.Provider
@@ -24,6 +36,14 @@ export const AnimationProvider = ({ children }) => {
         setEnterAnimation,
         animationsCanRuns,
         setAnimationsCanRuns,
+        heroLotties,
+        setHeroLotties,
+        processLotties,
+        setProcessLotties,
+        trustLotties,
+        setTrustLotties,
+        contactLotties,
+        setContactLotties,
       }}
     >
       {children}
