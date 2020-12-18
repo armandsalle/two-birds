@@ -23,7 +23,7 @@ const Content = ({ sectionRef, title, cta }) => {
         y: 80,
       },
       {
-        opacity: 1,
+        opacity: "100%",
         y: 0,
         duration: 1,
       }
@@ -32,7 +32,7 @@ const Content = ({ sectionRef, title, cta }) => {
       title,
       { opacity: 0, y: 80 },
       {
-        opacity: 1,
+        opacity: "100%",
         y: 0,
         duration: 1,
       }
@@ -41,7 +41,7 @@ const Content = ({ sectionRef, title, cta }) => {
       btn,
       { opacity: 0, y: 80 },
       {
-        opacity: 1,
+        opacity: "100%",
         y: 0,
         delay: 0.5,
         duration: 1,

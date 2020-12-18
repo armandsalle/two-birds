@@ -49,7 +49,7 @@ const Cursor = () => {
         setTimeout(() => {
           document.addEventListener("mousemove", getMousePos)
           gsap.to(cursorRef.current, {
-            opacity: 1,
+            opacity: "100%",
             scale: 0.2,
             duration: 0.25,
           })
