@@ -23,7 +23,7 @@ const Bird = ({ align, bird, anim, id }) => {
           trigger: imgRef.current,
           start: () => `top 80%`,
         },
-        opacity: 1,
+        opacity: "100%",
         x: 0,
         ease: "Quad.easeOut",
         duration: 2,
