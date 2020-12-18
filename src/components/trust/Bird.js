@@ -47,7 +47,7 @@ const Bird = ({ align, bird, anim, id }) => {
             trigger: imgRef.current,
             start: () => `top 80%`,
           },
-          opacity: 1,
+          opacity: "100%",
           y: 0,
           ease: "Quad.easeOut",
           duration: 1,
@@ -85,10 +85,10 @@ const Bird = ({ align, bird, anim, id }) => {
         //iamge show
         gsap.set([imgNormal, otherImgNormal], { display: "none" })
         gsap.set([otherImgShow, imgLookingAt], { opacity: 0 })
-        gsap.set([imgShow, otherImgLooinkgAt], { opacity: 1 })
+        gsap.set([imgShow, otherImgLooinkgAt], { opacity: "100%" })
         //content show
         gsap.set(content[id === 0 ? 1 : 0], { display: "none", opacity: 0 })
-        gsap.set(content[id], { display: "block", opacity: 1 })
+        gsap.set(content[id], { display: "block", opacity: "100%" })
       }
     },
     [id, lottieRef]

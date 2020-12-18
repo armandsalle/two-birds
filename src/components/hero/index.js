@@ -1,4 +1,10 @@
-import React, { useRef, useEffect, useCallback, useContext } from "react"
+import React, {
+  useRef,
+  useEffect,
+  useCallback,
+  useContext,
+  useState,
+} from "react"
 import { gsap } from "gsap/gsap-core"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import Lottie from "lottie-react"
@@ -7,6 +13,8 @@ import { AnimationContext } from "../../contexts/animationContext"
 
 const Hero = ({ title, text, cta }) => {
   const { animationsCanRuns, heroLotties } = useContext(AnimationContext)
+
+  const [lotties, setLotties] = useState(null)
 
   const heroRef = useRef(null)
   // arrival Ref
@@ -84,6 +92,18 @@ const Hero = ({ title, text, cta }) => {
   }, [])
 
   useEffect(() => {
+    if (animationsCanRuns) {
+      const lotties = heroLotties.reduce((prev, el) => {
+        return {
+          ...prev,
+          [Object.keys(el)[0]]: el[Object.keys(el)[0]],
+        }
+      }, {})
+      setLotties(lotties)
+    }
+  }, [animationsCanRuns, heroLotties, setLotties])
+
+  useEffect(() => {
     const title = heroRef.current.querySelector(".h1")
     const text = heroRef.current.querySelector(".hero__text")
     const button = heroRef.current.querySelector("a")
@@ -95,7 +115,7 @@ const Hero = ({ title, text, cta }) => {
 
     let st
 
-    if (animationsCanRuns) {
+    if (lotties) {
       heroRight.style.opacity = "100%"
       gsap.fromTo(
         ".cockatoo, .macaw",
@@ -179,11 +199,11 @@ const Hero = ({ title, text, cta }) => {
     }
 
     return () => {
-      if (animationsCanRuns) {
+      if (lotties) {
         st.kill()
       }
     }
-  }, [playLotties, pauseLotties, animationsCanRuns])
+  }, [playLotties, pauseLotties, lotties])
 
   return (
     <section className="hero d-center-center" ref={heroRef}>
@@ -199,11 +219,11 @@ const Hero = ({ title, text, cta }) => {
             {cta}
           </Button>
         </div>
-        {animationsCanRuns && (
+        {lotties && (
           <div className="hero__right" style={{ opacity: 0 }}>
             <div className="plants">
               <Lottie
-                animationData={heroLotties[0].hero_lottie_plants}
+                animationData={lotties.hero_lottie_plants}
                 autoplay={false}
                 loop={false}
                 lottieRef={plantsRef}
@@ -213,7 +233,7 @@ const Hero = ({ title, text, cta }) => {
                 className="lottie-wrapper arrival"
               />
               <Lottie
-                animationData={heroLotties[1].hero_lottie_plants_loop}
+                animationData={lotties.hero_lottie_plants_loop}
                 loop={true}
                 autoplay={false}
                 lottieRef={plantsLoopRef}
@@ -223,7 +243,7 @@ const Hero = ({ title, text, cta }) => {
 
             <div className="cockatoo">
               <Lottie
-                animationData={heroLotties[4].hero_lottie_cockatoo}
+                animationData={lotties.hero_lottie_cockatoo}
                 autoplay={false}
                 loop={false}
                 lottieRef={cockatooRef}
@@ -233,7 +253,7 @@ const Hero = ({ title, text, cta }) => {
                 className="lottie-wrapper arrival"
               />
               <Lottie
-                animationData={heroLotties[5].hero_lottie_cockatoo_loop}
+                animationData={lotties.hero_lottie_cockatoo_loop}
                 loop={true}
                 autoplay={false}
                 lottieRef={cockatooLoopRef}
@@ -243,7 +263,7 @@ const Hero = ({ title, text, cta }) => {
 
             <div className="macaw">
               <Lottie
-                animationData={heroLotties[2].hero_lottie_macaw}
+                animationData={lotties.hero_lottie_macaw}
                 autoplay={false}
                 loop={false}
                 lottieRef={macawRef}
@@ -253,7 +273,7 @@ const Hero = ({ title, text, cta }) => {
                 className="lottie-wrapper arrival"
               />
               <Lottie
-                animationData={heroLotties[3].hero_lottie_macaw_loop}
+                animationData={lotties.hero_lottie_macaw_loop}
                 loop={true}
                 autoplay={false}
                 lottieRef={macawLoopRef}
