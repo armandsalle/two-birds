@@ -73,11 +73,6 @@ const Loaded = ({ children }) => {
           }
         }
         ContactURLs: home(lang: "fr-fr", uid: "home") {
-          contact_lottie_cloud {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
           contact_lottie_cloud_loop {
             ... on PRISMIC__FileLink {
               url

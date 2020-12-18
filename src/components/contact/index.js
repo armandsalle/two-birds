@@ -195,7 +195,7 @@ const Contact = ({ title, cta }) => {
           <div className="contact__loties">
             <div className="cloud">
               <Lottie
-                animationData={lotties.contact_lottie_cloud}
+                animationData={lotties.contact_lottie_cloud_loop}
                 autoplay={false}
                 loop={false}
                 lottieRef={cloudRef}

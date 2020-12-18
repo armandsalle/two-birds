@@ -64,7 +64,7 @@ const Trust = ({ title, text, birds }) => {
         }
       })
     }
-  }, [isTouchDesign, lotties])
+  }, [isTouchDesign])
 
   useEffect(() => {
     if (animationsCanRuns) {
