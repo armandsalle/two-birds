@@ -23,8 +23,7 @@ const Trust = ({ title, text, birds }) => {
     // Get the heightest height of both contents on screen larger than a smartphone
     if (
       window.matchMedia("screen and (min-width: 992px)").matches &&
-      !isTouchDesign &&
-      lotties
+      !isTouchDesign
     ) {
       const contentWrapper = document.querySelector(
         ".trust__birds__content__wrapper"
