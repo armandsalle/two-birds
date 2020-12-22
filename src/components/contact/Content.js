@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import Button from "../button"
 
 const Content = React.memo(({ sectionRef, title, cta }) => {

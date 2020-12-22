@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react"
 import Img from "gatsby-image"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 
 const ImageDouble = ({ primary }) => {
   const { leftImageSharp, leftImage, rightImage, rightImageSharp } = primary

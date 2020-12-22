@@ -1,4 +1,4 @@
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import { isTouchDevice } from "../hooks/useIsTouchDesign"
 
 const colors = {

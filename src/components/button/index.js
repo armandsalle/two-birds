@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react"
 import { Link } from "gatsby"
 import cn from "classnames"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
 const Button = React.memo(({ children, to = "#", className, as, onClick }) => {

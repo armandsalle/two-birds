@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react"
 import Img from "gatsby-image"
 import { navigate } from "gatsby"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import { mouseEnter, mouseLeave, mouseClick } from "../../animations/cursor"
 import { setAnimation } from "../../contexts/animationState"
 import Button from "../button"

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext, useState } from "react"
 import ProcessItem from "./ProcessItem"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import reveal from "../../animations/reveal"
 import { AnimationContext } from "../../contexts/animationContext"
 

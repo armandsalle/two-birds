@@ -1,6 +1,6 @@
 import React, { useContext } from "react"
 import "../../styles/main.scss"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import { Transition, SwitchTransition } from "react-transition-group"
 import { AnimationContext } from "../../contexts/animationContext"

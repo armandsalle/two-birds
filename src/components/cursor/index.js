@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useContext } from "react"
-import { gsap } from "gsap/gsap-core"
+import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 import { AnimationContext } from "../../contexts/animationContext"
 
