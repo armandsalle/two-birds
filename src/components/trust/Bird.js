@@ -97,7 +97,6 @@ const Bird = ({ align, bird, anim, id }) => {
   return (
     <div
       className="trust__birds__half"
-      role="content"
       onMouseEnter={e => hoverImg(e)}
       onClick={e => hoverImg(e)}
     >
