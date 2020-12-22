@@ -57,13 +57,13 @@ const Project = ({
   useEffect(() => {
     if (animationStatut === "TRANSITION") {
       gsap.set(".project-header__logo", {
-        opacity: "100%",
+        opacity: 1,
         y: 0,
       })
       gsap.set(".project-header__title span", {
         y: "0%",
         rotateX: 0,
-        opacity: "100%",
+        opacity: 1,
       })
     }
 
@@ -80,7 +80,7 @@ const Project = ({
           y: 80,
         },
         {
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           duration: 1,
         }
@@ -94,7 +94,7 @@ const Project = ({
         {
           y: "0%",
           rotateX: 0,
-          opacity: "100%",
+          opacity: 1,
           duration: 1,
           stagger: 0.13,
         },
@@ -109,7 +109,7 @@ const Project = ({
         y: 80,
       },
       {
-        opacity: "100%",
+        opacity: 1,
         y: 0,
         duration: 1,
       },
@@ -121,7 +121,7 @@ const Project = ({
         y: 80,
       },
       {
-        opacity: "100%",
+        opacity: 1,
         y: 0,
         duration: 1,
         stagger: 0.3,
@@ -134,7 +134,7 @@ const Project = ({
         ".get-back",
         { opacity: 0, y: -80 },
         {
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           duration: 1,
         },

@@ -15,7 +15,7 @@ const mouseEnter = () => {
     duration: 0.2,
   })
   gsap.to(".cursor__span", {
-    opacity: "100%",
+    opacity: 1,
     duration: 0.2,
   })
 }

@@ -4,7 +4,7 @@ import cn from "classnames"
 import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
-const Button = React.memo(({ children, to = "#", className, as, onClick }) => {
+const Button = ({ children, to = "#", className, as, onClick }) => {
   const ctaRef = useRef(null)
   const cursor = useRef()
 
@@ -96,6 +96,6 @@ const Button = React.memo(({ children, to = "#", className, as, onClick }) => {
       )}
     </>
   )
-})
+}
 
 export default Button

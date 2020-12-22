@@ -28,7 +28,7 @@ const ImageDouble = ({ primary }) => {
             trigger: imageDoubleRef.current,
             start: () => `top 70%`,
           },
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           stagger: 0.3,
           ease: "Quad.easeOut",
@@ -46,7 +46,7 @@ const ImageDouble = ({ primary }) => {
             trigger: rightImage,
             start: () => `top 70%`,
           },
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           ease: "Quad.easeOut",
         }
@@ -62,7 +62,7 @@ const ImageDouble = ({ primary }) => {
             trigger: leftImage,
             start: () => `top 70%`,
           },
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           ease: "Quad.easeOut",
         }

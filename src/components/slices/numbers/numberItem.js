@@ -20,7 +20,7 @@ const NumberItem = ({ numberTitle, numberText }) => {
             trigger: numbersItemRef.current,
             start: () => `top 70%`,
           },
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           ease: "Quad.easeOut",
           duration: 1,

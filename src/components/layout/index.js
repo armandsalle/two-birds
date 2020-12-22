@@ -48,7 +48,7 @@ const Layout = ({ children, location }) => {
           opacity: 0,
         },
         {
-          opacity: "100%",
+          opacity: 1,
           duration: 0.25,
           onStart: () => {
             document.querySelector("body").style.overflowY = "unset"

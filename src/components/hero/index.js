@@ -123,7 +123,7 @@ const Hero = ({ title, text, cta }) => {
           opacity: 0,
         },
         {
-          opacity: "100%",
+          opacity: 1,
           duration: 0.6,
           ease: "Quad.easeOut",
         }
@@ -147,7 +147,7 @@ const Hero = ({ title, text, cta }) => {
           opacity: 0,
         },
         {
-          opacity: "100%",
+          opacity: 1,
           ease: "Quad.easeOut",
           duration: 1,
         }
@@ -187,7 +187,7 @@ const Hero = ({ title, text, cta }) => {
             trigger: heroRef.current,
             start: () => `top 70%`,
           },
-          opacity: "100%",
+          opacity: 1,
           y: 0,
           ease: "Quad.easeOut",
           duration: 1,

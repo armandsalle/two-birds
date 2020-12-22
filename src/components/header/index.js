@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 
-const Header = React.memo(() => {
+const Header = () => {
   const { prismic } = useStaticQuery(
     graphql`
       query {
@@ -29,6 +29,6 @@ const Header = React.memo(() => {
       </div>
     </header>
   )
-})
+}
 
 export default Header

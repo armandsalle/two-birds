@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import Button from "../button"
 
-const Content = React.memo(({ sectionRef, title, cta }) => {
+const Content = ({ sectionRef, title, cta }) => {
   const contentRef = useRef()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const Content = React.memo(({ sectionRef, title, cta }) => {
         y: 80,
       },
       {
-        opacity: "100%",
+        opacity: 1,
         y: 0,
         duration: 1,
       }
@@ -32,7 +32,7 @@ const Content = React.memo(({ sectionRef, title, cta }) => {
       title,
       { opacity: 0, y: 80 },
       {
-        opacity: "100%",
+        opacity: 1,
         y: 0,
         duration: 1,
       }
@@ -41,7 +41,7 @@ const Content = React.memo(({ sectionRef, title, cta }) => {
       btn,
       { opacity: 0, y: 80 },
       {
-        opacity: "100%",
+        opacity: 1,
         y: 0,
         delay: 0.5,
         duration: 1,
@@ -62,6 +62,6 @@ const Content = React.memo(({ sectionRef, title, cta }) => {
       </Button>
     </div>
   )
-})
+}
 
 export default Content

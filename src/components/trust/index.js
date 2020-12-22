@@ -57,11 +57,11 @@ const Trust = ({ title, text, birds }) => {
 
           if (mouseX > wrapperWidth / 2) {
             // right
-            gsap.set(contents[1], { display: "block", opacity: "100%" })
+            gsap.set(contents[1], { display: "block", opacity: 1 })
             halfs[1].click()
           } else if (mouseX < wrapperWidth / 2) {
             // left
-            gsap.set(contents[0], { display: "block", opacity: "100%" })
+            gsap.set(contents[0], { display: "block", opacity: 1 })
             halfs[0].click()
           }
           hasRunOnce = true

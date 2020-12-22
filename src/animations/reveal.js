@@ -17,7 +17,7 @@ const reveal = (
         trigger: trigger,
         start: () => `${hasOffset ? "-=80" : "top"} ${offsetTrigger}`,
       },
-      opacity: "100%",
+      opacity: 1,
       y: 0,
       ease: "Quad.easeOut",
       duration: 1,

@@ -27,7 +27,7 @@ const Process = ({ title, processList }) => {
               trigger: processItems[0],
               start: () => `-=80 70%`,
             },
-            opacity: "100%",
+            opacity: 1,
             y: 0,
             stagger: {
               amount: 0.2,
