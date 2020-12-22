@@ -19,6 +19,10 @@ const Trust = ({ title, text, birds }) => {
   const secondBird = birds[1]
   const isTouchDesign = useIsTouchDesign()
 
+  // useEffect(() => {
+  //   gsap.set(".img", { opcaity: 0 })
+  // }, [])
+
   useEffect(() => {
     // Get the heightest height of both contents on screen larger than a smartphone
     if (

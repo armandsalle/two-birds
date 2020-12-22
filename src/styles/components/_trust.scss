@@ -54,6 +54,7 @@
                 height: 0;
                 padding-top: 81.25%;
                 position: relative;
+                opacity: 0%;
 
                 &.left {
                     transform: translateX(10rem);
@@ -131,7 +132,7 @@
                 }
 
                 &:last-child {
-                    opacity: 100% !important;
+                    opacity: 100%;
                 }
 
                 &.hover .lottie {

@@ -8,10 +8,6 @@ const ProcessItem = ({ title, desc, items, anim }) => {
   const lottieRef = useRef()
 
   useEffect(() => {
-    lottieRef.current.pause()
-  }, [])
-
-  useEffect(() => {
     if (window.matchMedia("screen and (max-width: 992px)").matches) {
       ScrollTrigger.create({
         trigger: processRef.current,
@@ -43,7 +39,12 @@ const ProcessItem = ({ title, desc, items, anim }) => {
       ref={processRef}
     >
       <div className="fake-img">
-        <Lottie animationData={anim} lottieRef={lottieRef} loop={false} />
+        <Lottie
+          animationData={anim}
+          lottieRef={lottieRef}
+          loop={false}
+          autoplay={false}
+        />
       </div>
       <div className="process-item__content">
         <h3 className="h3">{title}</h3>
