@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react"
-import { gsap } from "gsap"
+import { gsap } from "gsap/gsap-core"
 import Button from "../button"
 
-const Content = ({ sectionRef, title, cta }) => {
+const Content = React.memo(({ sectionRef, title, cta }) => {
   const contentRef = useRef()
 
   useEffect(() => {
@@ -62,6 +62,6 @@ const Content = ({ sectionRef, title, cta }) => {
       </Button>
     </div>
   )
-}
+})
 
 export default Content

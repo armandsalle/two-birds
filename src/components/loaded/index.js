@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react"
+import React, { useEffect, useContext, useState, useCallback } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import { AnimationContext } from "../../contexts/animationContext"
 import FontFaceObserver from "fontfaceobserver"
@@ -9,7 +9,7 @@ const Loaded = ({ children }) => {
   const {
     prismic: { HeroURLs, ProcessURLs, TrustURLs, ContactURLs },
   } = useStaticQuery(graphql`
-    query LoadJSON {
+    query LottiesURLs {
       prismic {
         HeroURLs: home(lang: "fr-fr", uid: "home") {
           hero_lottie_plants {
@@ -163,7 +163,7 @@ const Loaded = ({ children }) => {
     setContactLotties,
   } = useContext(AnimationContext)
 
-  const loadJSON = async urls => {
+  const loadJSON = useCallback(async urls => {
     let lotties = await Promise.all(
       Object.entries(urls).map(async el => {
         const res = await axios.get(el[1].url)
@@ -174,7 +174,7 @@ const Loaded = ({ children }) => {
     )
 
     return lotties
-  }
+  }, [])
 
   useEffect(() => {
     const font = new FontFaceObserver("Poppins")
@@ -219,6 +219,7 @@ const Loaded = ({ children }) => {
     setTrustLotties,
     ContactURLs,
     setContactLotties,
+    loadJSON,
   ])
 
   useEffect(() => {

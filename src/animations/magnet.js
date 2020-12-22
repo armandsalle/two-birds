@@ -1,4 +1,4 @@
-import gsap from "gsap"
+import { gsap } from "gsap/gsap-core"
 
 export default class CoolButton {
   constructor(el) {

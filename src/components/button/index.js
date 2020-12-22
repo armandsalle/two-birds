@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from "react"
 import { Link } from "gatsby"
 import cn from "classnames"
-import { gsap } from "gsap"
+import { gsap } from "gsap/gsap-core"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
-const Button = ({ children, to = "#", className, as, onClick }) => {
+const Button = React.memo(({ children, to = "#", className, as, onClick }) => {
   const ctaRef = useRef(null)
   const cursor = useRef()
 
@@ -96,6 +96,6 @@ const Button = ({ children, to = "#", className, as, onClick }) => {
       )}
     </>
   )
-}
+})
 
 export default Button

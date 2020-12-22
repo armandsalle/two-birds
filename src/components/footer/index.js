@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import SocialLink from "../scocialLink"
 import { socialEnter, socialLeave } from "../../animations/cursor"
 
-const Footer = () => {
+const Footer = React.memo(() => {
   const { prismic } = useStaticQuery(
     graphql`
       query {
@@ -66,6 +66,6 @@ const Footer = () => {
       </div>
     </footer>
   )
-}
+})
 
 export default Footer

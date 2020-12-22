@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useState } from "react"
 import cn from "classnames"
 import Img from "gatsby-image"
-import { gsap } from "gsap"
+import { gsap } from "gsap/gsap-core"
 import Lottie from "lottie-react"
 import SocialLink from "../scocialLink"
 import CustomRichText from "../richText"

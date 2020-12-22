@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react"
-import { gsap } from "gsap"
+import { gsap } from "gsap/gsap-core"
 import NumberItem from "./numberItem"
 
 const Numbers = ({ fields }) => {
