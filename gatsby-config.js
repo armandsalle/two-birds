@@ -90,5 +90,8 @@ module.exports = {
         extensions: ["css", "html", "js", "svg"],
       },
     },
+    {
+      resolve: "gatsby-plugin-no-sourcemaps",
+    },
   ],
 }
