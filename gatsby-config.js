@@ -39,7 +39,8 @@ module.exports = {
         defaultLang: "fr-fr", // optional, but recommended
         accessToken: process.env.PRISMIC_ACCESS_TOKEN, // optional
         previews: false, // optional, default: true
-        path: "/preview", // optional, default: /preview
+        // path: "/preview", // optional, default: /preview
+        omitPrismicScript: true,
         pages: [
           {
             type: "projects",
@@ -81,6 +82,12 @@ module.exports = {
         lang: `en`,
         theme_color_in_head: false,
         icon: `src/images/twobirds-icon.png`, // This path is relative to the root of the site.
+      },
+    },
+    {
+      resolve: "gatsby-plugin-zopfli",
+      options: {
+        extensions: ["css", "html", "js", "svg"],
       },
     },
   ],

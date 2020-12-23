@@ -166,8 +166,14 @@ const Loaded = ({ children }) => {
   const loadJSON = useCallback(async urls => {
     let lotties = await Promise.all(
       Object.entries(urls).map(async el => {
-        const res = await axios.get(el[1].url)
-        const lottie = await res.data
+        let lottie
+
+        try {
+          const res = await axios.get(el[1].url)
+          lottie = await res.data
+        } catch (error) {
+          console.log(error)
+        }
 
         return { [el[0]]: lottie }
       })
@@ -193,17 +199,14 @@ const Loaded = ({ children }) => {
       loadJSON(TrustURLs),
       loadJSON(ContactURLs),
     ]).then(d => {
-      // const diff = performance.now() - loadedStart > 300 ? 0 : 300
-
       setHeroLotties(d[3])
       setProcessLotties(d[4])
       setTrustLotties(d[5])
       setContactLotties(d[6])
 
-      // setTimeout(() => {
       setLoadedCanGo(true)
-      // }, 300 + diff)
 
+      // 300ms is the time to anim and remove the loading screen
       setTimeout(() => {
         setAnimationsCanRuns(true)
       }, 300)

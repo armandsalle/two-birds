@@ -13,6 +13,7 @@
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
+  "browserslist": ["last 2 Chrome versions"],
   "dependencies": {
     "@prismicio/gatsby-source-prismic-graphql": "^3.6.13",
     "axios": "^0.21.0",
@@ -28,6 +29,7 @@
     "gatsby-plugin-react-helmet": "^3.3.12",
     "gatsby-plugin-sass": "^2.3.15",
     "gatsby-plugin-sharp": "^2.6.38",
+    "gatsby-plugin-zopfli": "^2.0.0",
     "gatsby-source-filesystem": "^2.3.32",
     "gatsby-source-prismic-graphql": "^3.6.2",
     "gatsby-transformer-sharp": "^2.5.16",
