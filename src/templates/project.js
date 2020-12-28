@@ -2,12 +2,12 @@ import React, { useEffect, useContext } from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import ProjectSlices from "../components/projectSlices"
-import FooterProject from "../components/footerProject"
 import ProjectHeader from "../components/projectHeader"
 import ProjectTransition from "../components/projectTransition"
 import gsap from "gsap/gsap-core"
 import { animationStatut, setAnimation } from "../contexts/animationState"
 import { AnimationContext } from "../contexts/animationContext"
+import Contact from "../components/contact"
 
 const Project = ({
   data: {
@@ -17,12 +17,9 @@ const Project = ({
 }) => {
   const { animationsCanRuns } = useContext(AnimationContext)
 
-  const {
-    footerTwitter,
-    footerLinkedin,
-    footerInstagram,
-    footerDribbble,
-  } = layout.edges.slice(0, 1).pop().node
+  const { contact_project_text, contact_project_cta } = layout.edges
+    .slice(0, 1)
+    .pop().node
 
   const { projectssList } = allProjects
 
@@ -165,12 +162,7 @@ const Project = ({
       <div className="all-slices">
         <ProjectSlices slices={body} />
       </div>
-      <FooterProject
-        dribbble={footerDribbble}
-        twitter={footerTwitter}
-        instagram={footerInstagram}
-        linkedin={footerLinkedin}
-      />
+      <Contact title={contact_project_text} cta={contact_project_cta} />
       <div className="line"></div>
       <ProjectTransition nextProject={nextProject} />
     </>
@@ -183,10 +175,8 @@ export const projectQuery = graphql`
       layout: allLayouts {
         edges {
           node {
-            footerTwitter
-            footerLinkedin
-            footerInstagram
-            footerDribbble
+            contact_project_text
+            contact_project_cta
           }
         }
       }

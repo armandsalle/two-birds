@@ -5,6 +5,11 @@
     height: 60rem;
     position: relative;
 
+    @include media("<phone") {
+        height: calc(125vw - 6.4rem);
+        min-height: 46rem;
+    }
+
     &__loties {
         width: 100%;
         height: 100%;
@@ -38,16 +43,43 @@
         & .cloud {
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            height: 100%;
+            width: 100%;
+
+            .lottie-wrapper {
+                height: unset;
+                bottom: unset;
+
+                @include media("<phone") {
+                    transform-origin: top;
+                    transform: scale(1.8);
+                }
+            }
         }
 
         & .hill {
-            height: 42rem;
+            border-radius: 2.4rem;
+            overflow: hidden;
             width: 100%;
+            height: 100%;
             left: 0;
             right: 0;
             bottom: 0;
+            position: relative;
+
+            & img {
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+
+                @include media("<phone") {
+                    position: absolute;
+                    bottom: 14%;
+                    left: 50%;
+                    min-width: 60rem;
+                }
+            }
         }
 
         & .bird1 {
@@ -56,6 +88,11 @@
             width: 24rem;
             height: 13rem;
             transform: scale(1.4);
+
+            @include media("<tablet") {
+                transform: scale(1.2);
+                right: -5%;
+            }
         }
 
         & .bird2 {
@@ -64,6 +101,12 @@
             top: 65%;
             left: 64%;
             transform: scale(1.5);
+
+            @include media("<tablet") {
+                transform: scale(1.3);
+                top: 70%;
+                left: 60%;
+            }
         }
 
         & .bird3 {
@@ -72,6 +115,15 @@
             width: 10rem;
             height: 14rem;
             transform: scale(1.9);
+
+            @include media("<tablet") {
+                transform: scale(1.5);
+                top: -12%;
+            }
+
+            @include media("<phone") {
+                transform: scale(1.5);
+            }
         }
 
         & .bird4 {
@@ -80,6 +132,11 @@
             left: 7.5%;
             top: 39%;
             transform: scale(1.7);
+
+            @include media("<tablet") {
+                transform: scale(1.4);
+                left: 4%;
+            }
         }
 
         & .bird5 {
@@ -88,6 +145,18 @@
             left: 9%;
             top: 77%;
             transform: scale(1.7);
+
+            @include media("<tablet") {
+                transform: scale(1.5);
+                top: 80%;
+                left: 6%;
+            }
+
+            @include media("<phone") {
+                top: 84%;
+                left: 6%;
+                transform: scale(1.7);
+            }
         }
 
         & .bird6 {
@@ -96,6 +165,11 @@
             left: 19%;
             top: 72%;
             transform: scale(1.7);
+
+            @include media("<tablet") {
+                transform: scale(1.5);
+                left: 25%;
+            }
         }
     }
 
@@ -114,6 +188,16 @@
 
         @include media("<lanscape") {
             padding: 0 1.6rem;
+
+            .h2 {
+                font-size: 2.4rem;
+                line-height: 1.33;
+            }
+
+            .cta {
+                font-size: 1.6rem;
+                line-height: 1.6;
+            }
         }
     }
 }
