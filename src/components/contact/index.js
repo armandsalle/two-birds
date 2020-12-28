@@ -106,7 +106,6 @@ const Contact = ({ title, cta }) => {
         start: "-80px bottom",
         end: "bottom-=80 top",
         once: false,
-        markers: true,
         onEnter: () => {
           playLotties()
 
