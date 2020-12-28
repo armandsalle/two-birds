@@ -9,106 +9,80 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import Content from "./Content"
 import Lottie from "lottie-react"
 import { AnimationContext } from "../../contexts/animationContext"
+import gsap from "gsap/gsap-core"
+import { useStaticQuery, graphql } from "gatsby"
 
 const Contact = ({ title, cta }) => {
+  const {
+    prismic: {
+      home: {
+        contact_lottie_hill: { url: hillUrl },
+      },
+    },
+  } = useStaticQuery(
+    graphql`
+      query {
+        prismic {
+          home(lang: "fr-fr", uid: "home") {
+            contact_lottie_hill {
+              ... on PRISMIC__ImageLink {
+                url
+              }
+            }
+          }
+        }
+      }
+    `
+  )
+
   const { animationsCanRuns, contactLotties } = useContext(AnimationContext)
 
   const [lotties, setLotties] = useState(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   const sectionRef = useRef()
 
-  // Arrivals ref
   const cloudRef = useRef()
-  const hillRef = useRef()
   const bird1Ref = useRef()
   const bird2Ref = useRef()
   const bird3Ref = useRef()
   const bird4Ref = useRef()
   const bird5Ref = useRef()
   const bird6Ref = useRef()
-  // Loops ref
-  const cloudLoopRef = useRef()
-  const hillLoopRef = useRef()
-  const bird1LoopRef = useRef()
-  const bird2LoopRef = useRef()
-  const bird3LoopRef = useRef()
-  const bird4LoopRef = useRef()
-  const bird5LoopRef = useRef()
-  const bird6LoopRef = useRef()
 
-  const [allrefs, setRefs] = useState()
-
-  const removeArrivalLottie = useCallback(
-    animName => {
-      const getEl = (name, state) =>
-        sectionRef.current.querySelector(`.${name} .lottie-wrapper.${state}`)
-
-      const elemArrival = getEl(animName, "arrival")
-      const elemLoop = getEl(animName, "none")
-
-      if (elemArrival) {
-        allrefs[animName].arrival.stop()
-        elemArrival.parentNode.removeChild(elemArrival)
-      }
-
-      if (elemLoop) {
-        elemLoop.classList.remove("none")
-        allrefs[animName].loop.play()
-      }
-    },
-    [allrefs]
-  )
+  const loopFrom = useCallback((el, value) => {
+    el.goToAndPlay(value, true)
+  }, [])
 
   const playLotties = useCallback(() => {
-    const loops = sectionRef.current.querySelectorAll(`.lottie-wrapper.none`)
-
-    if (loops.length === 8) {
-      cloudRef.current.play()
-      hillRef.current.play()
+    cloudRef.current.play()
+    bird3Ref.current.play()
+    bird5Ref.current.play()
+    if (!isMobile) {
       bird1Ref.current.play()
       bird2Ref.current.play()
-      bird3Ref.current.play()
       bird4Ref.current.play()
-      bird5Ref.current.play()
       bird6Ref.current.play()
     }
-
-    if (loops.length === 0) {
-      cloudLoopRef.current.play()
-      hillLoopRef.current.play()
-      bird1LoopRef.current.play()
-      bird2LoopRef.current.play()
-      bird3LoopRef.current.play()
-      bird4LoopRef.current.play()
-      bird5LoopRef.current.play()
-      bird6LoopRef.current.play()
-    }
-  }, [])
+  }, [isMobile])
 
   const pauseLotties = useCallback(() => {
-    const loops = sectionRef.current.querySelectorAll(`.lottie-wrapper.none`)
-
-    if (loops.length === 8) {
-      cloudRef.current.pause()
-      hillRef.current.pause()
+    cloudRef.current.pause()
+    bird3Ref.current.pause()
+    bird5Ref.current.pause()
+    if (!isMobile) {
       bird1Ref.current.pause()
       bird2Ref.current.pause()
-      bird3Ref.current.pause()
       bird4Ref.current.pause()
-      bird5Ref.current.pause()
       bird6Ref.current.pause()
     }
+  }, [isMobile])
 
-    if (loops.length === 0) {
-      cloudLoopRef.current.pause()
-      hillLoopRef.current.pause()
-      bird1LoopRef.current.pause()
-      bird2LoopRef.current.pause()
-      bird3LoopRef.current.pause()
-      bird4LoopRef.current.pause()
-      bird5LoopRef.current.pause()
+  useEffect(() => {
+    if (window.matchMedia("screen and (max-width: 478px)").matches) {
+      setIsMobile(true)
     }
-  }, [])
+  }, [setIsMobile])
 
   useEffect(() => {
     if (animationsCanRuns) {
@@ -123,51 +97,33 @@ const Contact = ({ title, cta }) => {
   }, [animationsCanRuns, contactLotties, setLotties])
 
   useEffect(() => {
+    let hasPlayed = false
     let st
 
     if (lotties) {
-      setRefs({
-        cloud: {
-          arrival: cloudRef.current,
-          loop: cloudLoopRef.current,
-        },
-        hill: {
-          arrival: hillRef.current,
-          loop: hillLoopRef.current,
-        },
-        bird1: {
-          arrival: bird1Ref.current,
-          loop: bird1LoopRef.current,
-        },
-        bird2: {
-          arrival: bird2Ref.current,
-          loop: bird2LoopRef.current,
-        },
-        bird3: {
-          arrival: bird3Ref.current,
-          loop: bird3LoopRef.current,
-        },
-        bird4: {
-          arrival: bird4Ref.current,
-          loop: bird4LoopRef.current,
-        },
-        bird5: {
-          arrival: bird5Ref.current,
-          loop: bird5LoopRef.current,
-        },
-        bird6: {
-          arrival: bird6Ref.current,
-          loop: bird6LoopRef.current,
-        },
-      })
-
       st = ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "-80px bottom",
         end: "bottom-=80 top",
         once: false,
+        markers: true,
         onEnter: () => {
           playLotties()
+
+          // enter animation for the hills
+          if (!hasPlayed) {
+            gsap.fromTo(
+              ".contact__loties .hill img",
+              { scale: isMobile ? 2 : 1.2, y: 200, x: isMobile ? "-50%" : 0 },
+              {
+                scale: isMobile ? 1.5 : 1,
+                y: 0,
+                x: isMobile ? "-50%" : 0,
+                duration: 2,
+              }
+            )
+            hasPlayed = true
+          }
         },
         onEnterBack: () => {
           playLotties()
@@ -186,7 +142,7 @@ const Contact = ({ title, cta }) => {
         st.kill()
       }
     }
-  }, [lotties, playLotties, pauseLotties, setRefs])
+  }, [lotties, playLotties, pauseLotties, isMobile])
 
   return (
     <section className="contact container mt-240" ref={sectionRef}>
@@ -195,83 +151,47 @@ const Contact = ({ title, cta }) => {
           <div className="contact__loties">
             <div className="cloud">
               <Lottie
-                animationData={lotties.contact_lottie_cloud_loop}
+                animationData={lotties.contact_lottie_cloud}
                 autoplay={false}
-                loop={false}
-                lottieRef={cloudRef}
-                onComplete={() => {
-                  removeArrivalLottie("cloud")
-                }}
-                className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_cloud_loop}
                 loop={true}
-                autoplay={false}
-                lottieRef={cloudLoopRef}
-                className="lottie-wrapper none"
+                lottieRef={cloudRef}
+                className="lottie-wrapper arrival"
               />
             </div>
 
             <div className="hill">
-              <Lottie
-                animationData={lotties.contact_lottie_hill}
-                autoplay={false}
-                loop={false}
-                lottieRef={hillRef}
-                onComplete={() => {
-                  removeArrivalLottie("hill")
-                }}
-                className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_hill_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={hillLoopRef}
-                className="lottie-wrapper none"
-              />
+              <img src={hillUrl} alt="hill" />
             </div>
 
-            <div className="bird1">
-              <Lottie
-                animationData={lotties.contact_lottie_bird_1}
-                autoplay={false}
-                loop={false}
-                lottieRef={bird1Ref}
-                onComplete={() => {
-                  removeArrivalLottie("bird1")
-                }}
-                className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_bird_1_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={bird1LoopRef}
-                className="lottie-wrapper none"
-              />
-            </div>
+            {!isMobile && (
+              <div className="bird1">
+                <Lottie
+                  animationData={lotties.contact_lottie_bird_1}
+                  autoplay={false}
+                  loop={false}
+                  lottieRef={bird1Ref}
+                  onComplete={() => {
+                    loopFrom(bird1Ref.current, 76)
+                  }}
+                  className="lottie-wrapper arrival"
+                />
+              </div>
+            )}
 
-            <div className="bird2">
-              <Lottie
-                animationData={lotties.contact_lottie_bird_2}
-                autoplay={false}
-                loop={false}
-                lottieRef={bird2Ref}
-                onComplete={() => {
-                  removeArrivalLottie("bird2")
-                }}
-                className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_bird_2_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={bird2LoopRef}
-                className="lottie-wrapper none"
-              />
-            </div>
+            {!isMobile && (
+              <div className="bird2">
+                <Lottie
+                  animationData={lotties.contact_lottie_bird_2}
+                  autoplay={false}
+                  loop={false}
+                  lottieRef={bird2Ref}
+                  onComplete={() => {
+                    loopFrom(bird2Ref.current, 90)
+                  }}
+                  className="lottie-wrapper arrival"
+                />
+              </div>
+            )}
 
             <div className="bird3">
               <Lottie
@@ -280,38 +200,26 @@ const Contact = ({ title, cta }) => {
                 loop={false}
                 lottieRef={bird3Ref}
                 onComplete={() => {
-                  removeArrivalLottie("bird3")
+                  loopFrom(bird3Ref.current, 76)
                 }}
                 className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_bird_3_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={bird3LoopRef}
-                className="lottie-wrapper none"
               />
             </div>
 
-            <div className="bird4">
-              <Lottie
-                animationData={lotties.contact_lottie_bird_4}
-                autoplay={false}
-                loop={false}
-                lottieRef={bird4Ref}
-                onComplete={() => {
-                  removeArrivalLottie("bird4")
-                }}
-                className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_bird_4_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={bird4LoopRef}
-                className="lottie-wrapper none"
-              />
-            </div>
+            {!isMobile && (
+              <div className="bird4">
+                <Lottie
+                  animationData={lotties.contact_lottie_bird_4}
+                  autoplay={false}
+                  loop={false}
+                  lottieRef={bird4Ref}
+                  onComplete={() => {
+                    loopFrom(bird4Ref.current, 83)
+                  }}
+                  className="lottie-wrapper arrival"
+                />
+              </div>
+            )}
 
             <div className="bird5">
               <Lottie
@@ -320,38 +228,26 @@ const Contact = ({ title, cta }) => {
                 loop={false}
                 lottieRef={bird5Ref}
                 onComplete={() => {
-                  removeArrivalLottie("bird5")
+                  loopFrom(bird5Ref.current, 73)
                 }}
                 className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_bird_5_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={bird5LoopRef}
-                className="lottie-wrapper none"
               />
             </div>
 
-            <div className="bird6">
-              <Lottie
-                animationData={lotties.contact_lottie_bird_6}
-                autoplay={false}
-                loop={false}
-                lottieRef={bird6Ref}
-                onComplete={() => {
-                  removeArrivalLottie("bird6")
-                }}
-                className="lottie-wrapper arrival"
-              />
-              <Lottie
-                animationData={lotties.contact_lottie_bird_6_loop}
-                loop={true}
-                autoplay={false}
-                lottieRef={bird6LoopRef}
-                className="lottie-wrapper none"
-              />
-            </div>
+            {!isMobile && (
+              <div className="bird6">
+                <Lottie
+                  animationData={lotties.contact_lottie_bird_6}
+                  autoplay={false}
+                  loop={false}
+                  lottieRef={bird6Ref}
+                  onComplete={() => {
+                    loopFrom(bird6Ref.current, 92)
+                  }}
+                  className="lottie-wrapper arrival"
+                />
+              </div>
+            )}
           </div>
 
           <Content sectionRef={sectionRef} title={title} cta={cta} />

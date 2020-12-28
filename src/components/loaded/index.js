@@ -17,27 +17,12 @@ const Loaded = ({ children }) => {
               url
             }
           }
-          hero_lottie_plants_loop {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
           hero_lottie_macaw {
             ... on PRISMIC__FileLink {
               url
             }
           }
-          hero_lottie_macaw_loop {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
           hero_lottie_cockatoo {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
-          hero_lottie_cockatoo_loop {
             ... on PRISMIC__FileLink {
               url
             }
@@ -73,17 +58,7 @@ const Loaded = ({ children }) => {
           }
         }
         ContactURLs: home(lang: "fr-fr", uid: "home") {
-          contact_lottie_cloud_loop {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
-          contact_lottie_hill {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
-          contact_lottie_hill_loop {
+          contact_lottie_cloud {
             ... on PRISMIC__FileLink {
               url
             }
@@ -93,17 +68,7 @@ const Loaded = ({ children }) => {
               url
             }
           }
-          contact_lottie_bird_1_loop {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
           contact_lottie_bird_2 {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
-          contact_lottie_bird_2_loop {
             ... on PRISMIC__FileLink {
               url
             }
@@ -113,17 +78,7 @@ const Loaded = ({ children }) => {
               url
             }
           }
-          contact_lottie_bird_3_loop {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
           contact_lottie_bird_4 {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
-          contact_lottie_bird_4_loop {
             ... on PRISMIC__FileLink {
               url
             }
@@ -133,17 +88,7 @@ const Loaded = ({ children }) => {
               url
             }
           }
-          contact_lottie_bird_5_loop {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
           contact_lottie_bird_6 {
-            ... on PRISMIC__FileLink {
-              url
-            }
-          }
-          contact_lottie_bird_6_loop {
             ... on PRISMIC__FileLink {
               url
             }
@@ -211,19 +156,7 @@ const Loaded = ({ children }) => {
         setAnimationsCanRuns(true)
       }, 300)
     })
-  }, [
-    setAnimationsCanRuns,
-    loadedStart,
-    HeroURLs,
-    setHeroLotties,
-    setProcessLotties,
-    ProcessURLs,
-    TrustURLs,
-    setTrustLotties,
-    ContactURLs,
-    setContactLotties,
-    loadJSON,
-  ])
+  }, [])
 
   useEffect(() => {
     if (loadedCanGo) {
