@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Img from "gatsby-image"
 import CustomRichText from "../richText"
 import Title from "../title"
@@ -14,18 +14,25 @@ const ProjectHeader = ({
     projectDate,
   },
 }) => {
-  let title
+  const [a, setA] = useState()
 
-  if (window.matchMedia("screen and (max-width: 478px)").matches) {
-    const text = projectTitleRich.map(e => e.text).join(" ")
-    title = <Title as="span">{text}</Title>
-  } else {
-    title = projectTitleRich.map((t, i) => (
-      <Title key={i} as="span">
-        {t.text}
-      </Title>
-    ))
-  }
+  useEffect(() => {
+    if (window !== "undefined") {
+      let title
+
+      if (window.matchMedia("screen and (max-width: 478px)").matches) {
+        const text = projectTitleRich.map(e => e.text).join(" ")
+        title = <Title as="span">{text}</Title>
+      } else {
+        title = projectTitleRich.map((t, i) => (
+          <Title key={i} as="span">
+            {t.text}
+          </Title>
+        ))
+      }
+      setA(title)
+    }
+  }, [])
 
   return (
     <header className="container mt-240 project-header">
@@ -43,7 +50,7 @@ const ProjectHeader = ({
           className="project-header__logo"
         />
       )}
-      <h1 className="h2 mt-16 project-header__title">{title}</h1>
+      <h1 className="h2 mt-16 project-header__title">{a}</h1>
       <CustomRichText
         data={preojectDescription}
         isText

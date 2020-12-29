@@ -139,6 +139,7 @@ const Project = ({
       )
     }
     if (animationsCanRuns) {
+      gsap.set(".project-header__title", { opacity: 1 })
       tl.play()
       setAnimation("ORIGINAL")
     }
