@@ -51,7 +51,6 @@
     h1 {
         max-width: 80rem;
         perspective: 600px;
-        opacity: 0;
 
         @include media("<tablet") {
             max-width: 70rem;

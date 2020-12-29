@@ -57,7 +57,7 @@ const Project = ({
         opacity: 1,
         y: 0,
       })
-      gsap.set(".project-header__title span", {
+      gsap.set(".project-header__title .reveal-title .line__inner", {
         y: "0%",
         rotateX: 0,
         opacity: 1,
@@ -139,7 +139,6 @@ const Project = ({
       )
     }
     if (animationsCanRuns) {
-      gsap.set(".project-header__title", { opacity: 1 })
       tl.play()
       setAnimation("ORIGINAL")
     }
