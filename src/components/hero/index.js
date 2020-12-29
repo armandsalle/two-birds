@@ -10,6 +10,8 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import Lottie from "lottie-react"
 import Button from "../button"
 import { AnimationContext } from "../../contexts/animationContext"
+import Title from "../title"
+import titleReveal from "../../animations/titleReveal"
 
 const Hero = ({ title, text, cta }) => {
   const { animationsCanRuns, heroLotties } = useContext(AnimationContext)
@@ -131,13 +133,16 @@ const Hero = ({ title, text, cta }) => {
   }, [playLotties, pauseLotties, lotties])
 
   useEffect(() => {
+    let p
     if (animationsCanRuns) {
       const title = heroRef.current.querySelector(".h1")
       const text = heroRef.current.querySelector(".hero__text")
       const button = heroRef.current.querySelector("a")
 
+      p = titleReveal(title, title, false, "70%")
+
       gsap.fromTo(
-        [title, text, button],
+        [text, button],
         {
           opacity: 0,
           y: 80,
@@ -157,13 +162,21 @@ const Hero = ({ title, text, cta }) => {
         }
       )
     }
+
+    return () => {
+      if (animationsCanRuns) {
+        p.kill()
+      }
+    }
   }, [animationsCanRuns])
 
   return (
     <section className="hero d-center-center" ref={heroRef}>
       <div className="container d-between-center">
         <div className="hero__left">
-          <h1 className="h1">{title}</h1>
+          <Title className="h1" as="h1">
+            {title}
+          </Title>
           <p className="hero__text">{text}</p>
           <Button
             to="mailto:bonjour@twobirds.design?subject=On%20vole%20ensemble%20?"

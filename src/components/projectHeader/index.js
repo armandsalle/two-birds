@@ -1,6 +1,7 @@
 import React from "react"
 import Img from "gatsby-image"
 import CustomRichText from "../richText"
+import Title from "../title"
 
 const ProjectHeader = ({
   infos: {
@@ -13,6 +14,19 @@ const ProjectHeader = ({
     projectDate,
   },
 }) => {
+  let title
+
+  if (window.matchMedia("screen and (max-width: 478px)").matches) {
+    const text = projectTitleRich.map(e => e.text).join(" ")
+    title = <Title as="span">{text}</Title>
+  } else {
+    title = projectTitleRich.map((t, i) => (
+      <Title key={i} as="span">
+        {t.text}
+      </Title>
+    ))
+  }
+
   return (
     <header className="container mt-240 project-header">
       {projectLogoSharp.fluid ? (
@@ -29,11 +43,7 @@ const ProjectHeader = ({
           className="project-header__logo"
         />
       )}
-      <h1 className="h2 mt-16 project-header__title">
-        {projectTitleRich.map((t, i) => (
-          <span key={i}>{t.text}</span>
-        ))}
-      </h1>
+      <h1 className="h2 mt-16 project-header__title">{title}</h1>
       <CustomRichText
         data={preojectDescription}
         isText

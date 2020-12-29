@@ -6,22 +6,20 @@ import Bird from "./Bird"
 import SocialLink from "../scocialLink"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 import { AnimationContext } from "../../contexts/animationContext"
+import Title from "../title"
+import titleReveal from "../../animations/titleReveal"
 
 const Trust = ({ title, text, birds }) => {
   const { trustLotties, animationsCanRuns } = useContext(AnimationContext)
 
   const [lotties, setLotties] = useState(null)
 
-  const titleRef = useRef()
+  const trustRef = useRef()
   const textRef = useRef()
 
   const firstBird = birds[0]
   const secondBird = birds[1]
   const isTouchDesign = useIsTouchDesign()
-
-  // useEffect(() => {
-  //   gsap.set(".img", { opcaity: 0 })
-  // }, [])
 
   useEffect(() => {
     // Get the heightest height of both contents on screen larger than a smartphone
@@ -83,16 +81,30 @@ const Trust = ({ title, text, birds }) => {
   }, [animationsCanRuns, trustLotties, setLotties])
 
   useEffect(() => {
-    reveal(titleRef.current, titleRef.current, false, "70%")
-    reveal(textRef.current, textRef.current, false, "70%")
-  }, [])
+    let p
+    if (lotties) {
+      titleReveal(
+        trustRef.current.querySelector(".h2"),
+        trustRef.current,
+        false,
+        "70%"
+      )
+      p = reveal(textRef.current, textRef.current, false, "70%")
+    }
+
+    return () => {
+      if (lotties) {
+        p.kill()
+      }
+    }
+  }, [lotties])
 
   return (
-    <section className="trust container mt-240">
+    <section className="trust container mt-240" ref={trustRef}>
       <div className="trust__top">
-        <h2 className="h2 text-center" ref={titleRef}>
+        <Title className="h2 text-center" as="h2">
           {title}
-        </h2>
+        </Title>
         <CustomRichText
           data={text}
           className="text-center mt-24"
