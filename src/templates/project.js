@@ -1,10 +1,10 @@
 import React, { useEffect, useContext } from "react"
 import { graphql } from "gatsby"
+import { gsap } from "gsap"
 import SEO from "../components/seo"
 import ProjectSlices from "../components/projectSlices"
 import ProjectHeader from "../components/projectHeader"
 import ProjectTransition from "../components/projectTransition"
-import gsap from "gsap/gsap-core"
 import { animationStatut, setAnimation } from "../contexts/animationState"
 import { AnimationContext } from "../contexts/animationContext"
 import Contact from "../components/contact"
@@ -57,7 +57,7 @@ const Project = ({
         opacity: 1,
         y: 0,
       })
-      gsap.set(".project-header__title span", {
+      gsap.set(".project-header__title .reveal-title .line__inner", {
         y: "0%",
         rotateX: 0,
         opacity: 1,
@@ -82,7 +82,7 @@ const Project = ({
           duration: 1,
         }
       ).fromTo(
-        ".project-header__title span",
+        ".project-header__title .reveal-title .line__inner",
         {
           y: "100%",
           rotateX: "-40deg",

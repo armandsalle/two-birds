@@ -1,6 +1,7 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import Img from "gatsby-image"
 import CustomRichText from "../richText"
+import Title from "../title"
 
 const ProjectHeader = ({
   infos: {
@@ -13,6 +14,16 @@ const ProjectHeader = ({
     projectDate,
   },
 }) => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    if (window !== "undefined") {
+      if (window.matchMedia("screen and (max-width: 478px)").matches) {
+        setIsMobile(true)
+      }
+    }
+  }, [setIsMobile])
+
   return (
     <header className="container mt-240 project-header">
       {projectLogoSharp.fluid ? (
@@ -30,9 +41,15 @@ const ProjectHeader = ({
         />
       )}
       <h1 className="h2 mt-16 project-header__title">
-        {projectTitleRich.map((t, i) => (
-          <span key={i}>{t.text}</span>
-        ))}
+        {isMobile ? (
+          <Title as="span">{projectTitleRich.map(e => e.text).join(" ")}</Title>
+        ) : (
+          projectTitleRich.map((t, i) => (
+            <Title key={i} as="span">
+              {t.text}
+            </Title>
+          ))
+        )}
       </h1>
       <CustomRichText
         data={preojectDescription}

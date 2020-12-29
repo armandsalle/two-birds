@@ -1,22 +1,28 @@
 import React, { useEffect, useRef, useContext, useState } from "react"
 import ProcessItem from "./ProcessItem"
 import { gsap } from "gsap"
-import reveal from "../../animations/reveal"
 import { AnimationContext } from "../../contexts/animationContext"
+import Title from "../title"
+import titleReveal from "../../animations/titleReveal"
 
 const Process = ({ title, processList }) => {
   const { processLotties, animationsCanRuns } = useContext(AnimationContext)
 
-  const titleRef = useRef(null)
   const processSectionRef = useRef(null)
 
   const [lotties, setLotties] = useState(null)
 
   useEffect(() => {
+    let p
     if (lotties) {
       const processItems = gsap.utils.toArray(".process-item")
 
-      reveal(titleRef.current, processSectionRef.current, false, "70%")
+      p = titleReveal(
+        processSectionRef.current.querySelector(".h2"),
+        processSectionRef.current,
+        false,
+        "70%"
+      )
 
       if (window.matchMedia("screen and (min-width: 992px)").matches) {
         gsap.fromTo(
@@ -37,6 +43,12 @@ const Process = ({ title, processList }) => {
         )
       }
     }
+
+    return () => {
+      if (lotties) {
+        p.kill()
+      }
+    }
   }, [lotties])
 
   useEffect(() => {
@@ -53,9 +65,9 @@ const Process = ({ title, processList }) => {
 
   return (
     <section className="process container mt-240" ref={processSectionRef}>
-      <h2 className="h2" ref={titleRef}>
+      <Title className="h2" as="h2">
         {title}
-      </h2>
+      </Title>
       <div className="process-list mt-80">
         {lotties &&
           processList.map(({ processName, processText, processItems }, i) => (

@@ -1,21 +1,30 @@
 import React, { useEffect, useRef } from "react"
 import ProjectItem from "./ProjectItem"
-import reveal from "../../animations/reveal"
+import Title from "../title"
+import titleReveal from "../../animations/titleReveal"
 
 const ProjectsList = ({ title, projects }) => {
-  const titleRef = useRef(null)
   const projectSectionRef = useRef(null)
 
   useEffect(() => {
-    reveal(titleRef.current, projectSectionRef.current, false, "70%")
+    const p = titleReveal(
+      projectSectionRef.current.querySelector(".reveal-title"),
+      projectSectionRef.current,
+      false,
+      "70%"
+    )
+
+    return () => {
+      p.kill()
+    }
   }, [])
 
   return (
     <section className="container mt-240" ref={projectSectionRef}>
       <div className="projects-list">
-        <h2 className="h2 " ref={titleRef}>
+        <Title className="h2" as="h2">
           {title}
-        </h2>
+        </Title>
         {projects.map(
           (
             {

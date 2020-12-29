@@ -52,11 +52,11 @@
         }
 
         @include media("<lanscape") {
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
             max-width: 58rem;
+        }
+
+        @include media("<phone") {
+            font-size: 3rem;
         }
     }
 

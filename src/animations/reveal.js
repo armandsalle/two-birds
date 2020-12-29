@@ -15,6 +15,7 @@ const reveal = (
     {
       scrollTrigger: {
         trigger: trigger,
+        once: true,
         start: () => `${hasOffset ? "-=80" : "top"} ${offsetTrigger}`,
       },
       opacity: 1,

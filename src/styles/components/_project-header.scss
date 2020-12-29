@@ -7,7 +7,8 @@
     z-index: 10;
     width: 4rem;
     height: 4rem;
-
+    background-color: white;
+    border-radius: 1.6rem;
     display: none;
 
     @include media("<lanscape") {
@@ -51,20 +52,16 @@
         max-width: 80rem;
         perspective: 600px;
 
-        span {
-            display: block;
-
-            @include media("<lanscape") {
-                hyphens: auto;
-            }
-        }
-
         @include media("<tablet") {
             max-width: 70rem;
         }
 
         @include media("<lanscape") {
             max-width: 58rem;
+        }
+
+        @include media('<phone') {
+            font-size: 3rem;
         }
     }
 

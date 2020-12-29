@@ -1,30 +1,19 @@
-import React, { useContext } from "react"
-import "../../styles/main.scss"
+import React, { useContext, useEffect } from "react"
+import { Transition, SwitchTransition } from "react-transition-group"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
-import { Transition, SwitchTransition } from "react-transition-group"
+import "../../styles/main.scss"
 import { AnimationContext } from "../../contexts/animationContext"
 import Cursor from "../cursor"
 import Loaded from "../loaded"
 import ProjectNav from "../projectNav"
-// import { useEffect } from "react"
-// import { useState } from "react"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Layout = ({ children, location }) => {
-  const {
-    animationsCanRuns,
-    exitAnimation,
-    enterAnimation,
-    //isOnProjectPage,
-  } = useContext(AnimationContext)
-
-  // const [isHomePage, setHomePage] = useState()
-
-  // useEffect(() => {
-  //   setHomePage(location.pathname.length === 1)
-  // }, [setHomePage, location])
+  const { animationsCanRuns, exitAnimation, enterAnimation } = useContext(
+    AnimationContext
+  )
 
   const playExit = node => {
     if (animationsCanRuns && exitAnimation === "opacity") {
@@ -61,6 +50,12 @@ const Layout = ({ children, location }) => {
       document.querySelector("body").style.overflowY = "unset"
     }
   }
+
+  useEffect(() => {
+    return () => {
+      ScrollTrigger.getAll().forEach(t => t.kill())
+    }
+  }, [location.pathname])
 
   return (
     <Loaded>
