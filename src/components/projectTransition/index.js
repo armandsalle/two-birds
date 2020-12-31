@@ -99,20 +99,24 @@ const ProjectTransition = ({ nextProject }) => {
       <div className="container" style={{ zIndex: 8, position: "relative" }}>
         <div className="project-transition__next">Next project</div>
         <div className="toMove">
-          {nextProject.projectLogoSharp.fluid ? (
-            <Img
-              fluid={nextProject.projectLogoSharp.fluid}
-              alt={nextProject.projectLogo?.alt}
-              className="project-transition__logo"
-              fadeIn={false}
-            />
-          ) : (
-            <img
-              src={nextProject.projectLogo.url}
-              alt={nextProject.projectLogo?.alt}
-              className="project-transition__logo"
-            />
-          )}
+          <div className="project-transition__img-wrapper">
+            {nextProject.projectLogoSharp.fluid ? (
+              <Img
+                fluid={nextProject.projectLogoSharp.fluid}
+                alt={nextProject.projectLogo?.alt}
+                className="project-transition__logo"
+                fadeIn={false}
+              />
+            ) : (
+              <img
+                src={nextProject.projectLogo.url}
+                alt={nextProject.projectLogo?.alt}
+                className="project-transition__logo"
+                width={100}
+                height={32}
+              />
+            )}
+          </div>
           <h1 className="h2 mt-16">
             {nextProject.projectTitleRich.map((t, i) => (
               <span key={i}>{t.text}</span>

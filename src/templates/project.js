@@ -48,7 +48,7 @@ const Project = ({
   const nextProject = projectssList[nextProjectId].projectsItem
 
   useEffect(() => {
-    document.querySelector(".get-back").style.display = "block"
+    document.querySelector(".get-back").style.display = "flex"
   }, [])
 
   useEffect(() => {

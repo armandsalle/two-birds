@@ -16,20 +16,24 @@ const ProjectHeader = ({
 }) => {
   return (
     <header className="container mt-240 project-header">
-      {projectLogoSharp.fluid ? (
-        <Img
-          fluid={projectLogoSharp.fluid}
-          alt={projectLogo?.alt}
-          className="project-header__logo"
-          fadeIn={false}
-        />
-      ) : (
-        <img
-          src={projectLogo.url}
-          alt={projectLogo?.alt}
-          className="project-header__logo"
-        />
-      )}
+      <div className="project-header__img-wrapper">
+        {projectLogoSharp.fluid ? (
+          <Img
+            fluid={projectLogoSharp.fluid}
+            alt={projectLogo?.alt}
+            className="project-header__logo"
+            fadeIn={false}
+          />
+        ) : (
+          <img
+            src={projectLogo.url}
+            alt={projectLogo?.alt}
+            className="project-header__logo"
+            width={100}
+            height={32}
+          />
+        )}
+      </div>
       <h1 className="h2 mt-16 project-header__title">
         {projectTitleRich.map((t, i) => (
           <Title key={i} as="span">
