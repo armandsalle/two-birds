@@ -184,12 +184,16 @@ const Loaded = ({ children }) => {
           gsap.killTweensOf(".loading__background")
           gsap.killTweensOf(".loading__foreground")
         },
+        onComplete: () => {
+          document.querySelector("body").classList.remove("hide")
+        },
       })
     }
   }, [loadedCanGo])
 
   useEffect(() => {
     window.loadPromise.then(() => {
+      document.querySelector("body").classList.add("hide")
       const isMobile = window.matchMedia("screen and (max-width: 478px)")
         .matches
       gsap.to(".loading__background", {
