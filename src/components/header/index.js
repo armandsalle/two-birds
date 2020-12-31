@@ -34,7 +34,12 @@ const Header = () => {
     <header className="mt-40 index-header" ref={logoRef} style={{ opacity: 0 }}>
       <div className="logo">
         <Link to="/">
-          <img src={siteLogo?.url} alt="two birds logo" />
+          <img
+            src={siteLogo?.url}
+            alt="two birds logo"
+            width={141}
+            height={24}
+          />
         </Link>
       </div>
     </header>

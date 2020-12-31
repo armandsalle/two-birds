@@ -38,7 +38,12 @@ const Footer = () => {
       <div className="footer__left">
         <div className="logo">
           <Link to="/">
-            <img src={siteLogo?.url} alt="two birds logo" />
+            <img
+              src={siteLogo?.url}
+              alt="two birds logo"
+              width={141}
+              height={24}
+            />
           </Link>
         </div>
         <span className="copywrite">Copyright © 2020 - twobirds</span>
