@@ -4,6 +4,10 @@ import { AnimationContext } from "../../contexts/animationContext"
 import FontFaceObserver from "fontfaceobserver"
 import imagesLoaded from "imagesloaded"
 import axios from "axios"
+import { gsap } from "gsap"
+import Background from "./Background"
+import Logo from "./Logo"
+import Foreground from "./Foreground"
 
 const Loaded = ({ children }) => {
   const {
@@ -99,7 +103,7 @@ const Loaded = ({ children }) => {
   `)
 
   const [loadedCanGo, setLoadedCanGo] = useState(false)
-  const [loadedStart, setLoadedStart] = useState(false)
+
   const {
     setAnimationsCanRuns,
     setHeroLotties,
@@ -128,6 +132,8 @@ const Loaded = ({ children }) => {
   }, [])
 
   useEffect(() => {
+    const startTime = performance.now()
+
     const font = new FontFaceObserver("Poppins")
     const imgLoaded = imagesLoaded(
       document.querySelector("body"),
@@ -149,26 +155,68 @@ const Loaded = ({ children }) => {
       setTrustLotties(d[5])
       setContactLotties(d[6])
 
-      setLoadedCanGo(true)
+      const endTime = performance.now()
+      let t = 0
+
+      if (endTime - startTime <= 3000) {
+        t = endTime - startTime
+      }
+
+      setTimeout(() => {
+        setLoadedCanGo(true)
+      }, 3000 - t)
 
       // 300ms is the time to anim and remove the loading screen
       setTimeout(() => {
         setAnimationsCanRuns(true)
-      }, 300)
+      }, 3000 - t + 300)
     })
   }, [])
 
   useEffect(() => {
     if (loadedCanGo) {
-      console.log("load can go")
+      gsap.to(".loading", {
+        opacity: 0,
+        display: "none",
+        // delay: 0.1,
+        duration: 0.2,
+        onStart: () => {
+          gsap.killTweensOf(".loading__background")
+          gsap.killTweensOf(".loading__foreground")
+        },
+      })
     }
   }, [loadedCanGo])
 
   useEffect(() => {
-    setLoadedStart(performance.now())
+    gsap.to(".loading__background", {
+      duration: 75,
+      xPercent: 20,
+      ease: "none",
+    })
+    gsap.to(".loading__foreground", {
+      duration: 30,
+      xPercent: 20,
+      ease: "none",
+    })
   }, [])
 
-  return <>{children}</>
+  return (
+    <>
+      <div className="loading">
+        <div className="loading__background">
+          <Background />
+        </div>
+        <div className="loading__logo">
+          <Logo />
+        </div>
+        <div className="loading__foreground">
+          <Foreground />
+        </div>
+      </div>
+      {children}
+    </>
+  )
 }
 
 export default Loaded

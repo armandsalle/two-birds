@@ -62,6 +62,7 @@ const Hero = ({ title, text, cta }) => {
 
     if (lotties) {
       gsap.set(heroRight, { opacity: 1 })
+      gsap.set(".hero", { opacity: 1 })
       gsap
         .timeline({
           ease: "Quad.easeOut",

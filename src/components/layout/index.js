@@ -15,7 +15,8 @@ const Layout = ({ children, location }) => {
     AnimationContext
   )
 
-  const playExit = node => {
+  const playExit = (node, path) => {
+    console.log("exit", node, path)
     if (animationsCanRuns && exitAnimation === "opacity") {
       gsap.to(node, {
         opacity: 0,
@@ -29,7 +30,8 @@ const Layout = ({ children, location }) => {
     }
   }
 
-  const playEnter = () => {
+  const playEnter = (node, path) => {
+    console.log("enter", node, path)
     if (animationsCanRuns && enterAnimation === "opacity") {
       gsap.fromTo(
         "main",
@@ -64,8 +66,8 @@ const Layout = ({ children, location }) => {
         <Transition
           key={location.pathname}
           timeout={500}
-          onExit={node => playExit(node)}
-          onEnter={node => playEnter(node)}
+          onExit={node => playExit(node, location.pathname)}
+          onEnter={node => playEnter(node, location.pathname)}
         >
           <main>{children}</main>
         </Transition>

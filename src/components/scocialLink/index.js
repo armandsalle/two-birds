@@ -110,6 +110,8 @@ const SocialLink = ({ to = "#", is = "twitter" }) => {
       onMouseEnter={socialEnter}
       onMouseLeave={socialLeave}
       ref={linkRef}
+      name={is}
+      aria-label={is}
     >
       {icones[is]}
     </a>
