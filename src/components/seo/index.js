@@ -83,7 +83,11 @@ function SEO({ meta, title }) {
           content: siteDescription,
         },
       ].concat(meta)}
-    />
+    >
+      <link rel="preconnect" href="https://prismic-io.s3.amazonaws.com" />
+      <link rel="preconnect" href="https://twobirds.prismic.io" />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+    </Helmet>
   )
 }
 
