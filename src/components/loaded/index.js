@@ -209,13 +209,13 @@ const Loaded = ({ children }) => {
     <>
       <div className="loading">
         <div className="loading__background">
-          <Background />
+          <Foreground />
         </div>
         <div className="loading__logo">
           <Logo />
         </div>
         <div className="loading__foreground">
-          <Foreground />
+          <Background />
         </div>
       </div>
       {children}

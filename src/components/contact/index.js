@@ -174,7 +174,7 @@ const Contact = ({ title, cta }) => {
             </div>
 
             <div className="hill">
-              <img src={hillUrl} alt="hill" />
+              <img src={hillUrl} alt="" role="presentation" />
             </div>
 
             {!isMobile && (
