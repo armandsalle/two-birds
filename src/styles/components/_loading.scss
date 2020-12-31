@@ -5,7 +5,9 @@
     right: 0;
     bottom: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
+    /* mobile viewport bug fix */
+    min-height: -webkit-fill-available;
     background-color: #6A6AF5;
     z-index: 9999999;
 

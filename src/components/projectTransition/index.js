@@ -41,7 +41,7 @@ const ProjectTransition = ({ nextProject }) => {
 
       const tl = gsap.timeline({
         paused: true,
-        ease: "expo.out",
+        ease: "power3.out",
         onComplete: () => {
           navigate("/" + nextProject._meta.uid)
         },

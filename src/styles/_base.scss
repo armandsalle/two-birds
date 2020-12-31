@@ -26,6 +26,7 @@ html {
     box-sizing: border-box;
     cursor: default;
     font-size: 62.5%; //1rem = 10px, 10px/16px = 62.5%
+    height: -webkit-fill-available;
     -webkit-tap-highlight-color: transparent;
     -webkit-text-size-adjust: none;
     -webkit-font-smoothing: subpixel-antialiased;
