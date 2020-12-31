@@ -19,6 +19,8 @@ const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
       onClick={mouseClick}
+      name={title}
+      aria-label={title}
     >
       <div className="project-item-link__wrapper__image">
         {thumbnailSharp.fluid ? (
