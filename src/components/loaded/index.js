@@ -189,13 +189,14 @@ const Loaded = ({ children }) => {
   }, [loadedCanGo])
 
   useEffect(() => {
+    const isMobile = window.matchMedia("screen and (max-width: 478px)").matches
     gsap.to(".loading__background", {
-      duration: 75,
+      duration: isMobile ? 75 / 2 : 75,
       xPercent: 20,
       ease: "none",
     })
     gsap.to(".loading__foreground", {
-      duration: 30,
+      duration: isMobile ? 30 / 2 : 30,
       xPercent: 20,
       ease: "none",
     })
