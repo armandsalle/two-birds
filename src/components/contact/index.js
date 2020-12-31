@@ -35,7 +35,11 @@ const Contact = ({ title, cta }) => {
     `
   )
 
-  const { animationsCanRuns, contactLotties } = useContext(AnimationContext)
+  const {
+    animationsCanRuns,
+    contactLotties,
+    setContactLottiesRef,
+  } = useContext(AnimationContext)
 
   const [lotties, setLotties] = useState(null)
   const [isMobile, setIsMobile] = useState(false)
@@ -134,6 +138,17 @@ const Contact = ({ title, cta }) => {
           pauseLotties()
         },
       })
+
+      const l = [
+        cloudRef.current,
+        bird3Ref.current,
+        bird5Ref.current,
+        !isMobile && bird1Ref.current,
+        !isMobile && bird2Ref.current,
+        !isMobile && bird4Ref.current,
+        !isMobile && bird6Ref.current,
+      ]
+      setContactLottiesRef(l)
     }
 
     return () => {
@@ -141,7 +156,7 @@ const Contact = ({ title, cta }) => {
         st.kill()
       }
     }
-  }, [lotties, playLotties, pauseLotties, isMobile])
+  }, [lotties, playLotties, pauseLotties, isMobile, setContactLottiesRef])
 
   return (
     <section className="contact container mt-240" ref={sectionRef}>

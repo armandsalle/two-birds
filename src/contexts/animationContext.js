@@ -15,6 +15,8 @@ const defaultState = {
   setTrustLotties: () => {},
   contactLotties: null,
   setContactLotties: () => {},
+  contactLottiesRef: null,
+  setContactLottiesRef: () => {},
 }
 export const AnimationContext = createContext(defaultState)
 
@@ -26,6 +28,7 @@ export const AnimationProvider = ({ children }) => {
   const [processLotties, setProcessLotties] = useState(null)
   const [trustLotties, setTrustLotties] = useState(null)
   const [contactLotties, setContactLotties] = useState(null)
+  const [contactLottiesRef, setContactLottiesRef] = useState(null)
 
   return (
     <AnimationContext.Provider
@@ -44,6 +47,8 @@ export const AnimationProvider = ({ children }) => {
         setTrustLotties,
         contactLotties,
         setContactLotties,
+        contactLottiesRef,
+        setContactLottiesRef,
       }}
     >
       {children}

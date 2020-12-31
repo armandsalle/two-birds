@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useContext } from "react"
 import Img from "gatsby-image"
 import { navigate } from "gatsby"
 import { gsap } from "gsap"
 import { mouseEnter, mouseLeave, mouseClick } from "../../animations/cursor"
 import { setAnimation } from "../../contexts/animationState"
 import Button from "../button"
+import { AnimationContext } from "../../contexts/animationContext"
 
 const ProjectTransition = ({ nextProject }) => {
+  const { contactLottiesRef } = useContext(AnimationContext)
   const headerRect = useRef()
 
   useEffect(() => {
@@ -15,6 +17,12 @@ const ProjectTransition = ({ nextProject }) => {
       .getBoundingClientRect()
 
     const navigateToNextProject = () => {
+      contactLottiesRef.forEach(e => {
+        if (e) {
+          e.pause()
+        }
+      })
+
       setAnimation("TRANSITION")
       document.querySelector("body").style.overflow = "hidden"
 
@@ -77,7 +85,7 @@ const ProjectTransition = ({ nextProject }) => {
     return () => {
       pageTransitionTag.removeEventListener("click", navigateToNextProject)
     }
-  }, [nextProject._meta.uid])
+  }, [nextProject._meta.uid, contactLottiesRef])
 
   return (
     <section
