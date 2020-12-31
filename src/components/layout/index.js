@@ -4,6 +4,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import "../../styles/main.scss"
 import { AnimationContext } from "../../contexts/animationContext"
+import { animationStatut } from "../../contexts/animationState"
 import Cursor from "../cursor"
 import Loaded from "../loaded"
 import ProjectNav from "../projectNav"
@@ -18,6 +19,10 @@ const Layout = ({ children, location }) => {
   const playExit = (node, path) => {
     console.log("exit", node, path)
     if (animationsCanRuns && exitAnimation === "opacity") {
+      if (animationStatut === "ORIGINAL") {
+        gsap.to(".get-back", { opacity: 0 })
+      }
+
       gsap.to(node, {
         opacity: 0,
         duration: 0.25,
@@ -65,7 +70,7 @@ const Layout = ({ children, location }) => {
       <SwitchTransition mode="out-in">
         <Transition
           key={location.pathname}
-          timeout={500}
+          timeout={{ exit: 500, enter: 0 }}
           onExit={node => playExit(node, location.pathname)}
           onEnter={node => playEnter(node, location.pathname)}
         >

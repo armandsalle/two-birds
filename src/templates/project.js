@@ -53,6 +53,10 @@ const Project = ({
 
   useEffect(() => {
     if (animationStatut === "TRANSITION") {
+      gsap.set(".get-back", {
+        opacity: 1,
+        y: 0,
+      })
       gsap.set(".project-header__logo", {
         opacity: 1,
         y: 0,
@@ -110,7 +114,7 @@ const Project = ({
         y: 0,
         duration: 1,
       },
-      0.6
+      animationStatut === "ORIGINAL" ? 0.6 : 0
     ).fromTo(
       ".project-header__date, .project-header__tags, .project-header__visit-link",
       {
@@ -123,7 +127,7 @@ const Project = ({
         duration: 1,
         stagger: 0.3,
       },
-      0.9
+      animationStatut === "ORIGINAL" ? 0.9 : 0.3
     )
 
     if (animationStatut === "ORIGINAL") {
