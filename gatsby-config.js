@@ -16,6 +16,23 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     {
+      resolve: `gatsby-plugin-webfonts`,
+      options: {
+        fonts: {
+          google: [
+            {
+              family: "Poppins",
+              variants: ["400", "500", "600", "700", "800", "900"],
+            },
+          ],
+        },
+        formats: ["woff2", "woff"],
+        useMinify: true,
+        usePreload: true,
+        usePreconnect: true,
+      },
+    },
+    {
       resolve: "gatsby-plugin-sass",
       options: {
         useResolveUrlLoader: {

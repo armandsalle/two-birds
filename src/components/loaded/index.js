@@ -118,7 +118,12 @@ const Loaded = ({ children }) => {
         let lottie
 
         try {
-          const res = await axios.get(el[1].url)
+          const res = await axios.get(el[1].url, {
+            headers: {
+              // "Accept-Encoding": "gzip",
+              "Content-Encoding": "gzip",
+            },
+          })
           lottie = await res.data
         } catch (error) {
           console.log(error)
