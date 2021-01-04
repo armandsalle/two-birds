@@ -1,5 +1,5 @@
 import React from "react"
-import cn from "classname"
+import cn from "classnames"
 import SplitText from "../splitText"
 
 export default function Title({ children, className, as }) {

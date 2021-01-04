@@ -11,15 +11,11 @@ import Contact from "../components/contact"
 
 const Project = ({
   data: {
-    prismic: { layout, allProjects },
+    prismic: { allProjects },
   },
   pageContext: { uid },
 }) => {
   const { animationsCanRuns } = useContext(AnimationContext)
-
-  const { contact_project_text, contact_project_cta } = layout.edges
-    .slice(0, 1)
-    .pop().node
 
   const { projectssList } = allProjects
 
@@ -42,6 +38,8 @@ const Project = ({
     projectLink,
     projectTags,
     projectDate,
+    contactTitle,
+    contactCta,
     body,
   } = projectssList[currId].projectsItem
 
@@ -166,7 +164,7 @@ const Project = ({
       <div className="all-slices">
         <ProjectSlices slices={body} />
       </div>
-      <Contact title={contact_project_text} cta={contact_project_cta} />
+      <Contact title={contactTitle} cta={contactCta} />
       <div className="line"></div>
       <ProjectTransition nextProject={nextProject} />
     </>
@@ -176,14 +174,6 @@ const Project = ({
 export const projectQuery = graphql`
   query projectPage {
     prismic {
-      layout: allLayouts {
-        edges {
-          node {
-            contact_project_text
-            contact_project_cta
-          }
-        }
-      }
       allProjects: home(lang: "fr-fr", uid: "home") {
         projectssList {
           projectsItem {
@@ -207,6 +197,8 @@ export const projectQuery = graphql`
                 projectTag
               }
               projectDate
+              contactTitle
+              contactCta
               body {
                 ... on PRISMIC_ProjectsBodyImage_full {
                   type
