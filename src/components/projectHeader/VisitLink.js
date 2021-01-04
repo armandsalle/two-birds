@@ -28,6 +28,7 @@ const VisitLink = ({ projectLink, title }) => {
       className="project-header__visit-link"
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
+      role="button"
     >
       {projectLink && (
         <a href={projectLink} target="_blank" rel="noreferrer">

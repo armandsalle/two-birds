@@ -99,6 +99,7 @@ const Bird = ({ align, bird, anim, id }) => {
       className="trust__birds__half"
       onMouseEnter={e => hoverImg(e)}
       onClick={e => hoverImg(e)}
+      role="button"
     >
       <div className={cn("trust__birds__half__header", align)} ref={imgRef}>
         <div className="img looking-at">

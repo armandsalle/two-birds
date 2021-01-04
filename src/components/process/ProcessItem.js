@@ -33,6 +33,7 @@ const ProcessItem = ({ title, desc, items, anim }) => {
 
   return (
     <div
+      role="button"
       className="process-item"
       onMouseEnter={e => hoverImg(e, "in")}
       onMouseLeave={e => hoverImg(e, "out")}
