@@ -146,18 +146,18 @@
                     width: 100%;
                 }
 
-                // &::after {
-                //     content: "";
-                //     position: absolute;
-                //     z-index: 1;
-                //     bottom: -1px;
-                //     left: 0;
-                //     right: 0;
-                //     width: 100%;
-                //     height: 1px;
-                //     background-color: var(--color-light-grey);
-                //     transform: scaleX(10);
-                // }
+                &::after {
+                    content: "";
+                    position: absolute;
+                    z-index: 1;
+                    bottom: -1px;
+                    left: 0;
+                    right: 0;
+                    width: 100%;
+                    height: 1px;
+                    background-color: var(--color-light-grey);
+                    transform: scaleX(10);
+                }
             }
         }
 

@@ -4,13 +4,10 @@ import { RichText } from "prismic-reactjs"
 import { linkResolver } from "../../utils/linkResolver"
 import cn from "classnames"
 import { gsap } from "gsap"
-import { v4 as uuidv4 } from "uuid"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
 const CustomRichText = forwardRef(({ data, className, isText, as }, ref) => {
   if (!data) return null
-
-  const idRef = useRef(uuidv4())
 
   const isTouchDevice = useIsTouchDesign()
 
@@ -33,9 +30,7 @@ const CustomRichText = forwardRef(({ data, className, isText, as }, ref) => {
   }, [isTouchDevice])
 
   useEffect(() => {
-    const links = [
-      ...document.querySelectorAll(`.identifier-${idRef.current} a`),
-    ]
+    const links = [...document.querySelectorAll(`.richtext a`)]
 
     links.forEach(link => {
       link.addEventListener("mouseenter", mouseEnterLink)
@@ -63,14 +58,7 @@ const CustomRichText = forwardRef(({ data, className, isText, as }, ref) => {
 
     default:
       result = (
-        <div
-          className={cn(
-            isText && "richtext",
-            className,
-            "identifier-" + idRef.current
-          )}
-          ref={ref}
-        >
+        <div className={cn(isText && "richtext", className)} ref={ref}>
           {RichText.render(data, linkResolver)}
         </div>
       )

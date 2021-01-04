@@ -42,6 +42,8 @@ body {
     width: 100vw;
     overscroll-behavior: none;
     -webkit-overflow-scrolling: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
     position: relative;
 }
 

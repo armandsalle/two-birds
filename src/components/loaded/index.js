@@ -191,6 +191,7 @@ const Loaded = ({ children }) => {
         },
         onComplete: () => {
           document.querySelector("body").classList.remove("hide")
+          document.querySelector("body").style.overflowY = "auto"
         },
       })
     }
