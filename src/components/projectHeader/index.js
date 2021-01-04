@@ -11,6 +11,7 @@ const ProjectHeader = ({
     projectLogoSharp,
     preojectDescription,
     projectLink,
+    titleLink,
     projectTags,
     projectDate,
   },
@@ -48,7 +49,7 @@ const ProjectHeader = ({
         className="project-header__description"
       />
       <div className="project-header__infos mt-40">
-        <VisitLink projectLink={projectLink} />
+        <VisitLink projectLink={projectLink} title={titleLink} />
         <div className="project-header__tags">
           {projectTags &&
             projectTags.map(({ projectTag }, i) => (

@@ -38,6 +38,7 @@ const Project = ({
     projectLink,
     projectTags,
     projectDate,
+    titleLink,
     contactTitle,
     contactCta,
     body,
@@ -157,6 +158,7 @@ const Project = ({
           projectLogoSharp,
           preojectDescription,
           projectLink,
+          titleLink,
           projectTags,
           projectDate,
         }}
@@ -197,6 +199,7 @@ export const projectQuery = graphql`
                 projectTag
               }
               projectDate
+              titleLink
               contactTitle
               contactCta
               body {

@@ -2,7 +2,7 @@ import React, { useCallback } from "react"
 import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
-const VisitLink = ({ projectLink }) => {
+const VisitLink = ({ projectLink, title }) => {
   const isTouchDevice = useIsTouchDesign()
 
   const mouseEnter = useCallback(() => {
@@ -31,7 +31,7 @@ const VisitLink = ({ projectLink }) => {
     >
       {projectLink && (
         <a href={projectLink} target="_blank" rel="noreferrer">
-          <span>Visit website</span>
+          <span>{title}</span>
           <svg
             width="16"
             height="16"
