@@ -13,10 +13,12 @@
                 font-size: 2rem;
                 line-height: 1.6;
             }
+
+            @include media("<phone") {
+                font-size: 1.6rem;
+            }
         }
     }
-
-
 
     &__birds {
         display: flex;
@@ -25,6 +27,12 @@
 
         @include media("<lanscape") {
             flex-direction: column;
+        }
+
+        &.mt-160 {
+            @include media("<lanscape") {
+                margin-top: 3.2rem;
+            }
         }
 
         &__content__wrapper {
@@ -44,7 +52,7 @@
                 padding: 0;
 
                 &:last-of-type {
-                    margin-top: 12.8rem;
+                    margin-top: 4rem;
                 }
             }
 

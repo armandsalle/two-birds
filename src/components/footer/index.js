@@ -64,9 +64,6 @@ const Footer = () => {
           <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
             Legal
           </Link>
-          <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
-            Cookies
-          </Link>
         </div>
       </div>
     </footer>
