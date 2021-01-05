@@ -8,6 +8,7 @@ import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 import { AnimationContext } from "../../contexts/animationContext"
 import Title from "../title"
 import titleReveal from "../../animations/titleReveal"
+import createLottiesObject from "../../utils/createLottiesObject"
 
 const Trust = ({ title, text, birds }) => {
   const { trustLotties, animationsCanRuns } = useContext(AnimationContext)
@@ -70,12 +71,7 @@ const Trust = ({ title, text, birds }) => {
 
   useEffect(() => {
     if (animationsCanRuns) {
-      const lotties = trustLotties.reduce((prev, el) => {
-        return {
-          ...prev,
-          [Object.keys(el)[0]]: el[Object.keys(el)[0]],
-        }
-      }, {})
+      const lotties = createLottiesObject(trustLotties)
       setLotties(lotties)
     }
   }, [animationsCanRuns, trustLotties, setLotties])

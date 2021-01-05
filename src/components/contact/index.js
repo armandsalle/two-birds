@@ -11,6 +11,7 @@ import Lottie from "lottie-react"
 import { AnimationContext } from "../../contexts/animationContext"
 import gsap from "gsap/gsap-core"
 import { useStaticQuery, graphql } from "gatsby"
+import createLottiesObject from "../../utils/createLottiesObject"
 
 const Contact = ({ title, cta }) => {
   const {
@@ -90,12 +91,7 @@ const Contact = ({ title, cta }) => {
 
   useEffect(() => {
     if (animationsCanRuns) {
-      const lotties = contactLotties.reduce((prev, el) => {
-        return {
-          ...prev,
-          [Object.keys(el)[0]]: el[Object.keys(el)[0]],
-        }
-      }, {})
+      const lotties = createLottiesObject(contactLotties)
       setLotties(lotties)
     }
   }, [animationsCanRuns, contactLotties, setLotties])

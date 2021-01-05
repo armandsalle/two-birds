@@ -4,6 +4,7 @@ import { gsap } from "gsap"
 import { AnimationContext } from "../../contexts/animationContext"
 import Title from "../title"
 import titleReveal from "../../animations/titleReveal"
+import createLottiesObject from "../../utils/createLottiesObject"
 
 const Process = ({ title, processList }) => {
   const { processLotties, animationsCanRuns } = useContext(AnimationContext)
@@ -53,12 +54,7 @@ const Process = ({ title, processList }) => {
 
   useEffect(() => {
     if (animationsCanRuns) {
-      const lotties = processLotties.reduce((prev, el) => {
-        return {
-          ...prev,
-          [Object.keys(el)[0]]: el[Object.keys(el)[0]],
-        }
-      }, {})
+      const lotties = createLottiesObject(processLotties)
       setLotties(lotties)
     }
   }, [animationsCanRuns, processLotties, setLotties])

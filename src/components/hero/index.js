@@ -12,6 +12,7 @@ import Button from "../button"
 import { AnimationContext } from "../../contexts/animationContext"
 import Title from "../title"
 import titleReveal from "../../animations/titleReveal"
+import createLottiesObject from "../../utils/createLottiesObject"
 
 const Hero = ({ title, text, cta }) => {
   const { animationsCanRuns, heroLotties } = useContext(AnimationContext)
@@ -41,12 +42,7 @@ const Hero = ({ title, text, cta }) => {
 
   useEffect(() => {
     if (animationsCanRuns) {
-      const lotties = heroLotties.reduce((prev, el) => {
-        return {
-          ...prev,
-          [Object.keys(el)[0]]: el[Object.keys(el)[0]],
-        }
-      }, {})
+      const lotties = createLottiesObject(heroLotties)
       setLotties(lotties)
     }
   }, [animationsCanRuns, heroLotties, setLotties])

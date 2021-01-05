@@ -17,6 +17,7 @@ const Bird = ({ align, bird, anim, id }) => {
   const [animLoop, setAnimLoop] = useState(true)
 
   useEffect(() => {
+    // Reveal
     if (window.matchMedia("screen and (min-width: 992px)").matches) {
       gsap.to(imgRef.current, {
         scrollTrigger: {
@@ -34,6 +35,7 @@ const Bird = ({ align, bird, anim, id }) => {
   }, [])
 
   useEffect(() => {
+    // Reveal and lotties
     if (window.matchMedia("screen and (max-width: 992px)").matches) {
       setAnimLoop(false)
       gsap.fromTo(
@@ -75,12 +77,13 @@ const Bird = ({ align, bird, anim, id }) => {
         ]
         const otherBird = id === 0 ? birds[1] : id === 1 ? birds[0] : birds[0]
 
+        const imgNormal = e.currentTarget.querySelector(".normal")
         const imgShow = e.currentTarget.querySelector(".hover")
         const imgLookingAt = e.currentTarget.querySelector(".looking-at")
-        const otherImgLooinkgAt = otherBird.querySelector(".looking-at")
-        const otherImgShow = otherBird.querySelector(".hover")
-        const imgNormal = e.currentTarget.querySelector(".normal")
+
         const otherImgNormal = otherBird.querySelector(".normal")
+        const otherImgShow = otherBird.querySelector(".hover")
+        const otherImgLooinkgAt = otherBird.querySelector(".looking-at")
 
         //iamge show
         gsap.set([imgNormal, otherImgNormal], { display: "none" })
