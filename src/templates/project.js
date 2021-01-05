@@ -42,6 +42,8 @@ const Project = ({
     contactTitle,
     contactCta,
     body,
+    seoDesscription,
+    seoImageSharp,
   } = projectssList[currId].projectsItem
 
   const nextProject = projectssList[nextProjectId].projectsItem
@@ -149,7 +151,11 @@ const Project = ({
 
   return (
     <>
-      <SEO title={projectName} />
+      <SEO
+        title={projectName}
+        description={seoDesscription}
+        image={seoImageSharp}
+      />
 
       <ProjectHeader
         infos={{
@@ -202,6 +208,15 @@ export const projectQuery = graphql`
               titleLink
               contactTitle
               contactCta
+              seoDesscription
+              seoImage
+              seoImageSharp {
+                childImageSharp {
+                  fixed(width: 1200, height: 630, quality: 100) {
+                    ...GatsbyImageSharpFixed
+                  }
+                }
+              }
               body {
                 ... on PRISMIC_ProjectsBodyImage_full {
                   type

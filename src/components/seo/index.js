@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ meta, title, noIndex }) {
+function SEO({ meta, title, noIndex, image, description }) {
   const { prismic } = useStaticQuery(
     graphql`
       query {
@@ -48,15 +48,15 @@ function SEO({ meta, title, noIndex }) {
       meta={[
         {
           name: `description`,
-          content: siteDescription,
+          content: description || siteDescription,
         },
         {
           property: `og:title`,
-          content: siteTitle,
+          content: title ? `${title} - ${siteTitle}` : `${siteTitle}`,
         },
         {
           property: `og:description`,
-          content: siteDescription,
+          content: description || siteDescription,
         },
         {
           property: `og:type`,
@@ -64,7 +64,9 @@ function SEO({ meta, title, noIndex }) {
         },
         {
           property: `og:image`,
-          content: siteImageSharp.childImageSharp.fixed.src,
+          content: image
+            ? image.childImageSharp.fixed.src
+            : siteImageSharp.childImageSharp.fixed.src,
         },
         {
           name: `twitter:card`,
@@ -80,7 +82,7 @@ function SEO({ meta, title, noIndex }) {
         },
         {
           name: `twitter:description`,
-          content: siteDescription,
+          content: description || siteDescription,
         },
       ].concat(meta)}
     >
