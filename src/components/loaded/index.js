@@ -120,7 +120,6 @@ const Loaded = ({ children }) => {
         try {
           const res = await axios.get(el[1].url, {
             headers: {
-              // "Accept-Encoding": "gzip",
               "Content-Encoding": "gzip",
             },
           })
@@ -198,20 +197,17 @@ const Loaded = ({ children }) => {
   }, [loadedCanGo])
 
   useEffect(() => {
-    window.loadPromise.then(() => {
-      document.querySelector("body").classList.add("hide")
-      const isMobile = window.matchMedia("screen and (max-width: 478px)")
-        .matches
-      gsap.to(".loading__background", {
-        duration: isMobile ? 75 / 2 : 75,
-        xPercent: 20,
-        ease: "none",
-      })
-      gsap.to(".loading__foreground", {
-        duration: isMobile ? 30 / 2 : 30,
-        xPercent: 20,
-        ease: "none",
-      })
+    document.querySelector("body").classList.add("hide")
+    const isMobile = window.matchMedia("screen and (max-width: 478px)").matches
+    gsap.to(".loading__background", {
+      duration: isMobile ? 75 / 2 : 75,
+      xPercent: 20,
+      ease: "none",
+    })
+    gsap.to(".loading__foreground", {
+      duration: isMobile ? 30 / 2 : 30,
+      xPercent: 20,
+      ease: "none",
     })
   }, [])
 
