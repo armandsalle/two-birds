@@ -33,6 +33,12 @@
 .project-header {
     margin-bottom: 16rem;
 
+    &.mt-240 {
+        @include media("<lanscape") {
+            margin-top: 10.8rem;
+        }
+    }
+
     @include media("<lanscape") {
         margin-bottom: 8rem;
     }
