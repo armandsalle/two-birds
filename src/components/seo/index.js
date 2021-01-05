@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ meta, title }) {
+function SEO({ meta, title, noIndex }) {
   const { prismic } = useStaticQuery(
     graphql`
       query {
@@ -87,6 +87,7 @@ function SEO({ meta, title }) {
       <link rel="preconnect" href="https://prismic-io.s3.amazonaws.com" />
       <link rel="preconnect" href="https://images.prismic.io" />
       <link rel="preconnect" href="https://twobirds.prismic.io" />
+      {noIndex && <meta name="robots" content="noindex" />}
     </Helmet>
   )
 }

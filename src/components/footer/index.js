@@ -61,7 +61,11 @@ const Footer = () => {
           <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
             Parlez-vous français ?
           </Link>
-          <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
+          <Link
+            to="/legals"
+            onMouseEnter={socialEnter}
+            onMouseLeave={socialLeave}
+          >
             Legal
           </Link>
         </div>
