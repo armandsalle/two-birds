@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useCallback } from "react"
 import CustomRichText from "../richText"
 import Lottie from "lottie-react"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import reveal from "../../animations/reveal"
 
 const ProcessItem = ({ title, desc, items, anim }) => {
   const processRef = useRef()
@@ -17,6 +18,8 @@ const ProcessItem = ({ title, desc, items, anim }) => {
           lottieRef.current.play()
         },
       })
+      const content = processRef.current.querySelector(".process-item__content")
+      reveal(content, content, false, "80%")
     }
   }, [])
 

@@ -76,8 +76,8 @@ const Process = ({ title, processList }) => {
                 i === 0
                   ? lotties.process_lottie_owl
                   : i === 1
-                  ? lotties.process_lottie_hummingbird
-                  : lotties.process_lottie_toucan
+                  ? lotties.process_lottie_toucan
+                  : lotties.process_lottie_hummingbird
               }
             />
           ))}
