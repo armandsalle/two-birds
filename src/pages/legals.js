@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from "react"
+import { graphql } from "gatsby"
 import { gsap } from "gsap"
 import { AnimationContext } from "../contexts/animationContext"
 import CustomRichText from "../components/richText"

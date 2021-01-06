@@ -30,13 +30,18 @@ const Trust = ({ title, text, birds }) => {
   const secondBird = birds[1]
   const isTouchDesign = useIsTouchDesign()
 
-  const setHeight = useCallback((contents, contentWrapper) => {
-    // Filter the heightest height
-    const heights = contents.map(e => e.getBoundingClientRect().height)
-    const highestHeight = Math.max.apply(null, heights)
+  const setHeight = useCallback(
+    (contents, contentWrapper) => {
+      // Filter the heightest height
+      const heights = contents.map(e => e.getBoundingClientRect().height)
+      const highestHeight = Math.max.apply(null, heights)
 
-    contentWrapper.style.height = `${highestHeight}px`
-  }, [])
+      contentWrapper.style.height = `${
+        isTouchDesign ? highestHeight : highestHeight + 44
+      }px`
+    },
+    [isTouchDesign]
+  )
 
   const showContent = useCallback((e, contents, halfs) => {
     // Check which side of the content is first enter to diplay the content
@@ -46,10 +51,12 @@ const Trust = ({ title, text, birds }) => {
     if (mouseX > window.innerWidth / 2) {
       // right
       gsap.set(contents[1], { display: "block", opacity: 1 })
+      gsap.set(contents[0], { display: "none", opacity: 0 })
       halfs[1].click()
     } else if (mouseX < window.innerWidth / 2) {
       // left
       gsap.set(contents[0], { display: "block", opacity: 1 })
+      gsap.set(contents[1], { display: "none", opacity: 0 })
       halfs[0].click()
     }
   }, [])

@@ -111,8 +111,8 @@ const Bird = forwardRef(({ align, bird, anim, id }, ref) => {
       gsap.set([otherImgShow, imgLookingAt], { opacity: 0 })
       gsap.set([imgShow, otherImgLooinkgAt], { opacity: 1 })
       //content show
-      gsap.set(content[id === 0 ? 1 : 0], { opacity: 0 })
-      gsap.set(content[id], { opacity: 1 })
+      gsap.set(content[id === 0 ? 1 : 0], { display: "none", opacity: 0 })
+      gsap.set(content[id], { display: "block", opacity: 1 })
     }
   }, [id, lottieRef])
 
