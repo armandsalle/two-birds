@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useContext } from "react"
+import ReactDOMServer from "react-dom/server"
 import Img from "gatsby-image"
 import { navigate } from "gatsby"
 import { gsap } from "gsap"
@@ -8,7 +9,7 @@ import Button from "../button"
 import { AnimationContext } from "../../contexts/animationContext"
 
 const ProjectTransition = ({ nextProject }) => {
-  const { contactLottiesRef } = useContext(AnimationContext)
+  const { contactLottiesRef, setExitAnimation } = useContext(AnimationContext)
   const headerRect = useRef()
 
   useEffect(() => {
@@ -39,42 +40,67 @@ const ProjectTransition = ({ nextProject }) => {
         (nextTextRect ? nextTextRect.height : 0) -
         headerRect.current.y
 
-      const tl = gsap.timeline({
-        paused: true,
-        ease: "power3.out",
-        onComplete: () => {
-          navigate("/" + nextProject._meta.uid)
-        },
-      })
-      tl.to(".project-header, .all-slices, footer", {
-        opacity: 0,
-        duration: 1,
-      })
-      tl.to(".line", { opacity: 0, duration: 0.1 }, 0)
-      tl.to(
-        ".project-transition__next, .project-transition__button",
-        {
-          duration: 0.35,
+      const tl = gsap
+        .timeline({
+          paused: true,
+          ease: "power3.out",
+          onComplete: () => {
+            const projectPatch = document.querySelector(".project-patch")
+            const projectPatchImg = projectPatch.querySelector("img")
+            const projectPatchTitle = projectPatch.querySelector("h1")
+
+            projectPatchImg.src = nextProject.projectLogo.url
+            projectPatchTitle.innerHTML = ReactDOMServer.renderToStaticMarkup(
+              nextProject.projectTitleRich.map((t, i) => (
+                <span key={i}>{t.text}</span>
+              ))
+            )
+            gsap.set(projectPatch, {
+              top: headerRect.current.top,
+              left: headerRect.current.left,
+              width: headerRect.current.width,
+            })
+
+            gsap.set(".project-patch", {
+              display: "block",
+              opacity: 1,
+              onComplete: () => {
+                setExitAnimation("project")
+
+                navigate("/" + nextProject._meta.uid)
+              },
+            })
+          },
+        })
+        .to(".project-header, .all-slices, footer", {
           opacity: 0,
-        },
-        0
-      )
-      tl.to(
-        ".project-transition__bg",
-        {
-          scaleY: 4,
-          duration: 1,
-        },
-        0
-      )
-      tl.to(
-        ".project-transition .container",
-        {
-          duration: 0.8,
-          y: -ydDiff,
-        },
-        0
-      )
+          duration: 0.5,
+        })
+        .to(".line", { opacity: 0, duration: 0.1 }, 0)
+        .to(
+          ".project-transition__next, .project-transition__button",
+          {
+            duration: 0.35,
+            opacity: 0,
+          },
+          0
+        )
+        .to(
+          ".project-transition__bg",
+          {
+            scaleY: 4,
+            duration: 0.5,
+          },
+          0
+        )
+        .to(
+          ".project-transition .container",
+          {
+            duration: 0.5,
+            y: -ydDiff,
+          },
+          0
+        )
 
       tl.play()
     }

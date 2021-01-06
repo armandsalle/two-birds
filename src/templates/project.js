@@ -15,7 +15,7 @@ const Project = ({
   },
   pageContext: { uid },
 }) => {
-  const { animationsCanRuns } = useContext(AnimationContext)
+  const { animationsCanRuns, setExitAnimation } = useContext(AnimationContext)
 
   const { projectssList } = allProjects
 
@@ -146,6 +146,11 @@ const Project = ({
     if (animationsCanRuns) {
       tl.play()
       setAnimation("ORIGINAL")
+      gsap.to(".project-patch", { opacity: 0, display: "none" })
+    }
+
+    return () => {
+      setExitAnimation("opacity")
     }
   }, [animationsCanRuns])
 

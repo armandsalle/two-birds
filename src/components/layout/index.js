@@ -17,7 +17,6 @@ const Layout = ({ children, location }) => {
   )
 
   const playExit = (node, path) => {
-    console.log("exit", node, path)
     if (animationsCanRuns && exitAnimation === "opacity") {
       if (animationStatut === "ORIGINAL") {
         gsap.to(".get-back", { opacity: 0 })
@@ -36,7 +35,6 @@ const Layout = ({ children, location }) => {
   }
 
   const playEnter = (node, path) => {
-    console.log("enter", node, path)
     if (animationsCanRuns && enterAnimation === "opacity") {
       gsap.fromTo(
         "main",
@@ -78,6 +76,12 @@ const Layout = ({ children, location }) => {
         </Transition>
       </SwitchTransition>
       <ProjectNav />
+      <div className="project-patch" style={{ display: "none" }}>
+        <div className="project-patch__img-wrapper">
+          <img alt="" className="project-patch__logo" width="100" height="32" />
+        </div>
+        <h1 className="h2 mt-16 project-patch__title"></h1>
+      </div>
     </Loaded>
   )
 }

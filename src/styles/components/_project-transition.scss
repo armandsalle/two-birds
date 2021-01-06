@@ -82,3 +82,17 @@
         }
     }
 }
+
+.project-patch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none;
+    pointer-events: none;
+    z-index: 9999999;
+
+    span {
+        display: block;
+
+    }
+}
