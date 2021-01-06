@@ -76,11 +76,21 @@ const Layout = ({ children, location }) => {
         </Transition>
       </SwitchTransition>
       <ProjectNav />
-      <div className="project-patch" style={{ display: "none" }}>
+      <div
+        className="project-patch"
+        style={{ display: "none" }}
+        aria-hidden="true"
+      >
         <div className="project-patch__img-wrapper">
-          <img alt="" className="project-patch__logo" width="100" height="32" />
+          <img
+            alt=""
+            className="project-patch__logo"
+            width="100"
+            height="32"
+            aria-hidden="true"
+          />
         </div>
-        <h1 className="h2 mt-16 project-patch__title"></h1>
+        <h1 className="h2 mt-16 project-patch__title" aria-hidden="true"></h1>
       </div>
     </Loaded>
   )

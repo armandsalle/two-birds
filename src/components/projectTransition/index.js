@@ -111,7 +111,13 @@ const ProjectTransition = ({ nextProject }) => {
     return () => {
       pageTransitionTag.removeEventListener("click", navigateToNextProject)
     }
-  }, [nextProject._meta.uid, contactLottiesRef])
+  }, [
+    nextProject._meta.uid,
+    contactLottiesRef,
+    nextProject.projectLogo.url,
+    nextProject.projectTitleRich,
+    setExitAnimation,
+  ])
 
   return (
     <section

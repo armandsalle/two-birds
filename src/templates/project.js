@@ -152,7 +152,7 @@ const Project = ({
     return () => {
       setExitAnimation("opacity")
     }
-  }, [animationsCanRuns])
+  }, [animationsCanRuns, setExitAnimation])
 
   return (
     <>
