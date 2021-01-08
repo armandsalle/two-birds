@@ -7,10 +7,16 @@ import { mouseEnter, mouseLeave, mouseClick } from "../../animations/cursor"
 import { setAnimation } from "../../contexts/animationState"
 import Button from "../button"
 import { AnimationContext } from "../../contexts/animationContext"
+import useCreateLink from "../../hooks/useCreateLink"
 
 const ProjectTransition = ({ nextProject }) => {
   const { contactLottiesRef, setExitAnimation } = useContext(AnimationContext)
   const headerRect = useRef()
+
+  const createLink = useCreateLink(
+    nextProject._meta.lang,
+    nextProject._meta.uid
+  )
 
   useEffect(() => {
     headerRect.current = document
@@ -67,7 +73,7 @@ const ProjectTransition = ({ nextProject }) => {
               onComplete: () => {
                 setExitAnimation("project")
 
-                navigate("/" + nextProject._meta.uid)
+                navigate(createLink)
               },
             })
           },
@@ -117,6 +123,7 @@ const ProjectTransition = ({ nextProject }) => {
     nextProject.projectLogo.url,
     nextProject.projectTitleRich,
     setExitAnimation,
+    createLink,
   ])
 
   return (

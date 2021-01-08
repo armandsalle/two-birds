@@ -185,14 +185,15 @@ const Project = ({
 }
 
 export const projectQuery = graphql`
-  query projectPage {
+  query projectPage($lang: String!) {
     prismic {
-      allProjects: home(lang: "fr-fr", uid: "home") {
+      allProjects: home(lang: $lang, uid: "home") {
         projectssList {
           projectsItem {
             ... on PRISMIC_Projects {
               _meta {
                 uid
+                lang
               }
               projectLogo
               projectLogoSharp {

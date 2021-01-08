@@ -28,6 +28,7 @@ export default function Home({
       },
     },
   },
+  pageContext,
 }) {
   useEffect(() => {
     document.querySelector(".get-back").style.display = "none"
@@ -42,15 +43,15 @@ export default function Home({
       <Process title={processTitle} processList={processList} />
       <Trust title={trustTitle} text={trustText} birds={birds} />
       <Contact title={contactTitle} cta={contactCtaText} />
-      <Footer />
+      <Footer lang={pageContext.lang} />
     </>
   )
 }
 
 export const indexQuery = graphql`
-  query indexPage {
+  query indexPage($lang: String!) {
     prismic {
-      home(lang: "fr-fr", uid: "home") {
+      home(lang: $lang, uid: "home") {
         heroTitle
         heroText
         heroCtaText
@@ -66,6 +67,7 @@ export const indexQuery = graphql`
             ... on PRISMIC_Projects {
               _meta {
                 uid
+                lang
               }
               projectName
               projectTags {

@@ -53,16 +53,29 @@ module.exports = {
       resolve: "@prismicio/gatsby-source-prismic-graphql",
       options: {
         repositoryName: "twobirds", // required
-        defaultLang: "fr-fr", // optional, but recommended
+        defaultLang: "en-us", // optional, but recommended
+        langs: ["fr-fr", "en-us"],
         accessToken: process.env.PRISMIC_ACCESS_TOKEN, // optional
-        previews: false, // optional, default: true
-        // path: "/preview", // optional, default: /preview
+        previews: false,
         omitPrismicScript: true,
+        shortenUrlLangs: true,
         pages: [
           {
+            type: "home",
+            match: "/:lang?/",
+            langs: ["fr-fr", "en-us"],
+            component: require.resolve("./src/templates/home.js"),
+          },
+          {
+            type: "legals",
+            match: "/:lang?/legals",
+            langs: ["fr-fr", "en-us"],
+            component: require.resolve("./src/templates/legals.js"),
+          },
+          {
             type: "projects",
-            match: "/:uid",
-            previewPath: "/project",
+            match: "/:lang?/:uid",
+            langs: ["fr-fr", "en-us"],
             component: require.resolve("./src/templates/project.js"),
           },
         ],

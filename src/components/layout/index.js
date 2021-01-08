@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react"
 import { Transition, SwitchTransition } from "react-transition-group"
+import { navigate } from "gatsby"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import "../../styles/main.scss"
@@ -8,13 +9,39 @@ import { animationStatut } from "../../contexts/animationState"
 import Cursor from "../cursor"
 import Loaded from "../loaded"
 import ProjectNav from "../projectNav"
+import useCreateLink from "../../hooks/useCreateLink"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const Layout = ({ children, location }) => {
+const getRedirectLanguage = () => {
+  if (typeof navigator === `undefined`) {
+    return ""
+  }
+
+  const lang =
+    navigator && navigator.language && navigator.language.split("-")[0]
+  if (!lang) return ""
+
+  switch (lang) {
+    case "fr":
+      return "fr"
+    default:
+      return ""
+  }
+}
+
+const Layout = ({ children, location, pageContext }) => {
   const { animationsCanRuns, exitAnimation, enterAnimation } = useContext(
     AnimationContext
   )
+
+  const createLink = useCreateLink(pageContext.lang)
+
+  useEffect(() => {
+    const urlLang = getRedirectLanguage()
+
+    navigate(`/${urlLang}/`, { replace: true })
+  }, [])
 
   const playExit = (node, path) => {
     if (animationsCanRuns && exitAnimation === "opacity") {
@@ -75,7 +102,7 @@ const Layout = ({ children, location }) => {
           <main>{children}</main>
         </Transition>
       </SwitchTransition>
-      <ProjectNav />
+      <ProjectNav link={createLink} />
       <div
         className="project-patch"
         style={{ display: "none" }}

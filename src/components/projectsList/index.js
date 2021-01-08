@@ -29,7 +29,7 @@ const ProjectsList = ({ title, projects }) => {
           (
             {
               projectsItem: {
-                _meta: { uid },
+                _meta: { uid, lang },
                 projectName,
                 projectTags,
                 projectThumbnail,
@@ -45,6 +45,7 @@ const ProjectsList = ({ title, projects }) => {
               thumbnailSharp={projectThumbnailSharp}
               thumbnail={projectThumbnail}
               uid={uid}
+              lang={lang}
             />
           )
         )}

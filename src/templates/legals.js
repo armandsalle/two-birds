@@ -49,9 +49,9 @@ const Legals = ({
 export default Legals
 
 export const legalsQuery = graphql`
-  query legalsPage {
+  query legalsPage($lang: String!) {
     prismic {
-      legals(lang: "fr-fr", uid: "legals") {
+      legals(lang: $lang, uid: "legals") {
         contentList {
           content
         }

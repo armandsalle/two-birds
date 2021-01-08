@@ -3,8 +3,9 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import SocialLink from "../scocialLink"
 import { socialEnter, socialLeave } from "../../animations/cursor"
+import useCreateLink from "../../hooks/useCreateLink"
 
-const Footer = () => {
+const Footer = ({ lang }) => {
   const { prismic } = useStaticQuery(
     graphql`
       query {
@@ -33,6 +34,8 @@ const Footer = () => {
     siteLogo,
   } = prismic.allLayouts.edges.slice(0, 1).pop().node
 
+  const createLink = useCreateLink(lang, "legals")
+
   return (
     <footer className="footer container mt-80 mb-80">
       <div className="footer__left">
@@ -58,11 +61,11 @@ const Footer = () => {
           {footerLinkedin && <SocialLink to={footerLinkedin} is="linkedin" />}
         </div>
         <div className="footer__links mt-16">
-          <Link to="#" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
+          <Link to="/fr" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
             Parlez-vous français ?
           </Link>
           <Link
-            to="/legals"
+            to={createLink}
             onMouseEnter={socialEnter}
             onMouseLeave={socialLeave}
           >

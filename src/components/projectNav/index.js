@@ -1,9 +1,9 @@
 import React from "react"
 import Button from "../button"
 
-const ProjectNav = () => {
+const ProjectNav = ({ link }) => {
   return (
-    <Button to="/" className="get-back">
+    <Button to={link} className="get-back">
       <svg
         width={14}
         height={14}

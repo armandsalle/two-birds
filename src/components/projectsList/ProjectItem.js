@@ -3,17 +3,20 @@ import { Link } from "gatsby"
 import Img from "gatsby-image"
 import reveal from "../../animations/reveal"
 import { mouseEnter, mouseLeave, mouseClick } from "../../animations/cursor"
+import useCreateLink from "../../hooks/useCreateLink"
 
-const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid }) => {
+const ProjectItem = ({ title, thumbnailSharp, thumbnail, tags, uid, lang }) => {
   const linkRef = useRef(null)
 
   useEffect(() => {
     reveal(linkRef.current, linkRef.current, true, "70%")
   }, [])
 
+  const createLink = useCreateLink(lang, uid)
+
   return (
     <Link
-      to={`/${uid}`}
+      to={createLink}
       className="project-item-link "
       ref={linkRef}
       onMouseEnter={mouseEnter}
