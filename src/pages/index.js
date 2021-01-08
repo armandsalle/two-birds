@@ -110,7 +110,7 @@ export const indexQuery = graphql`
           birdsImageSharp {
             childImageSharp {
               fluid(maxWidth: 512, quality: 70) {
-                ...GatsbyImageSharpFluid_withWebp
+                ...GatsbyImageSharpFluid_withWebp_noBase64
               }
             }
           }

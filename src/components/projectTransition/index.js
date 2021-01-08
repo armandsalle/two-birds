@@ -88,7 +88,7 @@ const ProjectTransition = ({ nextProject }) => {
         .to(
           ".project-transition__bg",
           {
-            scaleY: 4,
+            scale: 4,
             duration: 0.5,
           },
           0
