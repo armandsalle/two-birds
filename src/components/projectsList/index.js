@@ -20,7 +20,10 @@ const ProjectsList = ({ title, projects }) => {
   }, [])
 
   return (
-    <section className="container mt-240" ref={projectSectionRef}>
+    <section
+      className="project-container container mt-160"
+      ref={projectSectionRef}
+    >
       <div className="projects-list">
         <Title className="h2" as="h2">
           {title}

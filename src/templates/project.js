@@ -91,7 +91,7 @@ const Project = ({
       <div className="all-slices">
         <ProjectSlices slices={body} />
       </div>
-      <Contact title={contactTitle} cta={contactCta} />
+      <Contact title={contactTitle} cta={contactCta} isProject={true} />
       <div className="line"></div>
       <ProjectTransition nextProject={nextProject} />
     </>

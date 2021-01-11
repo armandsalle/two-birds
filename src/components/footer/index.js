@@ -1,9 +1,11 @@
 import { Link } from "gatsby"
-import React from "react"
+import React, { useCallback } from "react"
+import { gsap } from "gsap"
 import { useStaticQuery, graphql } from "gatsby"
 import SocialLink from "../scocialLink"
 import { socialEnter, socialLeave } from "../../animations/cursor"
 import useCreateLink from "../../hooks/useCreateLink"
+import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
 const Footer = ({ lang }) => {
   const { prismic } = useStaticQuery(
@@ -34,7 +36,27 @@ const Footer = ({ lang }) => {
     siteLogo,
   } = prismic.allLayouts.edges.slice(0, 1).pop().node
 
+  const isTouchDevice = useIsTouchDesign()
+
   const createLink = useCreateLink(lang, "legals")
+
+  const mouseEnterLink = useCallback(() => {
+    if (!isTouchDevice) {
+      gsap.to(".cursor", {
+        scale: 0,
+        duration: 0.2,
+      })
+    }
+  }, [isTouchDevice])
+
+  const mouseLeaveLink = useCallback(() => {
+    if (!isTouchDevice) {
+      gsap.to(".cursor", {
+        scale: 0.2,
+        duration: 0.2,
+      })
+    }
+  }, [isTouchDevice])
 
   return (
     <footer className="footer container mt-80 mb-80">
@@ -49,7 +71,7 @@ const Footer = ({ lang }) => {
             />
           </Link>
         </div>
-        <span className="copywrite">Copyright © 2020 - twobirds</span>
+        <span className="copywrite">Copyright © 2021 - twobirds.</span>
       </div>
       <div className="footer__right">
         <div className="footer__social__links">
@@ -61,13 +83,17 @@ const Footer = ({ lang }) => {
           {footerLinkedin && <SocialLink to={footerLinkedin} is="linkedin" />}
         </div>
         <div className="footer__links mt-16">
-          <Link to="/fr" onMouseEnter={socialEnter} onMouseLeave={socialLeave}>
+          <Link
+            to="/fr"
+            onMouseEnter={mouseEnterLink}
+            onMouseLeave={mouseLeaveLink}
+          >
             Parlez-vous français ?
           </Link>
           <Link
             to={createLink}
-            onMouseEnter={socialEnter}
-            onMouseLeave={socialLeave}
+            onMouseEnter={mouseEnterLink}
+            onMouseLeave={mouseLeaveLink}
           >
             Legal
           </Link>

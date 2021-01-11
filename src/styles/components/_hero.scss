@@ -4,7 +4,7 @@
     opacity: 0;
 
     @include media("<lanscape") {
-        padding-top: 10rem;
+        padding-top: 12rem;
         height: auto;
 
         & .d-between-center {
@@ -99,6 +99,13 @@
         @include media("<lanscape") {
             font-size: 2rem;
             line-height: 1.6;
+            margin-top: 1.2rem;
+        }
+    }
+
+    & .cta.mt-48 {
+        @include media("<lanscape") {
+            margin-top: 3.2rem;
         }
     }
 }

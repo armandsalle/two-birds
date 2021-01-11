@@ -164,7 +164,7 @@ const Bird = forwardRef(({ align, bird, anim, id }, ref) => {
           isText
           ref={descRef}
         />
-        <div className="trust__birds__social mt-32" ref={socialRef}>
+        <div className="trust__birds__social mt-16" ref={socialRef}>
           {bird.birdsTwitter && (
             <SocialLink to={bird.birdsTwitter} is="twitter" />
           )}

@@ -12,8 +12,9 @@ import { AnimationContext } from "../../contexts/animationContext"
 import gsap from "gsap/gsap-core"
 import { useStaticQuery, graphql } from "gatsby"
 import createLottiesObject from "../../utils/createLottiesObject"
+import cn from "classnames"
 
-const Contact = ({ title, cta }) => {
+const Contact = ({ title, cta, isProject }) => {
   const {
     prismic: {
       home: {
@@ -155,7 +156,10 @@ const Contact = ({ title, cta }) => {
   }, [lotties, playLotties, pauseLotties, isMobile, setContactLottiesRef])
 
   return (
-    <section className="contact container mt-240" ref={sectionRef}>
+    <section
+      className={cn("contact container mt-240", isProject ? "project" : "")}
+      ref={sectionRef}
+    >
       {lotties && (
         <>
           <div className="contact__loties">

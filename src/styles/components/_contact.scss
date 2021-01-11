@@ -8,6 +8,19 @@
     @include media("<phone") {
         height: calc(125vw - 6.4rem);
         min-height: 46rem;
+
+        &.mt-240 {
+            margin-top: 16rem;
+        }
+    }
+
+    &.project {
+        @include media("<phone") {
+
+            &.mt-240 {
+                margin-top: 16rem;
+            }
+        }
     }
 
     &__loties {

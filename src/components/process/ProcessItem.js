@@ -40,6 +40,9 @@ const ProcessItem = ({ title, desc, items, anim }) => {
       className="process-item"
       onMouseEnter={e => hoverImg(e, "in")}
       onMouseLeave={e => hoverImg(e, "out")}
+      onClick={e => hoverImg(e, "in")}
+      onMouseDown={e => hoverImg(e, "in")}
+      onMouseUp={e => hoverImg(e, "out")}
       ref={processRef}
     >
       <div className="fake-img">

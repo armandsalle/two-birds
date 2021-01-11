@@ -1,3 +1,11 @@
+.project-container {
+    &.mt-160 {
+        @include media("<phone") {
+            margin-top: 12rem;
+        }
+    }
+}
+
 .projects-list {
     width: 92.5%;
     display: flex;
@@ -33,11 +41,10 @@
 
         @include media("<lanscape") {
             width: 100%;
-            max-width: 42.5rem;
             margin-bottom: 8rem;
 
             & .h3 {
-                margin-top: 1.6rem;
+                margin-top: 2.4rem;
             }
         }
 
@@ -48,6 +55,10 @@
             padding-top: 125%;
             max-height: 61rem;
             position: relative;
+
+            @include media("<lanscape") {
+                max-width: 100%;
+            }
 
             & img {
                 position: absolute;
@@ -63,10 +74,13 @@
         }
 
         & p {
-
             @include media("<tablet") {
                 font-size: 1.6rem;
                 line-height: 1.75;
+
+                &.mt-16 {
+                    margin-top: .8rem;
+                }
             }
         }
 
@@ -86,7 +100,7 @@
 
             @include media("<lanscape") {
                 margin-left: 0;
-                margin-top: 8rem;
+                margin-top: 6.4rem;
             }
         }
 

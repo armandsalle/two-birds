@@ -69,9 +69,7 @@ const Trust = ({ title, text, birds }) => {
 
   useEffect(() => {
     const isAllGood =
-      window.matchMedia("screen and (min-width: 992px)").matches &&
-      !isTouchDesign &&
-      lotties
+      window.matchMedia("screen and (min-width: 992px)").matches && lotties
 
     const contentWrapper = document.querySelector(
       ".trust__birds__content__wrapper"
@@ -99,7 +97,7 @@ const Trust = ({ title, text, birds }) => {
         trustWrapper.removeEventListener("mouseleave", () => reset(contents))
       }
     }
-  }, [lotties, isTouchDesign, setHeight, reset, showContent])
+  }, [lotties, setHeight, reset, showContent])
 
   useEffect(() => {
     if (animationsCanRuns) {
@@ -128,7 +126,7 @@ const Trust = ({ title, text, birds }) => {
   }, [lotties])
 
   return (
-    <section className="trust container mt-240" ref={trustRef}>
+    <section className="trust container mt-120" ref={trustRef}>
       <div className="trust__top">
         <Title className="h2 text-center" as="h2">
           {title}
@@ -141,7 +139,7 @@ const Trust = ({ title, text, birds }) => {
         />
       </div>
       <div className="trust__wrapper">
-        <div className="trust__birds mt-160">
+        <div className="trust__birds mt-80">
           {lotties && (
             <>
               <Bird
@@ -163,13 +161,13 @@ const Trust = ({ title, text, birds }) => {
         </div>
         <div className="trust__birds__content__wrapper">
           <div className="trust__birds__half__content">
-            <h3 className="h3 mt-80">{firstBird.birdsName}</h3>
+            <h3 className="h3 mt-40">{firstBird.birdsName}</h3>
             <CustomRichText
               data={firstBird.birdsText}
-              className="p mt-24"
+              className="p mt-16"
               isText
             />
-            <div className="trust__birds__social mt-32">
+            <div className="trust__birds__social mt-16">
               {firstBird.birdsTwitter && (
                 <SocialLink to={firstBird.birdsTwitter} is="twitter" />
               )}
@@ -182,13 +180,13 @@ const Trust = ({ title, text, birds }) => {
             </div>
           </div>
           <div className="trust__birds__half__content">
-            <h3 className="h3 mt-80">{secondBird.birdsName}</h3>
+            <h3 className="h3 mt-40">{secondBird.birdsName}</h3>
             <CustomRichText
               data={secondBird.birdsText}
-              className="p mt-24"
+              className="p mt-16"
               isText
             />
-            <div className="trust__birds__social mt-32">
+            <div className="trust__birds__social mt-16">
               {secondBird.birdsTwitter && (
                 <SocialLink to={secondBird.birdsTwitter} is="twitter" />
               )}
