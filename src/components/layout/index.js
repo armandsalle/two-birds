@@ -25,7 +25,12 @@ const Layout = ({ children, location, pageContext }) => {
   useEffect(() => {
     const urlLang = getRedirectLanguage()
 
-    navigate(`/${urlLang}/`, { replace: true })
+    navigate(
+      `/${urlLang}/${pageContext.uid !== "home" ? pageContext.uid : ""}`,
+      {
+        replace: true,
+      }
+    )
   }, [])
 
   const playExit = (node, path) => {
