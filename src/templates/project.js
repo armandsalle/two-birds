@@ -8,6 +8,7 @@ import ProjectTransition from "../components/projectTransition"
 import { animationStatut, setAnimation } from "../contexts/animationState"
 import { AnimationContext } from "../contexts/animationContext"
 import Contact from "../components/contact"
+import projectEnter from "../animations/projectEnter"
 
 const Project = ({
   data: {
@@ -32,8 +33,7 @@ const Project = ({
   const {
     projectName,
     projectTitleRich,
-    projectLogo,
-    projectLogoSharp,
+    projectLogoSvg,
     preojectDescription,
     projectLink,
     projectTags,
@@ -53,100 +53,14 @@ const Project = ({
   }, [])
 
   useEffect(() => {
-    if (animationStatut === "TRANSITION") {
-      gsap.set(".get-back", {
-        opacity: 1,
-        y: 0,
-      })
-      gsap.set(".project-header__logo", {
-        opacity: 1,
-        y: 0,
-      })
-      gsap.set(".project-header__title .reveal-title .line__inner", {
-        y: "0%",
-        rotateX: 0,
-        opacity: 1,
-      })
-    }
+    const tl = projectEnter(animationStatut)
 
-    const tl = gsap.timeline({
-      ease: "Quad.easeOut",
-      paused: true,
-    })
-
-    if (animationStatut === "ORIGINAL") {
-      tl.fromTo(
-        ".project-header__logo",
-        {
-          opacity: 0,
-          y: 80,
-        },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-        }
-      ).fromTo(
-        ".project-header__title .reveal-title .line__inner",
-        {
-          y: "100%",
-          rotateX: "-40deg",
-          opacity: 0,
-        },
-        {
-          y: "0%",
-          rotateX: 0,
-          opacity: 1,
-          duration: 1,
-          stagger: 0.13,
-        },
-        0.3
-      )
-    }
-
-    tl.fromTo(
-      ".project-header__description",
-      {
-        opacity: 0,
-        y: 80,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-      },
-      animationStatut === "ORIGINAL" ? 0.6 : 0
-    ).fromTo(
-      ".project-header__date, .project-header__tags, .project-header__visit-link",
-      {
-        opacity: 0,
-        y: 80,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 1,
-        stagger: 0.3,
-      },
-      animationStatut === "ORIGINAL" ? 0.9 : 0.3
-    )
-
-    if (animationStatut === "ORIGINAL") {
-      tl.fromTo(
-        ".get-back",
-        { opacity: 0, y: -80 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-        },
-        1.8
-      )
-    }
     if (animationsCanRuns) {
       tl.play()
       setAnimation("ORIGINAL")
-      gsap.to(".project-patch", { opacity: 0, display: "none" })
+      setTimeout(() => {
+        gsap.to(".project-patch", { opacity: 0, display: "none" })
+      }, 200)
     }
 
     return () => {
@@ -165,8 +79,8 @@ const Project = ({
       <ProjectHeader
         infos={{
           projectTitleRich,
-          projectLogo,
-          projectLogoSharp,
+          projectLogoSvg,
+
           preojectDescription,
           projectLink,
           titleLink,
@@ -195,14 +109,7 @@ export const projectQuery = graphql`
                 uid
                 lang
               }
-              projectLogo
-              projectLogoSharp {
-                childImageSharp {
-                  fluid(maxWidth: 64, quality: 70) {
-                    ...GatsbyImageSharpFluid_withWebp
-                  }
-                }
-              }
+              projectLogoSvg
               projectTitleRich
               projectName
               preojectDescription

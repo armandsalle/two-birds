@@ -1,5 +1,4 @@
 import React from "react"
-import Img from "gatsby-image"
 import CustomRichText from "../richText"
 import Title from "../title"
 import VisitLink from "./VisitLink"
@@ -7,8 +6,7 @@ import VisitLink from "./VisitLink"
 const ProjectHeader = ({
   infos: {
     projectTitleRich,
-    projectLogo,
-    projectLogoSharp,
+    projectLogoSvg,
     preojectDescription,
     projectLink,
     titleLink,
@@ -16,25 +14,12 @@ const ProjectHeader = ({
     projectDate,
   },
 }) => {
+  const img = () => ({ __html: projectLogoSvg })
+
   return (
     <header className="container mt-240 project-header">
       <div className="project-header__img-wrapper">
-        {projectLogoSharp.fluid ? (
-          <Img
-            fluid={projectLogoSharp.fluid}
-            alt={projectLogo?.alt}
-            className="project-header__logo"
-            fadeIn={false}
-          />
-        ) : (
-          <img
-            src={projectLogo.url}
-            alt={projectLogo?.alt}
-            className="project-header__logo"
-            width={100}
-            height={32}
-          />
-        )}
+        <div className="project-header__logo" dangerouslySetInnerHTML={img()} />
       </div>
       <h1 className="h2 mt-16 project-header__title">
         {projectTitleRich.map((t, i) => (

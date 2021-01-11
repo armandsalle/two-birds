@@ -10,25 +10,10 @@ import Cursor from "../cursor"
 import Loaded from "../loaded"
 import ProjectNav from "../projectNav"
 import useCreateLink from "../../hooks/useCreateLink"
+import ProjectTransitionPatch from "../projectTransitionPatch"
+import getRedirectLanguage from "../../utils/getRedirectLanguage"
 
 gsap.registerPlugin(ScrollTrigger)
-
-const getRedirectLanguage = () => {
-  if (typeof navigator === `undefined`) {
-    return ""
-  }
-
-  const lang =
-    navigator && navigator.language && navigator.language.split("-")[0]
-  if (!lang) return ""
-
-  switch (lang) {
-    case "fr":
-      return "fr"
-    default:
-      return ""
-  }
-}
 
 const Layout = ({ children, location, pageContext }) => {
   const { animationsCanRuns, exitAnimation, enterAnimation } = useContext(
@@ -103,22 +88,7 @@ const Layout = ({ children, location, pageContext }) => {
         </Transition>
       </SwitchTransition>
       <ProjectNav link={createLink} />
-      <div
-        className="project-patch"
-        style={{ display: "none" }}
-        aria-hidden="true"
-      >
-        <div className="project-patch__img-wrapper">
-          <img
-            alt=""
-            className="project-patch__logo"
-            width="100"
-            height="32"
-            aria-hidden="true"
-          />
-        </div>
-        <h1 className="h2 mt-16 project-patch__title" aria-hidden="true"></h1>
-      </div>
+      <ProjectTransitionPatch />
     </Loaded>
   )
 }

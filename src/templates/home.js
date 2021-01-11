@@ -96,7 +96,7 @@ export const indexQuery = graphql`
           birdsImageHoverSharp {
             childImageSharp {
               fluid(maxWidth: 512, quality: 70) {
-                ...GatsbyImageSharpFluid_withWebp
+                ...GatsbyImageSharpFluid_withWebp_noBase64
               }
             }
           }
@@ -104,7 +104,7 @@ export const indexQuery = graphql`
           birdsImageLookingAtSharp {
             childImageSharp {
               fluid(maxWidth: 512, quality: 70) {
-                ...GatsbyImageSharpFluid_withWebp
+                ...GatsbyImageSharpFluid_withWebp_noBase64
               }
             }
           }
