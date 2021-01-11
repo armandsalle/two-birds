@@ -3,6 +3,7 @@ import { Transition, SwitchTransition } from "react-transition-group"
 import { navigate } from "gatsby"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { CustomEase } from "../../animations/CustomEase"
 import "../../styles/main.scss"
 import { AnimationContext } from "../../contexts/animationContext"
 import { animationStatut } from "../../contexts/animationState"
@@ -13,7 +14,7 @@ import useCreateLink from "../../hooks/useCreateLink"
 import ProjectTransitionPatch from "../projectTransitionPatch"
 import getRedirectLanguage from "../../utils/getRedirectLanguage"
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, CustomEase)
 
 const Layout = ({ children, location, pageContext }) => {
   const { animationsCanRuns, exitAnimation, enterAnimation } = useContext(
@@ -31,7 +32,7 @@ const Layout = ({ children, location, pageContext }) => {
         replace: true,
       }
     )
-  }, [])
+  }, [pageContext.uid])
 
   const playExit = (node, path) => {
     if (animationsCanRuns && exitAnimation === "opacity") {
