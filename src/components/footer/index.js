@@ -7,26 +7,26 @@ import { socialEnter, socialLeave } from "../../animations/cursor"
 import useCreateLink from "../../hooks/useCreateLink"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
 
-const Footer = ({ lang }) => {
-  const { prismic } = useStaticQuery(
-    graphql`
-      query {
-        prismic {
-          allLayouts {
-            edges {
-              node {
-                footerTwitter
-                footerLinkedin
-                footerInstagram
-                footerDribbble
-                siteLogo
-              }
-            }
-          }
-        }
-      }
-    `
-  )
+const Footer = ({ lang, data }) => {
+  // const { prismic } = useStaticQuery(
+  //   graphql`
+  //     query {
+  //       prismic {
+  //         allLayouts {
+  //           edges {
+  //             node {
+  //               footerTwitter
+  //               footerLinkedin
+  //               footerInstagram
+  //               footerDribbble
+  //               siteLogo
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   `
+  // )
 
   const {
     footerTwitter,
@@ -34,7 +34,9 @@ const Footer = ({ lang }) => {
     footerInstagram,
     footerDribbble,
     siteLogo,
-  } = prismic.allLayouts.edges.slice(0, 1).pop().node
+    footerChangeLang,
+    footerLegals,
+  } = data.edges.slice(0, 1).pop().node
 
   const isTouchDevice = useIsTouchDesign()
 
@@ -84,18 +86,18 @@ const Footer = ({ lang }) => {
         </div>
         <div className="footer__links mt-16">
           <Link
-            to="/fr"
+            to={lang === "en-us" ? "/fr" : "/"}
             onMouseEnter={mouseEnterLink}
             onMouseLeave={mouseLeaveLink}
           >
-            Parlez-vous français ?
+            {footerChangeLang}
           </Link>
           <Link
             to={createLink}
             onMouseEnter={mouseEnterLink}
             onMouseLeave={mouseLeaveLink}
           >
-            Legal
+            {footerLegals}
           </Link>
         </div>
       </div>

@@ -26,6 +26,7 @@ export default function Home({
         contactTitle,
         contactCtaText,
       },
+      allLayouts,
     },
   },
   pageContext,
@@ -43,7 +44,7 @@ export default function Home({
       <Process title={processTitle} processList={processList} />
       <Trust title={trustTitle} text={trustText} birds={birds} />
       <Contact title={contactTitle} cta={contactCtaText} />
-      <Footer lang={pageContext.lang} />
+      <Footer lang={pageContext.lang} data={allLayouts} />
     </>
   )
 }
@@ -119,6 +120,19 @@ export const indexQuery = graphql`
         }
         contactTitle
         contactCtaText
+      }
+      allLayouts(lang: $lang) {
+        edges {
+          node {
+            footerTwitter
+            footerLinkedin
+            footerInstagram
+            footerDribbble
+            siteLogo
+            footerChangeLang
+            footerLegals
+          }
+        }
       }
     }
   }
