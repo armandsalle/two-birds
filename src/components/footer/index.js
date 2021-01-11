@@ -1,33 +1,11 @@
 import { Link } from "gatsby"
 import React, { useCallback } from "react"
-import { gsap } from "gsap"
-import { useStaticQuery, graphql } from "gatsby"
 import SocialLink from "../scocialLink"
-import { socialEnter, socialLeave } from "../../animations/cursor"
 import useCreateLink from "../../hooks/useCreateLink"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
+import { linkEnter, linkLeave } from "../../animations/cursor"
 
 const Footer = ({ lang, data }) => {
-  // const { prismic } = useStaticQuery(
-  //   graphql`
-  //     query {
-  //       prismic {
-  //         allLayouts {
-  //           edges {
-  //             node {
-  //               footerTwitter
-  //               footerLinkedin
-  //               footerInstagram
-  //               footerDribbble
-  //               siteLogo
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   `
-  // )
-
   const {
     footerTwitter,
     footerLinkedin,
@@ -43,21 +21,11 @@ const Footer = ({ lang, data }) => {
   const createLink = useCreateLink(lang, "legals")
 
   const mouseEnterLink = useCallback(() => {
-    if (!isTouchDevice) {
-      gsap.to(".cursor", {
-        scale: 0,
-        duration: 0.2,
-      })
-    }
+    linkEnter(isTouchDevice)
   }, [isTouchDevice])
 
   const mouseLeaveLink = useCallback(() => {
-    if (!isTouchDevice) {
-      gsap.to(".cursor", {
-        scale: 0.2,
-        duration: 0.2,
-      })
-    }
+    linkLeave(isTouchDevice)
   }, [isTouchDevice])
 
   return (

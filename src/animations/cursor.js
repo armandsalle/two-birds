@@ -74,4 +74,29 @@ const socialLeave = () => {
   })
 }
 
-export { mouseEnter, mouseLeave, mouseClick, socialEnter, socialLeave }
+const linkEnter = isTouchDevice => {
+  if (!isTouchDevice) {
+    gsap.to(".cursor", {
+      scale: 0,
+      duration: 0.2,
+    })
+  }
+}
+const linkLeave = isTouchDevice => {
+  if (!isTouchDevice) {
+    gsap.to(".cursor", {
+      scale: 0.2,
+      duration: 0.2,
+    })
+  }
+}
+
+export {
+  mouseEnter,
+  mouseLeave,
+  mouseClick,
+  socialEnter,
+  socialLeave,
+  linkEnter,
+  linkLeave,
+}

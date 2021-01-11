@@ -3,8 +3,8 @@ import PropTypes from "prop-types"
 import { RichText } from "prismic-reactjs"
 import { linkResolver } from "../../utils/linkResolver"
 import cn from "classnames"
-import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
+import { linkEnter, linkLeave } from "../../animations/cursor"
 
 const CustomRichText = forwardRef(({ data, className, isText, as }, ref) => {
   if (!data) return null
@@ -12,21 +12,11 @@ const CustomRichText = forwardRef(({ data, className, isText, as }, ref) => {
   const isTouchDevice = useIsTouchDesign()
 
   const mouseEnterLink = useCallback(() => {
-    if (!isTouchDevice) {
-      gsap.to(".cursor", {
-        scale: 0,
-        duration: 0.2,
-      })
-    }
+    linkEnter(isTouchDevice)
   }, [isTouchDevice])
 
   const mouseLeaveLink = useCallback(() => {
-    if (!isTouchDevice) {
-      gsap.to(".cursor", {
-        scale: 0.2,
-        duration: 0.2,
-      })
-    }
+    linkLeave(isTouchDevice)
   }, [isTouchDevice])
 
   useEffect(() => {

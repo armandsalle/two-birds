@@ -1,26 +1,16 @@
 import React, { useCallback } from "react"
-import { gsap } from "gsap"
 import useIsTouchDesign from "../../hooks/useIsTouchDesign"
+import { linkEnter, linkLeave } from "../../animations/cursor"
 
 const VisitLink = ({ projectLink, title }) => {
   const isTouchDevice = useIsTouchDesign()
 
   const mouseEnter = useCallback(() => {
-    if (!isTouchDevice && projectLink) {
-      gsap.to(".cursor", {
-        scale: 0,
-        duration: 0.2,
-      })
-    }
+    projectLink && linkEnter(isTouchDevice)
   }, [isTouchDevice, projectLink])
 
   const mouseLeave = useCallback(() => {
-    if (!isTouchDevice && projectLink) {
-      gsap.to(".cursor", {
-        scale: 0.2,
-        duration: 0.2,
-      })
-    }
+    projectLink && linkLeave(isTouchDevice)
   }, [isTouchDevice, projectLink])
 
   return (
