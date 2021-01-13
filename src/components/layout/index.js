@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Transition, SwitchTransition } from "react-transition-group"
 import { navigate } from "gatsby"
 import { gsap } from "gsap"
@@ -17,6 +17,7 @@ import getRedirectLanguage from "../../utils/getRedirectLanguage"
 gsap.registerPlugin(ScrollTrigger, CustomEase)
 
 const Layout = ({ children, location, pageContext }) => {
+  const [appHasRun, setAppRun] = useState(false)
   const { animationsCanRuns, exitAnimation, enterAnimation } = useContext(
     AnimationContext
   )
@@ -24,15 +25,21 @@ const Layout = ({ children, location, pageContext }) => {
   const createLink = useCreateLink(pageContext.lang)
 
   useEffect(() => {
-    const urlLang = getRedirectLanguage()
+    if (!appHasRun) {
+      const urlLang = getRedirectLanguage()
 
-    navigate(
-      `/${urlLang}/${pageContext.uid !== "home" ? pageContext.uid : ""}`,
-      {
-        replace: true,
-      }
-    )
-  }, [pageContext.uid])
+      if (!urlLang) return
+
+      navigate(
+        `/fr${pageContext.uid !== "home" ? "/" + pageContext.uid : ""}`,
+        {
+          replace: true,
+        }
+      )
+
+      setAppRun(true)
+    }
+  }, [pageContext.uid, appHasRun, setAppRun])
 
   const playExit = (node, path) => {
     if (animationsCanRuns && exitAnimation === "opacity") {
