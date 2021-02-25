@@ -178,6 +178,16 @@ export const projectQuery = graphql`
                     description
                   }
                 }
+                ... on PRISMIC_ProjectsBodyVideo_youtube {
+                  type
+                  primary {
+                    youtubeLink {
+                      ... on PRISMIC__ExternalLink {
+                        url
+                      }
+                    }
+                  }
+                }
               }
             }
           }
