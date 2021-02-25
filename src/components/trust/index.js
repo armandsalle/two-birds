@@ -54,7 +54,6 @@ const Trust = ({ title, text, birds }) => {
         // right
         gsap.set(contents[1], { display: "block", opacity: 1 })
         gsap.set(contents[0], { display: "none", opacity: 0 })
-        console.log("content", currentBird)
         if (currentBird !== "right") {
           halfs[1].click()
         }
@@ -63,7 +62,6 @@ const Trust = ({ title, text, birds }) => {
         // left
         gsap.set(contents[0], { display: "block", opacity: 1 })
         gsap.set(contents[1], { display: "none", opacity: 0 })
-        console.log("content", currentBird)
         if (currentBird !== "left") {
           halfs[0].click()
         }
