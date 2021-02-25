@@ -18,6 +18,7 @@ const YoutubeVideo = ({
           left: 0,
           right: 0,
         }}
+        controls={true}
       />
     </div>
   )
