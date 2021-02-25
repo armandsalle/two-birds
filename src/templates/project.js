@@ -12,13 +12,18 @@ import projectEnter from "../animations/projectEnter"
 
 const Project = ({
   data: {
-    prismic: { allProjects },
+    prismic: { currentProject, homeProjects },
   },
   pageContext: { uid },
 }) => {
-  const { animationsCanRuns, setExitAnimation } = useContext(AnimationContext)
+  const { projectssList } = homeProjects
 
-  const { projectssList } = allProjects
+  let isProjectOnTheHomePage = false
+  const homeProjectsUids = projectssList.map(e => e.projectsItem._meta.uid)
+
+  if (homeProjectsUids.includes(uid)) {
+    isProjectOnTheHomePage = true
+  }
 
   let currId = 0
 
@@ -29,6 +34,7 @@ const Project = ({
   })
 
   const nextProjectId = currId + 1 > projectssList.length - 1 ? 0 : currId + 1
+  const nextProject = projectssList[nextProjectId].projectsItem
 
   const {
     projectName,
@@ -44,9 +50,9 @@ const Project = ({
     body,
     seoDesscription,
     seoImageSharp,
-  } = projectssList[currId].projectsItem
+  } = currentProject
 
-  const nextProject = projectssList[nextProjectId].projectsItem
+  const { animationsCanRuns, setExitAnimation } = useContext(AnimationContext)
 
   useEffect(() => {
     document.querySelector(".get-back").style.display = "flex"
@@ -74,13 +80,12 @@ const Project = ({
         title={projectName}
         description={seoDesscription}
         image={seoImageSharp}
+        noIndex={!isProjectOnTheHomePage}
       />
-
       <ProjectHeader
         infos={{
           projectTitleRich,
           projectLogoSvg,
-
           preojectDescription,
           projectLink,
           titleLink,
@@ -92,16 +97,21 @@ const Project = ({
         <ProjectSlices slices={body} />
       </div>
       <Contact title={contactTitle} cta={contactCta} isProject={true} />
-      <div className="line"></div>
-      <ProjectTransition nextProject={nextProject} />
+      {isProjectOnTheHomePage && (
+        <>
+          <div className="line"></div>
+          <ProjectTransition nextProject={nextProject} />
+        </>
+      )}
+      {!isProjectOnTheHomePage && <div style={{ height: "20vh" }}></div>}
     </>
   )
 }
 
 export const projectQuery = graphql`
-  query projectPage($lang: String!) {
+  query projectPage($lang: String!, $uid: String!) {
     prismic {
-      allProjects: home(lang: $lang, uid: "home") {
+      homeProjects: home(lang: $lang, uid: "home") {
         projectssList {
           projectsItem {
             ... on PRISMIC_Projects {
@@ -111,82 +121,90 @@ export const projectQuery = graphql`
               }
               projectLogoSvg
               projectTitleRich
-              projectName
-              preojectDescription
-              projectLink
-              projectTags {
-                projectTag
-              }
-              projectDate
-              titleLink
-              contactTitle
-              contactCta
-              seoDesscription
-              seoImage
-              seoImageSharp {
+            }
+          }
+        }
+      }
+      currentProject: projects(lang: $lang, uid: $uid) {
+        _meta {
+          uid
+          lang
+        }
+        projectLogoSvg
+        projectTitleRich
+        projectName
+        preojectDescription
+        projectLink
+        projectTags {
+          projectTag
+        }
+        projectDate
+        titleLink
+        contactTitle
+        contactCta
+        seoDesscription
+        seoImage
+        seoImageSharp {
+          childImageSharp {
+            fixed(width: 1200, height: 630, quality: 100) {
+              ...GatsbyImageSharpFixed
+            }
+          }
+        }
+        body {
+          ... on PRISMIC_ProjectsBodyImage_full {
+            type
+            primary {
+              imageFull
+              imageFullSharp {
                 childImageSharp {
-                  fixed(width: 1200, height: 630, quality: 100) {
-                    ...GatsbyImageSharpFixed
+                  fluid(maxWidth: 1920, quality: 70) {
+                    ...GatsbyImageSharpFluid_withWebp
                   }
                 }
               }
-              body {
-                ... on PRISMIC_ProjectsBodyImage_full {
-                  type
-                  primary {
-                    imageFull
-                    imageFullSharp {
-                      childImageSharp {
-                        fluid(maxWidth: 1920, quality: 70) {
-                          ...GatsbyImageSharpFluid_withWebp
-                        }
-                      }
-                    }
+            }
+          }
+          ... on PRISMIC_ProjectsBodyImage_double {
+            type
+            primary {
+              leftImage
+              leftImageSharp {
+                childImageSharp {
+                  fluid(maxWidth: 944, quality: 70) {
+                    ...GatsbyImageSharpFluid_withWebp
                   }
                 }
-                ... on PRISMIC_ProjectsBodyImage_double {
-                  type
-                  primary {
-                    leftImage
-                    leftImageSharp {
-                      childImageSharp {
-                        fluid(maxWidth: 944, quality: 70) {
-                          ...GatsbyImageSharpFluid_withWebp
-                        }
-                      }
-                    }
-                    rightImage
-                    rightImageSharp {
-                      childImageSharp {
-                        fluid(maxWidth: 944, quality: 70) {
-                          ...GatsbyImageSharpFluid_withWebp
-                        }
-                      }
-                    }
+              }
+              rightImage
+              rightImageSharp {
+                childImageSharp {
+                  fluid(maxWidth: 944, quality: 70) {
+                    ...GatsbyImageSharpFluid_withWebp
                   }
                 }
-                ... on PRISMIC_ProjectsBodyNumbers {
-                  type
-                  fields {
-                    numberText
-                    numberTitle
-                  }
-                }
-                ... on PRISMIC_ProjectsBodyDescription {
-                  type
-                  primary {
-                    description
-                  }
-                }
-                ... on PRISMIC_ProjectsBodyVideo_youtube {
-                  type
-                  primary {
-                    youtubeLink {
-                      ... on PRISMIC__ExternalLink {
-                        url
-                      }
-                    }
-                  }
+              }
+            }
+          }
+          ... on PRISMIC_ProjectsBodyNumbers {
+            type
+            fields {
+              numberText
+              numberTitle
+            }
+          }
+          ... on PRISMIC_ProjectsBodyDescription {
+            type
+            primary {
+              description
+            }
+          }
+          ... on PRISMIC_ProjectsBodyVideo_youtube {
+            type
+            primary {
+              youtubeLink {
+                ... on PRISMIC__ExternalLink {
+                  url
                 }
               }
             }

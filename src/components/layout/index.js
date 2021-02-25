@@ -26,16 +26,15 @@ const Layout = ({ children, location, pageContext }) => {
 
   useEffect(() => {
     if (!appHasRun) {
-      const urlLang = getRedirectLanguage()
+      if (pageContext.uid === "home") {
+        const urlLang = getRedirectLanguage()
 
-      if (!urlLang) return
+        if (!urlLang) return
 
-      navigate(
-        `/fr${pageContext.uid !== "home" ? "/" + pageContext.uid : ""}`,
-        {
+        navigate(`/fr`, {
           replace: true,
-        }
-      )
+        })
+      }
 
       setAppRun(true)
     }
