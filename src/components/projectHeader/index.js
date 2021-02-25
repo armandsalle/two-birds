@@ -33,7 +33,7 @@ const ProjectHeader = ({
         isText
         className="project-header__description"
       />
-      <div className="project-header__infos mt-40">
+      <div className="project-header__infos mt-80">
         <VisitLink projectLink={projectLink} title={titleLink} />
         <div className="project-header__tags">
           {projectTags &&

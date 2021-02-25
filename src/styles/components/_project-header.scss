@@ -91,9 +91,10 @@
     }
 
     &__description {
-        font-size: 2.8rem;
-        line-height: 1.57;
-        margin-top: 4.8rem;
+        font-size: 2.4rem;
+        font-weight: 400;
+        line-height: 1.5;
+        margin-top: 4rem;
 
         @include media("<lanscape") {
             margin-top: 1.6rem;
@@ -111,7 +112,7 @@
             flex-direction: column;
         }
 
-        &.mt-40 {
+        &.mt-80 {
             @include media("<lanscape") {
                 margin-top: 3.2rem;
             }
@@ -149,7 +150,7 @@
         & a {
             font-size: 2.4rem;
             line-height: 1.5;
-            font-weight: 500;
+            font-weight: 400;
             position: relative;
             overflow: hidden;
             display: inline-flex;
@@ -197,12 +198,15 @@
     &__date {
         font-size: 2.4rem;
         line-height: 1.5;
-        font-weight: 500;
-        color: var(--color-grey-lighter);
+        font-weight: 400;
 
         @include media("<lanscape") {
             font-size: 2rem;
             line-height: 1.6;
         }
+    }
+
+    &__date {
+        color: var(--color-grey-lighter);
     }
 }
