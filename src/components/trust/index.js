@@ -19,6 +19,7 @@ import createLottiesObject from "../../utils/createLottiesObject"
 const Trust = ({ title, text, birds }) => {
   const { trustLotties, animationsCanRuns } = useContext(AnimationContext)
 
+  const [currentBird, setCurrentBird] = useState(null)
   const [lotties, setLotties] = useState(null)
 
   const trustRef = useRef()
@@ -43,29 +44,44 @@ const Trust = ({ title, text, birds }) => {
     [isTouchDesign]
   )
 
-  const showContent = useCallback((e, contents, halfs) => {
-    // Check which side of the content is first enter to diplay the content
-    // and start animation of the hover birds
-    const mouseX = e.clientX
+  const showContent = useCallback(
+    (e, contents, halfs) => {
+      // Check which side of the content is first enter to diplay the content
+      // and start animation of the hover birds
+      const mouseX = e.clientX
 
-    if (mouseX > window.innerWidth / 2) {
-      // right
-      gsap.set(contents[1], { display: "block", opacity: 1 })
-      gsap.set(contents[0], { display: "none", opacity: 0 })
-      halfs[1].click()
-    } else if (mouseX < window.innerWidth / 2) {
-      // left
-      gsap.set(contents[0], { display: "block", opacity: 1 })
-      gsap.set(contents[1], { display: "none", opacity: 0 })
-      halfs[0].click()
-    }
-  }, [])
+      if (mouseX > window.innerWidth / 2) {
+        // right
+        gsap.set(contents[1], { display: "block", opacity: 1 })
+        gsap.set(contents[0], { display: "none", opacity: 0 })
+        console.log("content", currentBird)
+        if (currentBird !== "right") {
+          halfs[1].click()
+        }
+        setCurrentBird("right")
+      } else if (mouseX < window.innerWidth / 2) {
+        // left
+        gsap.set(contents[0], { display: "block", opacity: 1 })
+        gsap.set(contents[1], { display: "none", opacity: 0 })
+        console.log("content", currentBird)
+        if (currentBird !== "left") {
+          halfs[0].click()
+        }
+        setCurrentBird("left")
+      }
+    },
+    [setCurrentBird, currentBird]
+  )
 
-  const reset = useCallback(contents => {
-    contents.forEach(content => (content.style.opacity = 0))
-    bird1Ref.current.reset()
-    bird2Ref.current.reset()
-  }, [])
+  const reset = useCallback(
+    contents => {
+      contents.forEach(content => (content.style.opacity = 0))
+      bird1Ref.current.reset()
+      bird2Ref.current.reset()
+      setCurrentBird(null)
+    },
+    [setCurrentBird]
+  )
 
   useEffect(() => {
     const isAllGood =
@@ -148,6 +164,8 @@ const Trust = ({ title, text, birds }) => {
                 anim={lotties.trust_lottie_vincent}
                 id={0}
                 ref={bird1Ref}
+                currentBird={currentBird}
+                setCurrentBird={setCurrentBird}
               />
               <Bird
                 align="right"
@@ -155,6 +173,8 @@ const Trust = ({ title, text, birds }) => {
                 anim={lotties.trust_lottie_clement}
                 id={1}
                 ref={bird2Ref}
+                currentBird={currentBird}
+                setCurrentBird={setCurrentBird}
               />
             </>
           )}
