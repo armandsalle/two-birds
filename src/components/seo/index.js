@@ -82,8 +82,12 @@ function SEO({ meta, title, noIndex, image, description }) {
           content: `summary`,
         },
         {
-          property: `twitter:image`,
+          name: `twitter:image`,
           content: twitterCardSharp.childImageSharp.fixed.src,
+        },
+        {
+          name: `twitter:site`,
+          content: siteTwitter,
         },
         {
           name: `twitter:creator`,
