@@ -85,6 +85,7 @@ module.exports = {
           "projectThumbnail",
           "imageFull",
           "imageFullSharp",
+          "twitterCard",
           "leftImage",
           "rightImage",
           "seoImage",

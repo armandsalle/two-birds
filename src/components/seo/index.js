@@ -23,6 +23,14 @@ function SEO({ meta, title, noIndex, image, description }) {
                     }
                   }
                 }
+                twitterCard
+                twitterCardSharp {
+                  childImageSharp {
+                    fixed(width: 600, height: 330, quality: 100) {
+                      ...GatsbyImageSharpFixed
+                    }
+                  }
+                }
               }
             }
           }
@@ -36,6 +44,7 @@ function SEO({ meta, title, noIndex, image, description }) {
     siteDescription,
     siteTwitter,
     siteImageSharp,
+    twitterCardSharp,
   } = prismic.allLayouts.edges.slice(0, 1).pop().node
 
   return (
@@ -70,9 +79,7 @@ function SEO({ meta, title, noIndex, image, description }) {
         },
         {
           property: `twitter:image`,
-          content: image
-            ? image.childImageSharp.fixed.src
-            : siteImageSharp.childImageSharp.fixed.src,
+          content: twitterCardSharp.childImageSharp.fixed.src,
         },
         {
           name: `twitter:card`,
