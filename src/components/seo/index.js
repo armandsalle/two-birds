@@ -3,12 +3,26 @@ import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ meta, title, noIndex, image, description }) {
-  const { prismic } = useStaticQuery(
+function SEO({ meta, title, noIndex, image, description, lang }) {
+  const { enPrismic, frPrismic } = useStaticQuery(
     graphql`
       query {
-        prismic {
-          allLayouts {
+        enPrismic: prismic {
+          allLayouts(lang: "en-us") {
+            edges {
+              node {
+                siteTwitter
+                siteTitle
+                siteDescription
+                siteAuthors
+                siteImage
+                twitterCard
+              }
+            }
+          }
+        }
+        frPrismic: prismic {
+          allLayouts(lang: "fr-fr") {
             edges {
               node {
                 siteTwitter
@@ -25,13 +39,10 @@ function SEO({ meta, title, noIndex, image, description }) {
     `
   )
 
-  const {
-    siteTitle,
-    siteDescription,
-    siteTwitter,
-    siteImage,
-    twitterCard,
-  } = prismic.allLayouts.edges.slice(0, 1).pop().node
+  const { siteTitle, siteDescription, siteTwitter, siteImage, twitterCard } =
+    lang === "en-us"
+      ? enPrismic.allLayouts.edges.slice(0, 1).pop().node
+      : frPrismic.allLayouts.edges.slice(0, 1).pop().node
 
   return (
     <Helmet

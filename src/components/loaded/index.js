@@ -125,7 +125,7 @@ const Loaded = ({ children }) => {
           })
           lottie = await res.data
         } catch (error) {
-          console.log(error)
+          console.error(error)
         }
 
         return { [el[0]]: lottie }

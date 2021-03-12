@@ -11,6 +11,7 @@ const Legals = ({
       legals: { contentList },
     },
   },
+  pageContext: { lang },
 }) => {
   const { animationsCanRuns } = useContext(AnimationContext)
 
@@ -31,7 +32,7 @@ const Legals = ({
 
   return (
     <>
-      <SEO title="Legals" noIndex={true} />
+      <SEO title="Legals" noIndex={true} lang={lang} />
       <section className="legals container container--small">
         {contentList.map(({ content }, i) => (
           <CustomRichText

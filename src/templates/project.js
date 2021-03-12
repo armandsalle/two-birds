@@ -14,7 +14,7 @@ const Project = ({
   data: {
     prismic: { currentProject, homeProjects },
   },
-  pageContext: { uid },
+  pageContext: { uid, lang },
 }) => {
   const { projectssList } = homeProjects
 
@@ -49,7 +49,6 @@ const Project = ({
     contactCta,
     body,
     seoDesscription,
-    seoImageSharp,
     seoImage,
   } = currentProject
 
@@ -82,6 +81,7 @@ const Project = ({
         description={seoDesscription}
         image={seoImage}
         noIndex={!isProjectOnTheHomePage}
+        lang={lang}
       />
       <ProjectHeader
         infos={{
@@ -145,13 +145,6 @@ export const projectQuery = graphql`
         contactCta
         seoDesscription
         seoImage
-        seoImageSharp {
-          childImageSharp {
-            fixed(width: 1200, height: 630, quality: 100) {
-              ...GatsbyImageSharpFixed
-            }
-          }
-        }
         body {
           ... on PRISMIC_ProjectsBodyImage_full {
             type

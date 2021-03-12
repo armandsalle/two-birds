@@ -37,7 +37,7 @@ export default function Home({
 
   return (
     <>
-      <SEO title="" />
+      <SEO title="" lang={pageContext.lang} />
       <Header />
       <Hero title={heroTitle} text={heroText} cta={heroCtaText} />
       <ProjectsList title={projectsTitle} projects={projectssList} />
