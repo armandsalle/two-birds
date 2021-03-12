@@ -50,6 +50,7 @@ const Project = ({
     body,
     seoDesscription,
     seoImageSharp,
+    seoImage,
   } = currentProject
 
   const { animationsCanRuns, setExitAnimation } = useContext(AnimationContext)
@@ -79,7 +80,7 @@ const Project = ({
       <SEO
         title={projectName}
         description={seoDesscription}
-        image={seoImageSharp}
+        image={seoImage}
         noIndex={!isProjectOnTheHomePage}
       />
       <ProjectHeader
