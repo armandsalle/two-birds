@@ -26,7 +26,7 @@ function SEO({ meta, title, noIndex, image, description }) {
                 twitterCard
                 twitterCardSharp {
                   childImageSharp {
-                    fixed(width: 600, height: 330, quality: 100) {
+                    fixed(width: 1076, height: 672, quality: 100) {
                       ...GatsbyImageSharpFixed
                     }
                   }
@@ -78,12 +78,12 @@ function SEO({ meta, title, noIndex, image, description }) {
             : siteImageSharp.childImageSharp.fixed.src,
         },
         {
-          property: `twitter:image`,
-          content: twitterCardSharp.childImageSharp.fixed.src,
+          name: `twitter:card`,
+          content: `summary`,
         },
         {
-          name: `twitter:card`,
-          content: `summary_large_image`,
+          property: `twitter:image`,
+          content: twitterCardSharp.childImageSharp.fixed.src,
         },
         {
           name: `twitter:creator`,
