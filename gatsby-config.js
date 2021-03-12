@@ -84,6 +84,7 @@ module.exports = {
           "projectLogo",
           "projectThumbnail",
           "imageFull",
+          "imageFullSharp",
           "leftImage",
           "rightImage",
           "seoImage",
